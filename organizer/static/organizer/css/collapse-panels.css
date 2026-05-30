@@ -1,0 +1,127 @@
+:disabled {
+  background: #f8f8f8;
+}
+
+.anchor {
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+  visibility: hidden;
+}
+
+.panel-body {
+  overflow-x: auto;
+}
+
+.panel-title a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+.panel-title a:hover {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.panel-title a:focus:not(:hover) {
+  text-decoration: none;
+  outline: none;
+}
+
+.sidenav {
+  height: calc(100% - 50px);
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 50px;
+  left: 0;
+  background-color: rgba(255, 248, 222, .85);
+  transition: 0.5s;
+  padding-top: 10px;
+  padding-right: 5px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.sidenav-shadow-on {
+  -webkit-box-shadow: 4px 25px 11px 5px rgba(153, 153, 153, 0.59);
+  -moz-box-shadow: 4px 25px 11px 5px rgba(153, 153, 153, 0.59);
+  box-shadow: 4px 25px 11px 5px rgba(153, 153, 153, 0.59);
+}
+
+.sidenav-shadow-off {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.sidenav a {
+  text-decoration: none;
+  font-size: 14px;
+  color: darkgoldenrod;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: black;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
+  padding-right: 5px;
+}
+
+.sidenav ul, .sidenav li {
+  position: relative;
+  padding-top: 5px;
+}
+
+.sidenav ul {
+  list-style: none;
+  padding-left: 25px;
+}
+
+.sidenav li::before, .sidenav li::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+}
+
+.sidenav li::before {
+  border-top: 1px solid grey;
+  top: 14px;
+  width: 8px;
+  height: 0;
+}
+
+.sidenav li::after {
+  border-left: 1px solid grey;
+  height: 100%;
+  width: 0;
+  top: 0;
+}
+
+.sidenav ul > li:last-child::after {
+  height: 14px;
+}
+
+div .sticky {
+  position: sticky;
+  position: -webkit-sticky; /* Safari */
+  top: 0;
+  float: right;
+  z-index: 10;
+  outline: none;
+  cursor: pointer;
+  display: none;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 14px;
+  }
+}

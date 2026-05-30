@@ -1,0 +1,130 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}NASA POWER Weather Data - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>NASA POWER Weather Data</h2>
+  <div class="instructions">
+    <p>
+      You can obtain the weather data from the <a href="https://power.larc.nasa.gov/">NASA POWER web
+      site</a>. This site contains simulated weather data (based from actual measurements) for any
+      locations in the world, and this option can be useful when the weather data for your location
+      is incomplete or missing.
+    </p>
+
+    <p>To obtain the weather data from the NASA POWER web site:</p>
+    <ol>
+      <li class="li-line">
+        Go to the <span class="mark">Weather Files</span> page, and click on the <span class="mark">Upload</span>
+        button.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/weather-list-upload.png' %}">
+          <figcaption>Fig. 1. Click to upload a weather file.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Now click on the <span class="mark">Get from NASA POWER</span> panel.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/nasa.png' %}">
+          <figcaption>Fig. 2. Click to open the NASA POWER panel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Here you will specify the location of your oil palm site. You can either type in the GPS
+        latitude and longitude coordinates (in decimal degrees), or you can click on the map to
+        select your site.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/nasa-upload.png' %}">
+          <figcaption>Fig. 3. NASA POWER panel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <strong>Option 1.</strong> Enter the exact latitude and longitude (in decimal degrees) of
+        your oil palm site, then fill in the starting year and duration for the weather data. The
+        starting year must be 1981 or later. For instance, if you require weather data from 1990 to
+        2010, then fill in <span class="mark">1990</span> in the
+        <span class="mark">Start year</span> field and <span class="mark">21</span> in the
+        <span class="mark">No. of years</span> field (&because; 1990 to 2010 spans 21 years). Give
+        your oil palm site a name in the <span class="mark">Site name</span> field.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/nasa-description.png' %}">
+          <figcaption>Fig. 4. Specify the site location, name, and span of weather data.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <strong>Option 2.</strong> Instead of entering the exact latitude and longitude of your oil
+        palm site, you could click on the map to select your site. To do this, click on the
+        <span class="mark">Pin your site</span> checkbox to enable site location selection via the
+        map. On your desktop, you can pan the map by clicking (and holding the mouse key) then
+        dragging your mouse cursor over the map. On your smartphone, panning is done with two
+        fingers. You could also zoom in or out of the map. Once you have selected your site, you can
+        adjust (<em>i.e., fine tune</em>) your site's GPS location via the
+        <span class="mark">Lat.</span> and <span class="mark">Long.</span> fields (<em>see</em> Fig.
+        4). Enter the start year and duration for the required weather data, and the site name (<em>see</em>
+        Option 1 above).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/nasa-pin.png' %}">
+          <figcaption>Fig. 5. You could also click on the map to quickly set the site location.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        In this example, we have chosen a site near the town Taiping, with the GPS location: 4.5676
+        &deg;N and 101.0024 &deg;E. The weather data is from 1981 to 2000 (20 years). Clicking on
+        the <span class="mark">Retrieve NASA weather</span> button will retrieve the weather data
+        from the NASA POWER website and upload the data to PySawit Web.
+        <br><br>
+        If your site is in Malaysia (as in this example), it is recommended that you tick the check
+        box to calibrate NASA's data. Comparisons with measured Malaysian weather have shown that
+        NASA's weather data require calibration to better agree with measured weather,
+        particularly with rainfall.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/nasa-taiping.png' %}">
+          <figcaption>Fig. 6. A site near Taiping is chosen.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/nasa-calibrate.png' %}">
+          <figcaption>Fig. 7. For sites in Malaysia, it is recommended that you tick the check box to adjust (calibrate) the NASA data.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Once uploaded, the retrieved weather data will be displayed in a tabular form. Charts will
+        also be displayed to show the distribution of the weather parameters. In addition,
+        statistical characteristics of the weather parameters will also be shown in a series of
+        tables.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/taiping-table.png' %}">
+          <figcaption>Fig. 8. The site's weather data.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/taiping-charts.png' %}">
+          <figcaption>Fig. 9. Annual distribution of each weather parameter.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/taiping-stats.png' %}">
+          <figcaption>Fig. 10. Statistical characteristics of each weather parameter.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        The newly uploaded weather data from the NASA POWER web site will now be listed in your
+        <span class="mark">Weather Files</span> page. This weather file is now ready to be used in
+        your crop simulations.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/nasa/taiping-list.png' %}">
+          <figcaption>Fig. 11. Your updated weather file list (compare with Fig. 1).</figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

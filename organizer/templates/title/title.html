@@ -1,0 +1,313 @@
+{% extends parent_template|default:"title/base_title.html" %}
+{% load static %}
+
+{% block title %}Home - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .hero {
+      font-family: "Dosis", Helvetica, sans-serif;
+
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-justify-content: space-around;
+      justify-content: space-around;
+
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+
+      -webkit-align-content: center;
+      align-content: center;
+
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+
+      width: 50vw;
+      max-width: 1200px;
+      min-width: 250px;
+      margin: 0 auto;
+    }
+
+    .hero-button, .hero-button-sub {
+      -ms-flex: 1 1 auto;
+      -webkit-flex: 1 1 auto;
+      flex: 1 1 auto;
+      margin: 5px;
+      padding: 20px;
+      border: 2px solid darkkhaki;
+      text-align: center;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .shadow-on:hover {
+      background-color: lightgoldenrodyellow;
+      -webkit-box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.5);
+      box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    .shadow-off:hover {
+      background-color: transparent;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
+
+    .hero-button:hover, .hero-button-sub:hover {
+      cursor: pointer;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .hero-text {
+      text-align: center;
+      font-size: 1.2em;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 20px;
+    }
+
+    .hero-text h2 {
+      font-weight: bold;
+      letter-spacing: 10px;
+      margin-top: -15px;
+    }
+
+    .hero-text p {
+      margin-bottom: -15px;
+    }
+
+    .hero-text hr.style-eight {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+    .welcome_user {
+      float: right;
+      margin-top: 15px;
+    }
+
+    .hero-sub {
+      margin: -10px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .hero-expand .glyphicon {
+      color: darkred;
+    }
+
+    .sp {
+      align-self: stretch;
+    }
+
+    @media (max-width: 767.98px) {
+      .hero-button, .hero-button-sub {
+        padding: 15px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block menutop %}
+  <div class="welcome_user">
+    {% if user.is_authenticated %}
+      Welcome back,
+      <a href="{% url 'dj-auth:view' %}"><span class="badge badge-pill">{{ user.username }}</span></a>
+      <i class="fas fa-user-check"></i>
+    {% else %}
+      Please
+      <a href="{% url 'dj-auth:login' %}"><span class="badge badge-pill">log in</span></a> /
+      <a href="{% url 'dj-auth:create' %}"><span class="badge badge-pill">register</span></a>
+      <i class="fas fa-user"></i>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div>
+    {% if not user.is_authenticated %}
+      <img src="{% static 'organizer/img/logo.jpg' %}" class="img-responsive" alt="logo">
+    {% endif %}
+  </div>
+  <div class="hero">
+    <div class="hero-text">
+      <p>Web-based oil palm growth and yield model</p>
+      <hr class="style-eight">
+      <h2>PySawit Web</h2>
+    </div>
+  </div>
+
+  <div class="hero">
+    {% if user.is_authenticated %}
+      <div class="hero-button hero-expand shadow-on" id="run">
+        <span class="glyphicon glyphicon-plus"></span> Run
+        <div class="hero-sub expand_run">
+          <div class="hero-button-sub shadow-on" id="run_list">List</div>
+          <div class="hero-button-sub shadow-on" id="run_new">New</div>
+        </div>
+      </div>
+
+      <div class="hero-button hero-expand shadow-on" id="weather">
+        <span class="glyphicon glyphicon-plus"></span> Weather
+        <div class="hero-sub expand_weather">
+          <div class="hero-button-sub shadow-on" id="weather_list">List</div>
+          <div class="hero-button-sub shadow-on" id="weather_upload">Upload</div>
+        </div>
+      </div>
+
+      <div class="hero-button shadow-on" id="wiki">Wiki</div>
+      <div class="hero-button shadow-on" id="logout">Log
+        out&nbsp;&nbsp;<i class="fas fa-sign-out-alt"></i>
+      </div>
+
+      <div class="hero-button hero-expand shadow-on" id="profile">
+        <span class="glyphicon glyphicon-plus"></span> My Profile
+        <div class="hero-sub expand_profile">
+          <div class="hero-button-sub shadow-on" id="profile_view">View</div>
+          <div class="hero-button-sub shadow-on" id="profile_edit">Edit</div>
+        </div>
+      </div>
+
+      <div class="hero-button hero-expand shadow-on" id="pwd">
+        <span class="glyphicon glyphicon-plus"></span> My Password
+        <div class="hero-sub expand_pwd">
+          <div class="hero-button-sub shadow-on" id="pwd_reset">Reset</div>
+          <div class="hero-button-sub shadow-on" id="pwd_change">Change</div>
+        </div>
+      </div>
+
+    {% else %}
+      <div class="hero-button hero-expand shadow-on" id="start">
+        <span class="glyphicon glyphicon-plus"></span> Start
+        <div class="hero-sub expand_start">
+          <div class="hero-button-sub shadow-on" id="start_login"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Log
+            in
+          </div>
+          <div class="hero-button-sub shadow-on" id="start_register">Register</div>
+          <div class="hero-button-sub shadow-on" id="start_forgot">Lost Password</div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="hero-button shadow-on" id="contact">Contact</div>
+    <div class="hero-button shadow-on" id="about">About</div>
+    <div class="hero-button shadow-on" id="help">Help</div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    function expand(t) {
+      $(t).toggleClass('shadow-on shadow-off');
+      var elem = $(t).find('span');
+      elem.toggleClass('glyphicon-plus glyphicon-minus');
+      if (elem.hasClass('glyphicon-minus')) {
+        var id = elem.parent().attr('id');
+        $('.hero-expand').each(function () {
+          var cur_id = this.id;
+          if (cur_id !== id) {
+            var c = $('#' + cur_id);
+            if (c.find('span').hasClass('glyphicon-minus')) {
+              c.click();
+            }
+          }
+        });
+      }
+    }
+
+    $('#run').click(function () {
+      expand(this);
+      $('.expand_run').slideToggle('fast', 'linear');
+    });
+
+    $('#weather').click(function () {
+      expand(this);
+      $('.expand_weather').slideToggle('fast', 'linear');
+    });
+
+    $('#pwd').click(function () {
+      expand(this);
+      $('.expand_pwd').slideToggle('fast', 'linear');
+    });
+
+    $('#profile').click(function () {
+      expand(this);
+      $('.expand_profile').slideToggle('fast', 'linear');
+    });
+
+    $('#start').click(function () {
+      expand(this);
+      $('.expand_start').slideToggle('fast', 'linear');
+    });
+
+    $('#run_list').click(function () {
+      location.href = "{% url 'organizer_opd_list' %}";
+    });
+
+    $('#run_new').click(function () {
+      location.href = "{% url 'organizer_opd_create' %}";
+    });
+
+    $('#weather_list').click(function () {
+      location.href = "{% url 'weather_list' %}";
+    });
+
+    $('#weather_upload').click(function () {
+      location.href = "{% url 'weather_upload' %}";
+    });
+
+    $('#wiki').click(function () {
+      location.href = "{% url 'wiki:root' %}";
+    });
+
+    $('#logout').click(function () {
+      location.href = "{% url 'dj-auth:logout' %}";
+    });
+
+    $('#start_login').click(function () {
+      location.href = "{% url 'dj-auth:login' %}";
+    });
+
+    $('#start_register').click(function () {
+      location.href = "{% url 'dj-auth:create' %}";
+    });
+
+    $('#start_forgot').click(function () {
+      location.href = "{% url 'dj-auth:pw_reset_start' %}";
+    });
+
+    $('#pwd_reset').click(function () {
+      location.href = "{% url 'dj-auth:pw_reset_start' %}";
+    });
+
+    $('#pwd_change').click(function () {
+      location.href = "{% url 'dj-auth:pw_change' %}";
+    });
+
+    $('#profile_edit').click(function () {
+      location.href = "{% url 'dj-auth:edit' %}";
+    });
+
+    $('#profile_view').click(function () {
+      location.href = "{% url 'dj-auth:view' %}";
+    });
+    $('#about').click(function () {
+      location.href = "{% url 'about' %}";
+    });
+
+    $('#contact').click(function () {
+      location.href = "{% url 'contact' %}";
+    });
+
+    $('#help').click(function () {
+      location.href = "{% url 'help' %}";
+    });
+
+  </script>
+{% endblock %}

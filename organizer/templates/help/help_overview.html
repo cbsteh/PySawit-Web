@@ -1,0 +1,144 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}How to Use - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static 'organizer/css/timeline.css' %}" rel="stylesheet">
+  <style>
+    ol li {
+      margin-left: -10px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h2 id="timeline">How to use</h2>
+    <p>
+      Your activities in PySawit Web will typically involve six steps:
+    </p>
+    <ul class="timeline">
+      <li class="timeline-inverted">
+        <div class="timeline-badge danger"><i class="fas fa-sign-in-alt"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">1. Log in</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Log in using your username and password (both case-sensitive).
+            </p>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge warning"><i class="fas fa-cloud-sun-rain"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">2. Weather data</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              All modeling work require daily weather data of a given oil palm site. PySawit Web is
+              able to use weather data from four sources:
+            </p>
+            <ol>
+              <li>use your weather data,</li>
+              <li>use one of the weather files from the repository,</li>
+              <li>use the NASA POWER weather data, or</li>
+              <li>use the model's daily weather generator.</li>
+            </ol>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge primary"><i class="fas fa-database"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">3. Model input</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Create or use an existing Run file. Enter the values of the model parameters you wish
+              to change, such as the site latitude, initial tree part weights, and duration of the
+              simulation run. Default values are given for all model parameters.
+            </p>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge success"><i class="far fa-paper-plane"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">4. Run the model</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Start the model run. As simulation runs can be lengthy, a request to run your model is
+              created by putting your request in a queue. Once it is your turn, your model will be
+              run (in the background) until completion.
+            </p>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge info"><i class="fas fa-chart-line"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">5. Simulation results</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Simulation results (model output) can be viewed once the model run is completed.
+              Simulation results can be:
+            </p>
+            <ol>
+              <li>viewed as a tabular form, or</li>
+              <li>plotted as a series of pre-defined charts.</li>
+            </ol>
+            <hr/>
+            <p>
+              <i class="fas fa-map-pin" style="color: darkred"></i>&nbsp;
+              Customized plotting is also available where you can plot your chosen model parameters.
+            </p>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge info"><i class="fas fa-file-export"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">6. Results analysis and interpretation</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Simulation results can be further exported:
+            </p>
+            <ol>
+              <li>as a text file, or</li>
+              <li>as a new Excel file.</li>
+            </ol>
+            <p>
+              for more detailed analysis and interpretation by using another software such as Excel.
+            </p>
+            <hr/>
+            <p>
+              <i class="fas fa-map-pin" style="color: darkred"></i>&nbsp;
+              You may also upload an existing Excel file so that the model results are written to
+              it, updating your file with the latest results.
+            </p>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+{% endblock %}

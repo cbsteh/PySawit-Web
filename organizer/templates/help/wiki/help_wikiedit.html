@@ -1,0 +1,114 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Wiki Help- {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Edit Articles</h2>
+  <div class="instructions">
+    <p>
+      Anyone can add, correct, revise, or improve the contents of any articles. Wiki articles are
+      text-based but support basic formatting features such as bold text, italic text, tables, and
+      even inserting hyperlinks and pictures into the article. This is done through a syntax called
+      <span class="mark">Markdown</span>. List of supported <span class="mark">Markdown</span>
+      syntax are described in the
+      <a href="{% url 'md_cheatsheet' %}" target="_blank"><span class="mark">Markdown Cheat Sheet</span></a>.
+    </p>
+    <p>
+      The following describes how to edit an article:
+    </p>
+
+    <ol>
+      <li class="li-line">
+        <p>
+          Navigate to the article you want to edit (in this example, the article <span class="mark">Article 1.3</span>
+          will be edited). Click on the <span class="mark">Article</span> menu, then select the
+          <span class="mark">Edit</span> option.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/edit.png' %}">
+          <figcaption>Fig. 1. The <span class="mark">Article</span> menu has the article
+            <span class="mark">Edit</span> option.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will see the <span class="mark">Edit</span> page. You are free to change the
+          <span class="mark">Title</span> of the article and include a brief summary or explanation
+          of changes in the article in the <span class="mark">Summary</span> field. The most
+          important field is the <span class="mark">Contents</span> field because this is where you
+          will make the changes to the article contents.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/edit-page.png' %}">
+          <figcaption>Fig. 2. The <span class="mark">Edit</span> article page.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          As previously mentioned, Wiki supports the <span class="mark">Markdown</span> syntax that
+          allows you to apply some basic formatting to your text. Fig. 3 is a demo of the article
+          contents, applied with some <span class="mark">Markdown</span> syntax. Click on the
+          <span class="mark">Save</span> button (Fig. 2) to save your changes, and Fig. 4 is the
+          result of Fig. 3.
+        </p>
+
+        <div>
+          <div class="col-md-6">
+            <figure>
+              <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/markdown.png' %}">
+              <figcaption>Fig. 3. A demo showing the article contents with some <span class="mark">Markdown</span>
+                syntax to apply several text formatting features. Note that the <span class="mark">Markdown</span>
+                syntax are highlighted in yellow for only in this example. These highlights will not
+                appear when you use them in your articles.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="col-md-6">
+            <figure>
+              <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/markdown-results.png' %}">
+              <figcaption>Fig. 4. The result of Fig. 3.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <p>
+          List of supported <span class="mark">Markdown</span> syntax are described in the
+          <a href="{% url 'md_cheatsheet' %}" target="_blank"><span class="mark">Markdown Cheat Sheet</span></a>.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          <strong>Insert Table of Contents.</strong> If your article contains many section headers,
+          you might want to consider adding a Table of Contents that will list all the section
+          headers in the text and allow quick navigation to any section when the user clicks on the
+          section header name.
+        </p>
+        <p>
+          Pick a place in the article where you like the Table of Contents to be added. A good
+          location is the top of the article, then type in <span class="mark">[TOC]</span>
+          (including the square brackets). When saved, the article will have a Table of Contents
+          added.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/toc-macro.png' %}">
+          <figcaption>Fig. 5. Type <span class="mark">[TOC]</span> in the article to add a Table of
+            Contents.
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/toc-added.png' %}">
+          <figcaption>Fig. 6. Table of Contents automatically added and will update itself when new
+            headers are added or old ones deleted. Clicking on the name of any section header name
+            will also navigate you to the selected section.
+          </figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

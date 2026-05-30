@@ -1,0 +1,301 @@
+{% load sekizai_tags i18n wiki_tags static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block wiki_pagetitle %}{% endblock %}{% block wiki_site_title %} - PySawit Web{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="PySawit Web">
+    <meta name="author" content="Christopher Teh Boon Sung">
+
+  	<link rel="shortcut icon" href="{% static 'organizer/img/favicon.ico' %}">
+
+    <!-- Le styles -->
+    <link href="{% static "wiki/bootstrap/css/wiki-bootstrap.min.css" %}" rel="stylesheet">
+
+    {% render_block "css" %}
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://origin2.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js" integrity="sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB" crossorigin="anonymous"></script>
+    <![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono%7CDosis" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'organizer/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'markitup/style.css' %}">
+
+    <style>
+      body {
+        padding-top: 10px;
+      }
+      .navbar-header .navbar-brand {
+        font-weight: bold;
+      }
+      #article-container {
+        margin-top: 0;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      textarea {
+         font-size: large !important;
+      }
+      .panel-title:hover {
+        font-weight: bold;
+        text-decoration: none;
+      }
+      a:hover {
+        font-weight: bold;
+        text-decoration: none;
+      }
+      div[id^='error_'] {
+        color: red;
+      }
+      .wiki-article {
+        font-family: Dosis, Helvetica, Arial, sans-serif;
+        font-size: 18px;
+      }
+      .markItUp {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace;
+        font-size: 16px !important;
+      }
+      .wiki-article h1 {
+        font-weight: bold;
+        padding-bottom: 9px;
+        margin: 40px 0 20px;
+        border-bottom: 1px solid darkkhaki;
+      }
+      .wiki-article h2,
+      .wiki-article h3 {
+        font-weight: bold;
+        padding-bottom: 9px;
+        margin: 20px 0 20px;
+        border-bottom: 1px solid darkkhaki;
+      }
+      .wiki-article th {
+        background-color: darkkhaki;
+        border: 1px solid darkkhaki !important;
+      }
+      .wiki-article td {
+        border: 1px solid darkkhaki !important;
+      }
+      .wiki-article blockquote {
+        border-left: 3px solid darkkhaki;
+      }
+      .wiki-article pre, .wiki-article code {
+        border-color: darkkhaki;
+        background-color: lightgoldenrodyellow;
+      }
+      .wiki-article hr {
+        border-top: 2px solid darkkhaki;
+      }
+      .wiki-article .toctitle {
+        font-size: 14px !important;
+        color: black !important;
+        background-color: darkkhaki;
+      }
+      .toc li {
+        background-color: #fff9e6;
+      }
+
+    </style>
+
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body>
+    {% block wiki_body %}
+
+    {% block wiki_navbar %}
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+  					<span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {% block wiki_header_branding %}
+            <a class="navbar-brand" href="{% url 'title' %}">PySawit Web</a>
+          {% endblock %}
+        </div>
+
+        {% block wiki_header_navlinks %}
+          <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            {% url 'organizer_opd_list' as opdlist %}
+            {% url 'weather_list' as wthrlist %}
+            {% url 'wiki:root' as wiki %}
+            {% url 'contact' as contact %}
+            {% url 'about' as about %}
+            {% url 'dj-auth:logout' as userlogout %}
+            {% url 'dj-auth:login' as userlogin %}
+            {% url 'dj-auth:pw_change' as userpwchange %}
+            {% url 'dj-auth:view' as userview %}
+            {% url 'dj-auth:edit' as useredit %}
+            {% url 'md_cheatsheet' as md_cheatsheet %}
+
+            <ul class="nav navbar-nav">
+              {% if user.is_authenticated %}
+                <li {% if request.path == opdlist %}class="active"{% endif %}>
+                  <a href="{{ opdlist }}">Run</a>
+                </li>
+                <li {% if request.path == wthrlist %}class="active"{% endif %}>
+                  <a href="{{ wthrlist }}">Weather</a>
+                </li>
+                <li {% if request.path == wiki %}class="active"{% endif %}>
+                <a href="{{ wiki }}"><img src="{% static 'organizer/img/wiki.svg' %}" width="20px" height="20px"> Wiki</a>
+                </li>
+              {% endif %}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li {% if request.path == contact %}class="active"{% endif %}>
+                    <a href="{% url 'contact' %}">Contact</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li {% if '/help/' in request.path %}class="active"{% endif %}>
+                    <a href="{% url 'help' %}">How to use</a>
+                  </li>
+                  <li {% if request.path == md_cheatsheet %}class="active"{% endif %}>
+                    <a href="{% url 'md_cheatsheet' %}" target="_blank">Markdown Cheat Sheet &hellip;</a>
+                  </li>
+                  <li {% if request.path == about %}class="active"{% endif %}>
+                    <a href="{% url 'about' %}">About</a>
+                  </li>
+                </ul>
+              </li>
+
+            {% if user.is_authenticated %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="badge notification-cnt">0</span>
+                  <span class="badge badge-pill">{{ user }}</span>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{{ "LOGOUT_URL"|wiki_settings }}">
+                      <i class="fa fa-power-off"></i>
+                      {% trans "Log out" %}
+                    </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'dj-auth:view' %}">View my profile</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'dj-auth:edit' %}">Edit my profile</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'dj-auth:pw_change' %}">Change my password</a>
+                  </li>
+
+                  {% if user.is_superuser %}
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'wiki:deleted_list' %}">
+                      <i class="fa fa-trash-alt"></i>
+                      {% trans "Deleted articles" %}
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if "wiki.plugins.notifications"|plugin_enabled %}
+                    {% include "wiki/plugins/notifications/menubaritem.html" %}
+                  {% endif %}
+                </ul>
+              </li>
+            {% else %}
+              <li {% if request.path == userlogin %}class="active"{% endif %}>
+                <a href="{% login_url as wiki_login_url %}{{ wiki_login_url }}">Log in/Register</a>
+              </li>
+            {% endif %}
+
+            <form class="navbar-form navbar-right" id="wiki-search-form" style="margin-left:0;max-width:100%;overflow-x: hidden;border-bottom: none" method="GET" action="{% spaceless %}
+                {% if article or urlpath %}
+                  {% url 'wiki:search' article_id=article.id path=urlpath.path %}
+                {% else %}
+                  {% url 'wiki:search' %}
+                {% endif %}
+              {% endspaceless %}"
+            >
+              <div class="input-group">
+                <input type="search" class="form-control search-query" name="q" placeholder="{% spaceless %}
+                  {% if article or urlpath %}
+                     {% trans "Search this article..." %}
+                  {% else %}
+                    {% trans "Search whole wiki..." %}
+                  {% endif %}
+                {% endspaceless %}" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+                    <span class="fa fa-search"></span>
+                  </button>
+                </span>
+              </div><!-- /input-group -->
+            </form>
+
+          </div>
+        {% endblock %}
+      </div>
+    </div>
+    {% endblock %}
+
+    <div class="container" style="margin-top: 60px;">
+   		<div class="col-md-12" role="main">
+        {% wiki_messages %}
+{#        <img src="{% static 'organizer/img/wiki.svg' %}" width="48px" height="48px">#}
+        <!-- Reserved for breadcrumbs -->
+        {% block wiki_breadcrumbs %}{% endblock %}
+        <!-- Main page contents go here -->
+        {% block wiki_contents %}{% endblock %}
+
+        <footer id="wiki-footer">
+          {% block wiki_footer_prepend %}
+          {% endblock %}
+          <hr />
+          {% block wiki_footer_logo %}
+          {% endblock %}
+          <div style="clear: both"></div>
+          <p>Copyright <i class="fa fa-copyright"></i> {% now 'Y' %}&nbsp;
+            <a href="http://www.christopherteh.com" tabindex="-1">Christopher Teh Boon Sung</a>
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    {% endblock %}
+
+    <script src="{% static "wiki/js/jquery-3.3.1.min.js" %}"></script>
+    <script src="{% static "wiki/js/core.js" %}"></script>
+    <script src="{% static "wiki/bootstrap/js/bootstrap.min.js" %}"></script>
+    <!-- Optionally enable responsive features in IE8 -->
+    <script src="{% static "wiki/js/respond.min.js" %}"></script>
+    {% render_block "js" %}
+
+    <script>
+      var navbar_collapse = $('.navbar-collapse');
+      navbar_collapse.click(function(e) {
+        var y = $(this).outerHeight() - e.offsetY;
+        var canSee = navbar_collapse.hasClass("collapse");
+        if (canSee && y < 20) {
+          var _opened = navbar_collapse.hasClass("in");
+          if (_opened) {
+            navbar_collapse.collapse('hide');
+          }
+        }
+      });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+
+  </body>
+</html>

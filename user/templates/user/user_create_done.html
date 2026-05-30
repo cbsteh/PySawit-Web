@@ -1,0 +1,10 @@
+{% extends parent_template|default:"user/base_user.html" %}
+
+{% block title %}Account Created - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <div class="alert alert-success" role="alert">
+    <h4><i class="fas fa-check"></i> Your account has been created!</h4>
+    <p>Please check your email inbox (or spam box) for the activation link.</p>
+  </div>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Import Weather File - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Import into Excel</h2>
+  <div class="instructions">
+    <p>
+      Weather text files (.txt) that are downloaded can be imported in Excel. The values in
+      weather text files are comma-delimited, meaning that the values are separated by commas.
+    </p>
+
+    <p>To import a weather text file into Excel, please do the following:</p>
+    <ol>
+      <li class="li-line">
+        Launch Excel and go to the <span class="mark">Open</span> menu. Click on <span class="mark">Browse</span>.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-open.png' %}">
+          <figcaption>Fig. 1. Open your weather text file in Excel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Find the weather file you wish to import, then click on the <span class="mark">Open</span>
+        button to select it.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-browse.png' %}">
+          <figcaption>Fig. 2. Find your weather file and open.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        You will be presented with a <span class="mark">Text Import Wizard</span> dialog. Ensure the
+        <span class="mark">Delimited</span> radio button is selected, then click on the
+        <span class="mark">Next</span> button.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-import-1.png' %}">
+          <figcaption>Fig. 3. Choose <span class="mark">Delimited</span>.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Check/tick only the <span class="mark">Comma</span> and <span class="mark">Space</span>
+        delimiters and uncheck/untick the others. Finally, click the
+        <span class="mark">Finish</span> button to start the weather file import.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-import-2.png' %}">
+          <figcaption>Fig. 4. Check only the <span class="mark">Comma</span> and <span class="mark">Space</span>
+            delimiters.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Once the file import is completed, the weather data will appear in one of the worksheets.
+        Cells A4:E4 denote the daily weather parameters, where <span class="mark">doy</span>,
+        <span class="mark">tmin</span>, <span class="mark">tmax</span>,
+        <span class="mark">wind</span> and <span class="mark">rain</span> denote the column data for
+        day of year, minimum air temperature (&deg;C), maximum air temperature (&deg;C), wind speed
+        (m s<sup>-1</sup>), and rain (mm), respectively. The asterisk <span class="mark">*</span>
+        before <span class="mark">doy</span> indicates that <span class="mark">doy</span> is the
+        key, used by PySawit Web to retrieve the daily weather properties for a given day of year.
+        PySawit Web requires all weather data files to prefix the <span class="mark">doy</span>
+        field with an asterisk <span class="mark">*</span>. Rows 1 to 3 are comment lines and can be
+        deleted, if needed.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl.png' %}">
+          <figcaption>Fig. 5. File import completed. Rows 1 to 3 are comments and can be deleted.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Alternatively, you could also import the weather data into Excel by the copying-and-pasting
+        method. Open your weather data text file with any text editor, and copy all the data into
+        the clipboard.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-select-all.png' %}">
+          <figcaption>Fig. 6. You could also copy-and-paste the weather data directly into Excel.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Choose a cell location in an Excel worksheet you wish to copy and paste the clipboard
+        contents. In this example, the weather data (copied into the clipboard) will be pasted in
+        cell A1.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-a1.png' %}">
+          <figcaption>Fig. 7. Once the data are copied into the clipboard, find a place to paste
+            them in Excel.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        After pasting into Excel, the data needs to be properly formatted, so that each value occupy
+        a separate cell (like in Fig. 5).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-paste.png' %}">
+          <figcaption>Fig. 8. However, the pasted data are incorrectly formatted and must be
+            corrected.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Click on column A to quickly select all the data that have been previously pasted.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-select-colA.png' %}">
+          <figcaption>Fig. 9. Select all the data that have been pasted.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        After selection, choose the <span class="mark">Data</span> from the Excel Ribbon, then click
+        on the <span class="mark">Text to columns</span> option.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/import2xl/xl-text2col.png' %}">
+          <figcaption>Fig. 10. Separate the pasted data into their respective cells.</figcaption>
+        </figure>
+        This will trigger the <span class="mark">Text Import Wizard</span> dialog to appear. Follow
+        the instructions as shown above in Fig. 3 and 4 to complete the weather data import, and the
+        result should be like Fig. 5.
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

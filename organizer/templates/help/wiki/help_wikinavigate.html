@@ -1,0 +1,76 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Wiki Help - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Navigating Wiki</h2>
+  <div class="instructions">
+    <p>
+      Wiki is a collection of articles. Very similar Wikipedia, Wiki enables group collaboration to
+      prepare articles. All users work on a single copy of an article, where they each can edit or
+      revise the article. An article can also be <em>rewound</em> to a previous, old copy to reset
+      the latest changes to the article.
+    </p>
+
+    <ol>
+      <li class="li-line">
+        <p>
+          All articles are descendants of the root article. There can only be one root article. The
+          root article will often contain instructions to users on the group project or work. The
+          root article also cannot be changed or deleted as it is owned by the admin of PySawit Web
+          who will block any modifications to this article. Also note that some articles may also be
+          blocked by the admin to prevent modifications by users.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/navigate/root.png' %}">
+          <figcaption>Fig. 1. The root article often instructions about the group work.</figcaption>
+        </figure>
+        <p>
+          Click on the <span class="mark">Browse</span> link which will bring up a side menu or side
+          bar showing the hierarchy of all articles in the Wiki.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          The side menu lists all articles and their hierarchy in Wiki. To access an article, you
+          only have to click on the article's name on the list. A check mark appears next to the
+          currently viewed article (in this example, the root article is the current article being
+          viewed).
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/navigate/browse-menu.png' %}">
+          <figcaption>Fig. 2. List of articles, shown as a side bar or navigator, shows all articles
+            in Wiki and their hierarchy.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          All articles will be displayed in a structure shown in Fig. 3. The <span class="mark">breadcrumbs</span>
+          at the top the page shows the hierarchy of the current article. In Fig. 3, the article
+          being viewed is named <span class="mark">Article 1.1</span> (the article name can be
+          changed), and according to the <span class="mark">breadcrumbs</span>, this article is
+          directly under <span class="mark">Article 1</span>, which in turn is under the root
+          article. You can verify this hierarchy by looking at the list of articles in Fig. 2. You
+          can also click on any article in the <span class="mark">breadcrumbs</span> to access it.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/navigate/structure.png' %}">
+          <figcaption>Fig. 3. Article page structure.</figcaption>
+        </figure>
+        <p>
+          <span class="mark">Slug</span> is a name given to the link to access the article. You do
+          not have give a name to the <span class="mark">slug</span>. If none is provided by you,
+          then one will be given by PySawit Web by default. The <span class="mark">Article</span>
+          menu will list a series of options to create, edit, and move articles.
+        </p>
+      </li>
+
+    </ol>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+.table-div {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid lightgrey;
+  background-color: #F8F8F8;
+}
+
+.Table {
+  background-color: palegoldenrod;
+  min-width: 100%;
+  font-size: 90%;
+}
+
+.Table thead,
+.Table tbody {
+  display: block;
+}
+
+.Table thead {
+  border-bottom: 1px solid darkkhaki;
+}
+
+.Table tbody {
+  max-height: 50vh;
+  overflow-x: hidden;
+}
+
+.Table tr {
+  display: flex;
+}
+
+.Table td,
+.Table th {
+  overflow-wrap: break-word;
+  text-align: right;
+  padding: 1px 1px;
+  width: 75px;
+  background-color: white;
+}
+
+.Table th {
+  background-color: palegoldenrod;
+  border-left: 1px solid darkkhaki;
+}
+
+.Table tr:nth-child(2n) > td {
+  background-color: #eee8d5;
+}
+
+.Table th:first-child {
+  border-left: 0;
+}
+
+.Table tr:hover td {
+  background-color: yellow;
+}

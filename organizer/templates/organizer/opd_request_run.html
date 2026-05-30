@@ -1,0 +1,22 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}Request Run - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+  <div class="jumbotron">
+    <h2 class="display-4" id="msg-title">
+      <i class="fas fa-map-pin"></i> Request created
+    </h2>
+    <p class="lead" id="msg-body">
+      Model run will begin in the background. When the run is completed, the model results will
+      appear in the Results page; this can take several minutes.
+    </p>
+    <hr class="my-4">
+    <div id="msg-panel">
+      <a href="{% url 'organizer_opd_list' %}" role="button" class="btn btn-primary">Return</a>
+    </div>
+    <div id="msg-footer"></div>
+  </div>
+
+{% endblock %}

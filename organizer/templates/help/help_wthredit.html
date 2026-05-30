@@ -1,0 +1,48 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Edit File - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Edit Weather File Description</h2>
+
+  <div class="instructions">
+    <p>
+      Editing refers only to changing the description of a weather file and not about modifying the
+      values of the weather data. If you wish to modify the weather values, please instead
+      <a href="{% url 'help_wthrmod' %}">refer here</a>.
+    </p>
+    <p>
+      The following describes how to edit the description of a weather file:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          At your <span class="mark">Weather Files</span> page, click on the
+          <span class="mark">edit</span> link under the weather file you wish to alter its
+          description.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/edit/click-edit.png' %}">
+          <figcaption>Fig. 1. Click on the <span class="mark">edit</span> link.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          Enter the file description in the <span class="mark">Description</span> field. It is
+          recommended to include some brief information about the weather file in the description
+          such as the site name, location, and period of weather data. When done, click on the
+          <span class="mark">Save</span> button to keep the changes.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/edit/edit.png' %}">
+          <figcaption>Fig. 2. Enter a brief and meaningful file description, describing the weather
+            data.
+          </figcaption>
+        </figure>
+      </li>
+    </ol>
+
+  </div>
+{% endblock %}

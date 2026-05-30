@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if urlpath %}
+<div id="article-breadcrumbs">
+
+<ul class="breadcrumb pull-left">
+  {% for ancestor in urlpath.cached_ancestors %}
+    <li><a href="{% url 'wiki:get' path=ancestor.path %}">{{ ancestor.article.current_revision.title }}</a></li>
+  {% endfor %}
+  <li class="active">{{ article.current_revision.title }}</li>
+</ul>
+
+<div style="clear: both"></div>
+</div>
+{% endif %}

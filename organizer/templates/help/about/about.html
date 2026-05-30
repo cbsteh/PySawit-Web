@@ -1,0 +1,69 @@
+{% extends parent_template|default:"help/base_help.html" %}
+
+{% block title %}About - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <div class="main main-h1">
+    <p>PySawit Web v. 2.0</p>
+    <p>Oil palm growth and yield model</p>
+  </div>
+  <div class="main main-h2">
+    <hr style="width:30%;border-color:darkslategray">
+    <p>by Christopher Teh Boon Sung, Uni. Putra Malaysia</p>
+  </div>
+
+  <div class="main-text">
+  <h3>About</h3>
+  <p>
+    PySawit Web is the graphical user interface (GUI) of the PySawit model. PySawit is the engine
+    that simulates the growth and yield of oil palm under various meteorological, plant physiology,
+    and soil conditions, as well as under various planting densities. Where PySawit is the engine,
+    PySawit Web is the web-based facade that acts to shield users from having to deal directly
+    with PySawit. Via the web browser installed on the users' computers or smartphones, PySawit
+    Web collects from the users the model input and then feeds PySawit the model input to run
+    crop simulations. Model output are then collected by PySawit Web and presented to the users.
+    Users do not need to know Python or any other computer languages or need to install
+    additional software on their computers or phones to use the oil palm model.
+  </p>
+
+  <p>
+    PySawit Web is the outcome of the Incentive Grant for Research in Teaching and Learning (GIPP),
+    2017-19, a grant awarded to Christopher Teh Boon Sung, a lecturer and researcher at Uni. Putra
+    Malaysia. PySawit Web is designed as a research and teaching tool for agriculture researchers
+    and students.
+  </p>
+
+  <p>
+    PySawit Web was built using Django and jQuery.
+  </p>
+
+  <h3>Changes</h3>
+  <p>ver. 2.0 (30 Jun. 2019)</p>
+  <ol>
+    <li>Major changes in the modeling the oil palm growth and yield. Exact details on the modeling changes will be released soon.</li>
+    <li>Additional model output available, such as runoff and deep percolation.</li>
+    <li>NASA weather data can be calibrated for Malaysia's sites.</li>
+  </ol>
+  <p>ver. 1.0 (28 Feb. 2019)</p>
+  <ol>
+    <li>Officially released.</li>
+  </ol>
+
+  <h3>How to cite</h3>
+    <ol>
+      <li>
+        Teh, C. B. S., & Cheah, S. S. (2018). Modelling crop growth and yield in palm oil cultivation. In A. Rival (Ed.), Achieving sustainable cultivation of oil palm  (Vol. 1, pp. 183-227). Cambridge, UK: Burleigh Dodds Science Publishing.
+        &nbsp;[<a href="{% url 'op-chapter' %}" target="_blank">read chapter (PDF)</a>]
+      </li>
+      <li>
+        Teh, C. B. S. (2018). Development and validation of an unsaturated soil water flow model for oil palm. Pertanika Journal of Tropical Agriculture, 41(2), 787-800.
+        &nbsp;[<a href="{% url 'op-article-jtas' %}" target="_blank">read paper (PDF)</a>]
+      </li>
+    </ol>
+  <br/><br/>
+  <p>
+    <i class="fas fa-angle-double-right"></i> <a href="{% url 'privacy_policy' %}">
+      Read our privacy policy
+    </a>
+  </p>
+{% endblock %}

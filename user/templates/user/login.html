@@ -1,0 +1,31 @@
+{% extends parent_template|default:"user/base_user.html" %}
+
+{% block title %}Login - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+  {% include "user/field_errors.html" %}
+
+    <table style="width: 100%">
+      <tr>
+        <td><h2>Login</h2></td>
+        <td style="vertical-align:bottom;text-align:right;">
+          <em>Not registered?</em>&nbsp;
+          <a href="{% url 'dj-auth:create' %}" class="btn btn-primary" role="button">
+            <span rel="tooltip" title="Register new user">
+              <i class="fas fa-user-plus"></i> Register
+            </span>
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    {% include "user/login_form.html" %}
+    <p style="float: right;font-size: 90%">
+      <i class="fas fa-key"></i>&nbsp;
+      <a href="{% url 'dj-auth:pw_reset_start' %}"><em>Forgot password?</em></a>
+    </p>
+
+{% endblock %}

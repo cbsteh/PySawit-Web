@@ -1,0 +1,131 @@
+{% extends parent_template|default:"user/base_user.html" %}
+{% load static %}
+
+{% block title %}View Profile - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .avatar-panel h4{
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .profile {
+      border-top: 1px solid darkgray;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+
+    .profile li {
+      margin-left: -20px;
+    }
+
+    .well-sm a:hover {
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .well-sm a:focus:not(:hover)  {
+      text-decoration: none;
+    }
+
+    .well-run {
+       background-color: #F2F0EE;
+    }
+
+    .well-weather {
+       background-color: #F2F0EE;
+    }
+
+    .well-wiki {
+       background-color: #F2F0EE;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% include "user/field_errors.html" %}
+
+  <h2>View Profile</h2>
+
+    <div class="avatar-panel">
+      {% if avatar_url %}
+        <img src="{{ avatar_url }}">
+      {% else %}
+        <img src="{% static 'organizer/img/anon.png' %}">
+      {% endif %}
+      <h4>{{ user.username }}</h4>
+      <p><b>ID:</b> {{ user.first_name }}</p>
+      <p><b>Full name:</b> {{ user.last_name }}</p>
+      <p><b>Email:</b> {{ user.email }}</p>
+      <a href="{% url 'dj-auth:edit' %}" class="btn btn-primary btn-xs" role="button" style="display: block; width: 50px; margin: 0 auto">
+        <span rel="tooltip" title="Edit your profile">
+          <i class="far fa-file-alt"></i> Edit
+        </span>
+      </a>
+    </div>
+
+    <div class="profile">
+      <h4>Your run files</h4>
+      <ul>
+        {% for user_opd in user_opdlist %}
+          <li>
+            <div class="well well-sm well-run">
+              <a href="{{ user_opd.get_absolute_url }}">{{ user_opd.name }}</a><br/>
+            </div>
+          </li>
+        {% empty %}
+          <li>
+            <div class="well well-sm">
+              <em>You have no run files.</em>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <h4>Your weather files</h4>
+      <ul>
+        {% for user_weather in user_weatherlist %}
+          <li>
+            <div class="well well-sm well-weather">
+              <a href="{{ user_weather.get_absolute_url }}">{{ user_weather.filename }}</a><br/>
+              {% if user_weather.description %}
+                {{ user_weather.description }}<br/>
+              {% else %}
+                <em>No description provided.</em><br/>
+              {% endif %}
+            </div>
+          </li>
+        {% empty %}
+          <li>
+            <div class="well well-sm">
+              <em>You have no weather files.</em>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <h4>Your Wiki articles</h4>
+      <ul>
+        {% for user_article in user_articlelist %}
+          <li>
+            <div class="well well-sm well-wiki">
+              <a href="{% url 'wiki:get' article_id=user_article.id %}">
+                {{ user_article.current_revision.title }}
+              </a><br/>
+            </div>
+          </li>
+        {% empty %}
+          <li>
+            <div class="well well-sm">
+              <em>You are not the owner of any articles.</em>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

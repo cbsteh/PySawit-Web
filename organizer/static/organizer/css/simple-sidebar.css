@@ -1,0 +1,155 @@
+.fa-li {
+  padding-top: 2px;
+}
+
+.fa-ul-mod li {
+  padding-top: 10px;
+  margin-left: -20px;
+}
+
+.fa-main, .fa-submain {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.overlay {
+  height: calc(100% - 50px);
+  width: 0;
+  position: fixed;
+  z-index: 2000;
+  top: 50px;
+  padding-bottom: 75px;
+  left: 0;
+  background-color: rgba(255, 248, 222, .85);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-shadow-on {
+  -webkit-box-shadow: 4px 22px 11px 5px rgba(153, 153, 153, 0.59);
+  -moz-box-shadow: 4px 22px 11px 5px rgba(153, 153, 153, 0.59);
+  box-shadow: 4px 22px 11px 5px rgba(153, 153, 153, 0.59);
+}
+
+.overlay-shadow-off {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.overlay-content {
+  position: relative;
+  top: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.overlay a {
+  /*padding-bottom: 4px;*/
+  text-decoration: none;
+  /*font-size: 14px;*/
+  color: darkgoldenrod;
+  /*display: block;*/
+  /*transition: 0.3s;*/
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: black;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.overlay a:focus:not(:hover) {
+  font-weight: normal;
+  color: darkgoldenrod;
+}
+
+.page-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.treeview, .treeview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: darkkhaki;
+}
+
+.treeview ul {
+  margin-left: 1em;
+  position: relative;
+}
+
+.treeview ul:before {
+  content: "";
+  display: block;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 1px solid;
+  bottom: 15px;
+}
+
+.treeview li {
+  margin: 0;
+  padding: 0 1em;
+  line-height: 2em;
+  position: relative;
+  color: darkgoldenrod;
+  cursor: pointer;
+}
+
+.treeview ul li:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 0;
+  border-top: 1px solid;
+  margin-top: -1px;
+  position: absolute;
+  top: 1em;
+  left: 0;
+}
+
+.treeview a.selected {
+  color: black;
+  background-color: khaki;
+  padding: 5px 5px 5px 0;
+}
+
+.tree-indicator {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.treeview li a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.treeview li button, .treeview li button:active, .treeview li button:focus {
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {
+    overflow-y: auto;
+  }
+
+  .overlay a {
+    font-size: 14px
+  }
+}

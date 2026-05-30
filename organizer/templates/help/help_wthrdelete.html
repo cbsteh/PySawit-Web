@@ -1,0 +1,44 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Delete File - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Delete Weather File</h2>
+  <div class="instructions">
+    <p>
+      Deleting a weather file removes the file from your <span class="mark">Weather Files</span>
+      listing page. Note that file deletion is permanent and cannot be recovered.
+    </p>
+    <p>
+      The following describes how to delete a weather file:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          At your <span class="mark">Weather Files</span> page, click on the <span class="mark">delete</span>
+          link under the weather file you wish to delete.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/edit/click-delete.png' %}">
+          <figcaption>Fig. 1. Click on the <span class="mark">delete</span> link.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          You will be asked to confirm your deletion request. Click on the
+          <span class="mark">Delete</span> button to continue, else the
+          <span class="mark">Cancel</span> button to abort the request.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/edit/confirm-delete.png' %}">
+          <figcaption>Fig. 2. Confirm your deletion request, as file deletion is permanent.
+          </figcaption>
+        </figure>
+      </li>
+    </ol>
+
+  </div>
+
+{% endblock %}

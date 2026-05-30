@@ -1,0 +1,488 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Model Output Parameters - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Model Output Parameters</h2>
+  <div class="instructions">
+    <p>
+      The following lists all the daily (<a href="#table-daily">Table 1</a>) and annual
+      (<a href="#table-annual">Table 2</a>) model output parameters.
+    </p>
+
+    <p>Table 1. Daily model output parameters</p>
+    <table class="table" id="table-daily">
+      <thead>
+      <tr>
+        <th style="width: 20%;">Acronym</th>
+        <th>Description</th>
+        <th style="width: 30%;">Units</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><span class="mark">actual-E</span></td>
+        <td>Actual soil evaporation (E)</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">actual-ET</span></td>
+        <td>Actual evapotranspiration (ET)</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">actual-T</span></td>
+        <td>Actual plant transpiration (T)</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">age</span></td>
+        <td>Palm age</td>
+        <td>days</td>
+      </tr>
+      <tr>
+        <td><span class="mark">ambientCO2</span></td>
+        <td>Ambient CO<sub>2</sub> concentration</td>
+        <td>µmol mol<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-gen</span></td>
+        <td>Generative organ respiration</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-growth</span></td>
+        <td>Growth respiration</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-maint</span></td>
+        <td>Maintenance respiration</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-photosyn</span></td>
+        <td>Gross photosynthesis</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">bunches</span></td>
+        <td>Bunches dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">diffuserad</span></td>
+        <td>Diffuse solar radiation</td>
+        <td>MJ m<sup>-2</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">directrad</span></td>
+        <td>Direct solar radiation</td>
+        <td>MJ m<sup>-2</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">female</span></td>
+        <td>Female flowers dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">flowersex</span></td>
+        <td>Sex of flower at initiation</td>
+        <td>1 = female or 0 = male/abort</td>
+      </tr>
+      <tr>
+        <td><span class="mark">fronds</span></td>
+        <td>Fronds dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">LAI</span></td>
+        <td>Leaf area index (LAI)</td>
+        <td>m<sup>2</sup> m<sup>-2</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-e</span></td>
+        <td>Evaporation from <em>N</em>--th soil layer</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-influx</span></td>
+        <td>Influx of water into <em>N</em>--th soil layer</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-netflux</span></td>
+        <td>Netflux of water for <em>N</em>--th soil layer</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-outflux</span></td>
+        <td>Outflux of water from <em>N</em>--th soil layer</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-t</span></td>
+        <td>Plant water uptake from <em>N</em>--th soil layer</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-VWC</span></td>
+        <td>Soil water content in <em>N</em>--th soil layer</td>
+        <td>m<sup>3</sup> m<sup>-3</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">male</span></td>
+        <td>Male flowers dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">netrain</span></td>
+        <td>Net rainfall</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">pinnae</span></td>
+        <td>Pinnae dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">pot-T</span></td>
+        <td>Potential plant transpiration (T)</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rachis</span></td>
+        <td>Rachis dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rain</span></td>
+        <td>Gross rainfall</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rootdepth</span></td>
+        <td>Rooting depth</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td><span class="mark">roots</span></td>
+        <td>Roots dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rootzone-VWC</span></td>
+        <td>Root zone soil water content</td>
+        <td>m<sup>3</sup> m<sup>-3</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">TDM-growth</span></td>
+        <td>Total dry matter (VDM) increase</td>
+        <td>kg palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">TDM</span></td>
+        <td>Total dry matter (VDM) weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">tmax</span></td>
+        <td>Maximum air temperature</td>
+        <td>°C</td>
+      </tr>
+      <tr>
+        <td><span class="mark">tmin</span></td>
+        <td>Minimum air temperature</td>
+        <td>°C</td>
+      </tr>
+      <tr>
+        <td><span class="mark">totalrad</span></td>
+        <td>Total solar radiation</td>
+        <td>MJ m<sup>-2</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">trunk-hgt</span></td>
+        <td>Trunk height</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td><span class="mark">trunk</span></td>
+        <td>Trunk dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">VDM-growth</span></td>
+        <td>Vegetative dry matter (VDM) increase</td>
+        <td>kg palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">VDM</span></td>
+        <td>Vegetative dry matter (VDM) weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">waterdeficit</span></td>
+        <td>Plant water deficit</td>
+        <td>mm day<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">waterstress</span></td>
+        <td>Plant water stress level</td>
+        <td>0 to 1, where 1 = no stress, 0 = max. stress</td>
+      </tr>
+      <tr>
+        <td><span class="mark">wind</span></td>
+        <td>Wind speed</td>
+        <td>m s<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">yield</span></td>
+        <td>FFB yield (dry weight)</td>
+        <td>kg palm<sup>-1</sup> day<sup>-1</sup></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <p>Table 2. Annual model output parameters</p>
+    <table class="table" id="table-annual">
+      <thead>
+      <tr>
+        <th style="width: 20%;">Acronym</th>
+        <th>Description</th>
+        <th style="width: 30%;">Units</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><span class="mark">actual-E</span></td>
+        <td>Actual soil evaporation (E)</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">actual-ET</span></td>
+        <td>Actual evapotranspiration (ET)</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">actual-T</span></td>
+        <td>Actual plant transpiration (T)</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">ambientCO2</span></td>
+        <td>Ambient CO<sub>2</sub> concentration</td>
+        <td>µmol mol<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-gen</span></td>
+        <td>Generative organ respiration</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-growth</span></td>
+        <td>Growth respiration</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-maint</span></td>
+        <td>Maintenance respiration</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">assim-photosyn</span></td>
+        <td>Gross photosynthesis</td>
+        <td>kg CH<sub>2</sub>O palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">BI</span></td>
+        <td>Bunch index (BI)</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td><span class="mark">bunches</span></td>
+        <td>Bunches dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">CGR</span></td>
+        <td>Crop growth rate (CGR)</td>
+        <td>t ha<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">diffuserad</span></td>
+        <td>Diffuse solar radiation</td>
+        <td>MJ m<sup>-2</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">directrad</span></td>
+        <td>Direct solar radiation</td>
+        <td>MJ m<sup>-2</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">female</span></td>
+        <td>Female flowers dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">flowersex</span></td>
+        <td>Proportion of female flowers</td>
+        <td>%</td>
+      </tr>
+      <tr>
+        <td><span class="mark">fronds</span></td>
+        <td>Fronds dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">LAI</span></td>
+        <td>Leaf area index (LAI)</td>
+        <td>m<sup>2</sup> m<sup>-2</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-influx</span></td>
+        <td>Influx of water into <em>N</em>--th soil layer</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-netflux</span></td>
+        <td>Net flux of water for <em>N</em>--th soil layer</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-outflux</span></td>
+        <td>Outflux of water from <em>N</em>--th soil layer</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-t</span></td>
+        <td>Plant water uptake from <em>N</em>--th soil layer</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">layerN-VWC</span></td>
+        <td>Soil water content in <em>N</em>--th soil layer</td>
+        <td>m<sup>3</sup> m<sup>-3</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">male</span></td>
+        <td>Male flowers dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">NAR</span></td>
+        <td>Net assimilation rate (NAR)</td>
+        <td>g m<sup>-2</sup> wk<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">netrain</span></td>
+        <td>Net rainfall</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">pinnae</span></td>
+        <td>Pinnae dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">pot-T</span></td>
+        <td>Potential plant transpiration (T)</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rachis</span></td>
+        <td>Rachis dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rain</span></td>
+        <td>Gross rainfall</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rootdepth</span></td>
+        <td>Rooting depth</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td><span class="mark">roots</span></td>
+        <td>Roots dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">rootzone-VWC</span></td>
+        <td>Root zone soil water content</td>
+        <td>m<sup>3</sup> m<sup>-3</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">TDM-growth</span></td>
+        <td>Total dry matter (TDM) increase</td>
+        <td>kg palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">tmean</span></td>
+        <td>Mean air temperature</td>
+        <td>°C</td>
+      </tr>
+      <tr>
+        <td><span class="mark">totalrad</span></td>
+        <td>Total solar radiation</td>
+        <td>MJ m<sup>-2</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">trunk-hgt</span></td>
+        <td>Trunk height</td>
+        <td>m</td>
+      </tr>
+      <tr>
+        <td><span class="mark">trunk</span></td>
+        <td>Trunk dry weight</td>
+        <td>kg palm<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">VDM-growth</span></td>
+        <td>Vegetative dry matter (VDM) increase</td>
+        <td>kg palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">waterdeficit</span></td>
+        <td>Plant water deficit</td>
+        <td>mm yr<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">wind</span></td>
+        <td>Wind speed</td>
+        <td>m s<sup>-1</sup></td>
+      </tr>
+      <tr>
+        <td><span class="mark">year</span></td>
+        <td>Year number</td>
+        <td>years</td>
+      </tr>
+      <tr>
+        <td><span class="mark">yield</span></td>
+        <td>FFB yield (dry weight)</td>
+        <td>kg palm<sup>-1</sup> yr<sup>-1</sup></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <script>
+    $("td:first-child").each(function () {
+      var txt = $(this).text();
+      $(this).html('<span class="mark">' + txt + "</span>");
+    });
+
+    $("a[href^='#table-']").click(function (e) {
+      var tag = $(this).attr('href');
+      element = tag.replace("link", "");
+      $('html,body').unbind().animate({scrollTop: $(element).offset().top - 100}, 'slow');
+    })
+  </script>
+
+{% endblock %}

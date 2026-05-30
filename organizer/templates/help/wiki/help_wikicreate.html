@@ -1,0 +1,109 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Wiki Help - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Create Articles</h2>
+  <div class="instructions">
+    <p>
+      Whenever you create an article, you must first decide where to place this new article. Let's
+      say that you want to add a new article named <span class="mark">Article 1.3</span> and have it
+      placed under the <span class="mark">Article 1</span> article (parent), like shown in Fig. 1,
+      where this new article is also at the same level as <span class="mark">Article 1.1</span> and
+      <span class="mark">Article 1.2</span> (siblings).
+    </p>
+    <figure>
+      <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/add-article-1a.png' %}">
+      <figcaption>Fig. 1. Before an article can be created, you need to decide where to place it.
+      </figcaption>
+    </figure>
+
+    <ol>
+      <li class="li-line">
+        <p>
+          There are two ways to add <span class="mark">Article 1.3</span>. The first is to navigate
+          to one of its (future) sibling articles, <span class="mark">Article 1.1</span> (you can
+          also choose <span class="mark">Article 1.2</span>). Now, click on the <span class="mark">Article</span>
+          menu, then select the <span class="mark">New article on same level</span> option. We
+          choose this option because this new article will be on the same level as the current
+          article.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/add-article-1b.png' %}">
+          <figcaption>Fig. 2. The new article will be placed on the same level as the current
+            article (<em>i.e.</em>, create a sibling article).
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Alternatively, the second method is to navigate to its (future) parent article,
+          <span class="mark">Article 1</span> (Fig. 3). Now, click on the
+          <span class="mark">Article</span> menu, then select the <span class="mark">New article on a level below</span>
+          option (Fig. 4). We choose this option because this new article will be one level below
+          the current article.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/add-article-2a.png' %}">
+          <figcaption>Fig. 3. Navigate to the parent article.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/add-article-2b.png' %}">
+          <figcaption>Fig. 4. The new article will be placed on one level below the current article
+            (<em>i.e.</em>, create a child/descendent article).
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will next be presented with the <span class="mark">Add new article</span> page. Type
+          in the article name (in this example, the name will be
+          <span class="mark">Article 1.3</span>) in the <span class="mark">Title</span> field. The
+          <span class="mark">slug</span> field refers to the name of the link for this article. If
+          you do not want to give it a name, just leave this field to PySawit Web to provide it with
+          a name.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/add-article-form.png' %}">
+          <figcaption>Fig. 5. The new article form.</figcaption>
+        </figure>
+        <p>
+          The <span class="mark">Contents</span> field is where you will enter in the article
+          contents (<a href="{% url 'help_wikiedit' %}">see here for instructions for this</a>). The
+          last field is <span class="mark">Summary</span> in which you will enter a brief
+          description of this article (such as the reason for its creation or current changes). This
+          field is optional and can be left blank.
+        </p>
+        <p>
+          Click on the <span class="mark">Create article</span> button to save your entries and
+          complete the creation of this new article.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Your new article will be presented like in Fig. 6, and you can verify its position in the
+          hierarchy through the article's <span class="mark">breadcrumbs</span> or the list of
+          articles (Fig. 7).
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/article-1-3.png' %}">
+          <figcaption>Fig. 6. All articles, provided they are not blocked by the admin from editing,
+            can be later changed.
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/create/article-1-3-hierarchy.png' %}">
+          <figcaption>Fig. 7. Location of the new article, as intended (see Fig. 1 and 3).
+          </figcaption>
+        </figure>
+      </li>
+
+    </ol>
+
+  </div>
+
+{% endblock %}

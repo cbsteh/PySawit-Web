@@ -1,0 +1,51 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}Run Files - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <table style="width: 100%">
+    <tr>
+      <td><h2>Run Files</h2></td>
+      <td style="vertical-align:bottom;text-align:right;">
+        {% if opd_list|length == 0 %}
+          &nbsp;<i class="fas fa-angle-double-right faa-horizontal animated"></i>&nbsp;
+        {% endif %}
+        <a href="{% url 'organizer_opd_create' %}" class="btn btn-primary btn-xs" role="button">
+          <span rel="tooltip" title="Create a new model run">
+            <i class="far fa-file-alt"></i> New
+          </span>
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <ol style="padding-left: 20px;">
+    {% for opd in opd_list %}
+      <li>
+        <div class="well well-sm">
+          <a href="{{ opd.get_update_url }}">{{ opd.name }}</a>
+          {% if opd.has_request %}
+            &nbsp;<span rel="tooltip" title="Run pending"><i class="fas fa-map-pin"></i></span>
+          {% endif %}
+          <br/>
+          <i style="font-size: 0.9em;">Updated: {{ opd.updated_at }}</i><br/>
+          <ul class="nav nav-tabs">
+            <li class="markstart"><i class="fas fa-chevron-right"></i></li>
+            {% if not opd.has_request %}
+              <li><a href="{{ opd.get_confirm_run_url }}">run</a></li>
+            {% else %}
+              <li class="st">run</li>
+            {% endif %}
+            <li><a href="{{ opd.get_results_url }}">results</a></li>
+            <li><a href="{{ opd.get_copy_url }}">copy</a></li>
+            <li><a href="{{ opd.get_delete_url }}">delete</a></li>
+          </ul>
+        </div>
+      </li>
+    {% empty %}
+      <div class="well well-sm">
+        <em>No run files.</em>
+      </div>
+    {% endfor %}
+  </ol>
+{% endblock %}

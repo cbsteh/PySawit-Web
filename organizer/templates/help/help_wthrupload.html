@@ -1,0 +1,59 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Upload the Weather File - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Step 3/3. Upload the Weather File</h2>
+  <div class="instructions">
+    <p>
+      Before uploading your weather data text file, please ensure your file was prepared in the
+      format and manner as described in <a href="{% url 'help_wthrformat' %}">step 1</a> and
+      <a href="{% url 'help_wthrprepare' %}">step 2</a>. This is to ensure PySawit Web correctly
+      reads in your weather data.
+    </p>
+    <p>The following steps describe how to upload your weather text file:</p>
+    <ol>
+      <li class="li-line">
+        At the <span class="mark">Weather Files</span> page, click on the
+        <span class="mark">Upload</span> button
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/wthr-upload.png' %}">
+          <figcaption>Fig. 1. Click on the <span class="mark">Upload</span> button.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Click on the <span class="mark">Browse</span> button (step 1, Fig. 2) to find and select
+        your weather file you wish to upload into PySawit Web (step 2 and 3, Fig. 3).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/wthr-upload-panel.png' %}">
+          <figcaption>Fig. 2. Upload your weather text file.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/wthr-upload-find-file.png' %}">
+          <figcaption>Fig. 3. Find and select your weather file.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        Finally, click on the <span class="mark">Upload</span> button (step 4, Fig. 2) to upload
+        your selected weather file. PySawit Web will warn you if the uploaded file is of the wrong
+        type (<em>e.g.,</em> not a text file), incorrectly formatted, has discontinuous data or
+        missing values, or is too large (<em>i.e.,</em> larger than 1 Mb file size). Once uploaded,
+        your file should appear in the <span class="mark">Weather Files</span> page.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/wthr-list.png' %}">
+          <figcaption>Fig. 4. Your newly uploaded file.</figcaption>
+        </figure>
+        <p>Note that no description was given to your newly uploaded weather file. To enter one (or
+          edit a current description), click on the <span class="mark">edit</span> link to edit the
+          file description. How to do this is as <a href="{% url 'help_wthredit' %}">described
+            here</a>.
+        </p>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

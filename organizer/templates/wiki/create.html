@@ -1,0 +1,118 @@
+{% extends "wiki/base.html" %}
+{% load wiki_tags i18n sekizai_tags static %}
+
+
+{% block wiki_pagetitle %}{% trans "Add new article" %}{% endblock %}
+
+{% block wiki_contents %}
+
+  {% addtoblock "js" %}
+  <script type="text/javascript" src="{% static "admin/js/urlify.js" %}"></script>
+  <script type="text/javascript">
+  {% if not create_form.slug.value %}
+  //<![CDATA[
+  (function($) {
+	  $(document).ready(function (){
+		  $("#id_title").keyup(function () {
+			  var e = $("#id_slug")[0];
+			  if(!e._changed) {
+			    slug = URLify(this.value, 50);
+				  e.value = slug;
+			  }
+	      });
+	  });
+  })(jQuery);
+  //]]>
+  {% endif %}
+  </script>
+  {% endaddtoblock %}
+
+  {% include "wiki/includes/editormedia.html" %}
+  <h1 class="page-header">{% trans "Add new article" %}</h1>
+
+  <form method="POST" class="form-horizontal" id="id_create_form">
+    {% csrf_token %}
+    {{ create_form.non_field_errors }}
+
+    <div id="div_id_title" class="form-group">
+      <div class="wiki-label col-xs-3 col-lg-2">
+        <label for="id_title" class="control-label requiredField">Title</label>
+      </div>
+
+      <div class="wiki-control col-xs-9 col-lg-10">
+        <input type="text" name="title" required id="id_title" />
+        {{ create_form.title.errors }}
+      </div>
+    </div>
+
+    <div id="div_id_slug" class="form-group">
+      <div class="wiki-label col-xs-3 col-lg-2">
+        <label for="id_slug" class="control-label requiredField">Slug</label>
+      </div>
+
+      <div class="wiki-control col-xs-9 col-lg-10">
+        <input type="text" style="width:98%;" name="slug" pattern="[a-z0-9_-]+" title="Lowercase letters, numbers, hyphens and underscores" required id="id_slug" />
+        {{ create_form.slug.errors }}
+        <p id="hint_id_slug" class="help-block">This will be the address where your article can be found. Use only alphanumeric characters and - or _.<br>Note: If you change the slug later on, links pointing to this article are <b>not</b> updated.</p>
+      </div>
+    </div>
+
+    <div id="div_id_content" class="form-group">
+      <div class="wiki-label col-xs-3 col-lg-2">
+        <label for="id_content" class="control-label ">Contents</label>
+      </div>
+
+      <div class="wiki-control col-xs-9 col-lg-10">
+        <div><textarea name="content" class="markItUp" rows="10" cols="40" id="id_content"></textarea></div>
+        {{ create_form.content.errors }}
+      </div>
+    </div>
+
+    <div id="div_id_summary" class="form-group">
+      <div class="wiki-label col-xs-3 col-lg-2">
+        <label for="id_summary" class="control-label ">Summary</label>
+      </div>
+      <div class="wiki-control col-xs-9 col-lg-10">
+        <input type="text" name="summary" id="id_summary" />
+        {{ create_form.summary.errors }}
+        <p id="hint_id_summary" class="help-block">Write a brief message for the article's history log.</p>
+      </div>
+    </div>
+
+    <div class="form-group form-actions">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-10">
+        <a href="{% url 'wiki:get' path=parent_urlpath.path %}" class="btn btn-default" id="id_go_back">
+          <span class="fa fa-arrow-left"></span>
+          {% trans "Go back" %}
+        </a>
+        <button type="submit" name="save_changes" class="btn btn-primary" id="id_save_changes">
+          <span class="fa fa-plus"></span>
+          {% trans "Create article" %}
+        </button>
+      </div>
+    </div>
+  </form>
+
+{% addtoblock "js" %}
+  <script>
+    $(document).ready(function () {
+      var formmodified = 0;
+      $("#id_create_form").change(function () {
+        formmodified = 1;
+      });
+      window.onbeforeunload = confirmExit;
+
+      function confirmExit() {
+        if (formmodified === 1) {
+          return "You have unsaved changes!";
+        }
+      }
+
+      $("#id_save_changes, #id_go_back").click(function () {
+        formmodified = 0;
+      });
+    });
+  </script>
+{% endaddtoblock %}
+{% endblock %}

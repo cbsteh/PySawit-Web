@@ -1,0 +1,50 @@
+{% extends parent_template|default:"help/base_help.html" %}
+
+{% block title %}Credits - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    dd {
+      padding-bottom: 10px;
+      padding-left: 20px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h2>Credits (acknowledgements)</h2>
+  <p>This work is a product by many people who have contributed in some way or another over the
+    years to make this web-based oil palm growth and yield model a reality:</p>
+  <dl>
+    <dt>Centre of Academic Development (CADe), Uni. Putra Malaysia</dt>
+    <dd>for the research grant to develop this site PySawit Web</dd>
+    <dt>Cheah See Siang, Sime Darby Research Sdn. Bhd.</dt>
+    <dd>for his hard work in data collection, analysis, and interpretation of oil palm data</dd>
+    <dt>Sime Darby Research Sdn. Bhd.</dt>
+    <dd>for permission to use their data on oil palm growth and yield and local weather</dd>
+    <dt>Dr. Lee Chin Tui, Felda Global Venture Plantation Malaysia Sdn. Bhd.</dt>
+    <dd>for his help in obtaining oil palm growth and yield data</dd>
+    <dt>Dr. Ian E. Henson, <i>then</i> at Malaysian Palm Oil Board (MPOB)</dt>
+    <dd>for his advice and data on modeling the oil palm growth and yield data</dd>
+    <dt>Goh Kah Joo, Applied Agriculture Research Sdn. Bhd.</dt>
+    <dd>for his advice and data on modeling the oil palm growth and yield data</dd>
+    <dt>Ministry of Science, Technology and Innovation of Malaysia</dt>
+    <dd>for the research grant: "Modelling the oil palm growth and its microclimate environment";
+      IRPA EAR RMK8; No. 01-02-04-0686-EA001; 2003-2006
+    </dd>
+    <dt>Front page photo</dt>
+    <dd>copyright (C) by <a href="https://www.123rf.com/profile_annamoskvina" target="_blank">Anna
+      Moskvia</a>, 123RF.com
+    </dd>
+    <dt>Flaticon.com</dt>
+    <dd>this site uses icons made by
+      <a href="https://www.flaticon.com/authors/dimitry-miroliubov" target="_blank">Dimitry
+        Miroliubov</a>,
+      <a href="https://www.flaticon.com/authors/freepik" target="_blank">Freepik</a>
+      <a href="https://www.flaticon.com/authors/pixel-perfect" target="_blank">Pixel perfect</a>,
+      and <a href="https://www.flaticon.com/authors/vectors-market" target="_blank">Vectors
+        Market</a> from (<a href="https://www.flaticon.com" target="_blank">www.flaticon.com</a>)
+    </dd>
+  </dl>
+
+{% endblock %}

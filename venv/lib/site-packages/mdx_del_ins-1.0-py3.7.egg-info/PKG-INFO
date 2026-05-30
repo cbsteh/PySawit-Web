@@ -1,0 +1,18 @@
+Metadata-Version: 1.1
+Name: mdx-del-ins
+Version: 1.0
+Summary: Python-Markdown extension to support the <del> and <ins> tags.
+Home-page: http://activearchives.org/
+Author: Alexandre Leray
+Author-email: alexandre@stdin.fr
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Intended Audience :: Developers
+Classifier: Environment :: Web Environment
+Classifier: Programming Language :: Python
+Classifier: Topic :: Text Processing :: Filters
+Classifier: Topic :: Text Processing :: Markup :: HTML

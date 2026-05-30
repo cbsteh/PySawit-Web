@@ -1,0 +1,42 @@
+{% extends parent_template|default:"contact/base_contact.html" %}
+{% load static %}
+
+{% block title %}Contact - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Contact</h2>
+  <form action="{% url 'contact' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_reason">Select reason for contact:</label>
+      <select class="form-control" name="reason" id="id_reason">
+        <option value="F" selected>Feedback</option>
+        <option value="C">Correction</option>
+        <option value="S">Support</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="id_name">Your full name:</label>
+      <input type="text" class="form-control" name="name" required id="id_name">
+    </div>
+
+    <div class="form-group">
+      <label for="id_email">Your email address:</label>
+      <input type="email" class="form-control" name="email" required id="id_email">
+    </div>
+
+    <div class="form-group">
+      <label for="id_text">Your message:</label>
+      <textarea name="text" class="form-control" rows="10" required id="id_text"></textarea>
+    </div>
+
+    <div class="g-recaptcha" data-sitekey="6LfiYkcUAAAAAGp5-MHProcX4lTGRs8Vi6zYt5Ut"></div>
+    <p style="margin-top:10px;"><button type="submit" class="btn btn-default" id="send">Send</button></p>
+  </form>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+{% endblock %}

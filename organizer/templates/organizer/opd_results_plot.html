@@ -1,0 +1,153 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% load static %}
+
+{% block title %}{{ title_plot }} - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .centered {
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+  hr {
+    margin-top: 0;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <table style="width:100%;">
+    <tr>
+      <td style="padding:0;">
+        <h2>{{ title_plot }}</h2>
+        <i><a href="{{ opd.get_update_url }}">{{ opd.name }}</a></i>
+      </td>
+      <td style="width:140px; padding-bottom:5px;vertical-align:bottom;text-align:right">
+        <span rel="tooltip" title="Go back">
+          <a href="{{ opd.get_results_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+            return
+          </a>
+        </span>
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="paramx">1. Select one for the x-axis: </label>
+      (<span id="plotx"></span>)
+      <select class="form-control" id="paramx" name="x">
+        {% autoescape off %} {{ params }} {% endautoescape %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="paramy">2. Select one or more for the y-axis: </label>
+      (<span id="ploty"></span>)
+      <select class="form-control" id="paramy" name="y" size="10" multiple>
+        {% autoescape off %} {{ params }} {% endautoescape %}
+      </select>
+      <p style="text-align: right;">
+        <button class="btn btn-xs" id="clear_all">
+          <i class="fas fa-eraser"></i><i> clear selections</i>
+        </button>
+      </p>
+    </div>
+
+    <div class="form-group">
+      Chart type:&nbsp;
+      <label class="radio-inline"><input type="radio" name="chart_type" value="line">Line</label>
+      <label class="radio-inline"><input type="radio" name="chart_type" value="scatter">Scatter</label>
+    </div>
+
+    <p>
+      <button type="submit" class="btn btn-sm btn-primary">Plot</button>&nbsp;
+    </p>
+  </form>
+
+  {% if img %}
+    <figure class="figure">
+      <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label }}">
+      <figcaption class="figure-caption">
+        <p class="text-center"><strong>{{ label }}</strong></p>
+      </figcaption>
+    </figure>
+  {% endif %}
+
+  {% include 'error_dialog.html' %}
+
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var selX = $('#paramx');
+    var selY = $('#paramy');
+    var rad = $('input:radio[name="chart_type"]');
+    var cht = '{{ cht }}';
+    var cookies_charttype = 'pys_plot_charttype_' + cht;
+    var cookies_x = 'pys_plot_x_' + cht;
+    var cookies_y = 'pys_plot_y_' + cht;
+
+    var defvalx = 'age';
+    var defvaly = 'totalrad';
+    if (cht === 'annual') {
+      defvalx = 'year';
+    }
+
+    $('#clear_all').click(function () {
+      selY.val([]).change();
+      return false;
+    });
+
+    selX.change(function () {
+      var x = $('option:selected', this).text();
+      $('#plotx').text(x);
+      Cookies.set(cookies_x, x, {SameSite: 'strict'});
+    });
+
+    selY.change(function () {
+      var sel = $('option:selected', this);
+      var y = '';
+      if (sel.length > 6) {
+        $(this).val(null);
+        $('#err_title').html('Error');
+        $('#err_text').html('You can select up to only 6 parameters.');
+        $('#err_Modal').modal('show');
+      } else {
+        y = sel.map(function(){ return this.value }).get().join(', ');
+      }
+      $('#ploty').text(y);
+      Cookies.set(cookies_y, y, {SameSite: 'strict'});
+    });
+
+    rad.change(function () {
+      Cookies.set(cookies_charttype, $(this).val());
+    });
+
+    $(window).load(function () {
+      var chk = Cookies.get(cookies_charttype);
+      var x = Cookies.get(cookies_x);
+      var ylst = Cookies.get(cookies_y);
+      if(typeof chk === 'undefined') {
+        chk = 'line';
+      }
+      if(typeof x === 'undefined') {
+        x = defvalx;
+      }
+      if(typeof ylst === 'undefined') {
+        ylst = defvaly;
+      }
+      var txt = '[value="' + chk + '"]';
+      rad.filter(txt).attr('checked', true);
+      selX.val(x).change();
+
+      $.each(ylst.split(', '), function(i,e) {
+        $('option[value="' + e + '"]', selY).prop('selected', true).change();
+      });
+    });
+
+  </script>
+{% endblock %}

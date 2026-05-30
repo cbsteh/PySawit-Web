@@ -1,0 +1,26 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}Delete - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <form action="{{ opd.get_delete_url }}" method="post">
+    {% csrf_token %}
+    <div class="alert alert-danger">
+      <p>Are you sure you want to delete "<span style="font-weight:bold;">{{ opd.name }}</span>"?</p>
+      {% if warn_run %}
+        <p>
+          <i class="fas fa-exclamation-triangle"></i> Deleting it will delete all of its model results.
+        </p>
+      {% endif %}
+      {% if warn_request %}
+        <p>
+          <i class="fas fa-exclamation-triangle"></i> Deleting it will delete the pending model run request.
+        </p>
+      {% endif %}
+    </div>
+    <div class="btn-group btn-group-sm">
+      <button type="submit" class="btn btn-danger" name="default">Yes, delete</button>
+      <button type="submit" class="btn btn-success" name="cancel">No, cancel</button>
+    </div>
+  </form>
+{% endblock %}

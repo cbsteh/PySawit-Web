@@ -1,0 +1,129 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}How to Register - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>How to Register</h2>
+  <div class="instructions">
+    <p>
+      You must register to fully utilize PySawit Web. Registration is a simple, straightforward
+      process:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          At the <span class="mark">Login</span> page, click on the
+          <span class="mark">Register</span> button.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/register-click.png' %}">
+          <figcaption>Fig. 1. Click to register.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will be presented with the <span class="mark">Register New User</span> page that will
+          receive your profile details. All fields with the exception of your profile photo are
+          mandatory.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/register-form.png' %}">
+          <figcaption>Fig. 2. Registration form.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          <strong>Password.</strong> Choose a secure password. Your password has to be at least 8
+          characters in length, and it must contain all of the following:</p>
+        <ol style="list-style-type: lower-alpha; padding-bottom: 10px;">
+          <li>at least 1 uppercase letter, <span class="mark">A-Z</span></li>
+          <li>at least 1 lowercase letter, <span class="mark">a-z</span></li>
+          <li>at least 1 number, <span class="mark">0-9</span>, <strong>and</strong></li>
+          <li>at least 1 symbol, <span class="mark">()[]{}|\`~!@#$%^&*_-+=;:'",<>./?</span></li>
+        </ol>
+        <p>
+          For instance, <span class="mark">Tsdf-490#</span> is a valid password because it is at
+          least 8 characters in length, has <em>at least</em> one uppercase letter, one lowercase
+          letter, one number, and one symbol.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          <strong>Email.</strong> Your email is very important because communications between
+          PySawit Web and you will be through your email. Requests for account activation and
+          password reset, for instance, are done through email. This includes Wiki notifications.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p id="id_profile_photo">
+          <strong>Profile photo.</strong> Your photo is optional, but if you choose to have one, you
+          need to upload a photo file no larger than 0.5 Mb. Your profile photo will also be resized
+          to no more than 200 pixels wide and tall.
+        </p>
+        <p>
+          To upload your photo, click on the <span class="mark">Browse</span> button (Fig. 2) to
+          find and select your photo file. This file will only be uploaded and appear in your
+          profile page after you have submitted your registration form.
+        </p>
+        <p>
+          If you have a current profile photo, it will be replaced by the new photo. The old photo
+          file will be deleted and cannot be recovered. Note that you can also choose to have no
+          profile photo by placing a check mark (tick) in the <span class="mark">Remove profile photo</span>
+          box.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Once all your details are filled in, tick the <span class="mark">reCAPTCHA</span>
+          verification box, then click on the <span class="mark">Create New Account</span> button.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/register-submit.png' %}">
+          <figcaption>Fig. 3. Submit your registration.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          A verification email will be immediately sent to your mailbox. Inside this email is a link
+          which you will have to click to verify your identity. Upon verification, your registration
+          is complete, and you will be able to fully use PySawit Web.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/register-email.png' %}">
+          <figcaption>Fig. 4. An email sent to you to verify and complete your registration.
+          </figcaption>
+        </figure>
+        <p>
+          <i class="fas fa-exclamation-circle"></i> Note: You may have to check your email spam box
+          for the email from PySawit Web.
+        </p>
+      </li>
+
+      <li>
+        <p>
+          Should you lose your account activation email, you can request that an email be sent to
+          you again by clicking on the <span class="mark">Lost activation email?</span> link (Fig.
+          2).
+        </p>
+        <p>
+          Similarly, should you forget your password, you can request for a password reset by
+          clicking on the <span class="mark">Forgot password?</span> link (Fig. 1).
+        </p>
+        <p>
+          <a href="{% url 'help_userprofile' %}#id_forgot_password"><i class="fas fa-angle-double-right"></i>
+            More details on password reset here.</a>
+        </p>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

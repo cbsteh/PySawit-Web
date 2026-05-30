@@ -1,0 +1,87 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Quick Steps - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Minimum requirements</h2>
+  <p>
+    PySawit Web is used only through your web browser. There is no additional software, like apps or
+    plug-ins, for you to download. PySawit Web can be run on your desktop, tablet, or smartphone.
+  </p>
+  <p>
+    PySawit Web is compatible with most modern web browsers that support
+    <a href="https://www.w3.org/TR/html5/">HTML5</a> and
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3">CSS3</a> standards. Here are the
+    minimum versions of several major web browsers that are compatible with PySawit Web:
+  </p>
+
+  <table class="table table-condensed" style="font-size: 0.9em;">
+    <thead>
+    <tr>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/chrome.png' %}" alt="Chrome" width="24px" height="24px"><br>Chrome
+      </th>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/firefox.png' %}" alt="Firefox" width="24px" height="24px"><br>Firefox
+      </th>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/safari.png' %}" alt="Safari" width="24px" height="24px"><br>Safari
+      </th>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/opera.png' %}" alt="Opera" width="24px" height="24px"><br>Opera
+      </th>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/edge.png' %}" alt="Edge" width="24px" height="24px"><br>Edge
+      </th>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/yandex.png' %}" alt="Yandex" width="24px" height="24px"><br>Yandex
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>v. 56<br>(2017)</td>
+      <td>v. 41<br>(2015)</td>
+      <td>v. 10.1<br>(2017)</td>
+      <td>v. 43<br>(2017)</td>
+      <td>v. 41<br>(2017)</td>
+      <td>v. 17<br>(2017)</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <em>Note: PySawit Web can also be run on
+      <img src="{% static 'organizer/img/help/logos/ie.png' %}" alt="I.E." width="24px" height="24px">
+      Internet Explorer v. 11 but will experience some minor UI issues.</em>
+  </p>
+  <p>
+    PySawit Web can be run on tablets and smartphones with the following minimum OS versions:
+  </p>
+
+  <table class="table table-condensed" style="font-size: 0.9em;">
+    <thead>
+    <tr>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/ios.png' %}" alt="iOS" width="24px" height="24px"><br>iOS
+      </th>
+      <th>
+        <img src="{% static 'organizer/img/help/logos/android.png' %}" alt="Android" width="24px" height="24px"><br>Android
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>v. 10.3<br>(2017)</td>
+      <td>v. 7<br>(2016)</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p>
+    You will require Microsoft Excel (Excel 2010 [v. 14] or above) if you wish to directly import
+    the model simulation results into Excel.
+  </p>
+
+{% endblock %}

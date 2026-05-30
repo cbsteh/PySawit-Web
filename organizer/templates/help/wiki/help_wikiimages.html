@@ -1,0 +1,164 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Wiki Help - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Insert Images</h2>
+  <div class="instructions">
+    <p>
+      You may also have images in your Wiki articles. You need to upload your images and insert them
+      into the article. Open your article you wish to edit (<span class="mark">Article 1.3</span> in
+      this example), and click on the <span class="mark">Article</span> menu and <span class="mark">Edit</span>
+      option to edit the article.
+    </p>
+    <figure>
+      <img class="img-responsive" src="{% static 'organizer/img/help/wiki/edit/edit.png' %}">
+      <figcaption>Fig. 1. An article must be opened for editing first before images can be inserted
+        in to it.
+      </figcaption>
+    </figure>
+
+    <ol>
+      <li class="li-line">
+        <p>
+          Click on the <span class="mark">Images</span> panel near the bottom of the page.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/edit-page.png' %}">
+          <figcaption>Fig. 2. Click to open the <span class="mark">Image</span> panel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          This will open the <span class="mark">Images</span> panel to reveal the option to upload
+          your images. Click on the <span class="mark">Choose File</span> button (Step 1, Fig. 3),
+          after which a dialog box will appear where you will need to find and select your image
+          file (in this example, the image file to upload is <span class="mark">demo.png</span>) in
+          your local computer (Step 2 and 3, Fig. 4). Once selected, click on the
+          <span class="mark">Add Image</span> button (Step 4, Fig. 3) to upload your file.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/add-new-image.png' %}">
+          <figcaption>Fig. 3. Upload your image file.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/find-image.png' %}">
+          <figcaption>Fig. 4. Find your image file and select it.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          The previous step only uploads your image file, but it is not yet inserted in your
+          article. To do so, place your cursor at the location where you want the uploaded image to
+          appear in your article. In this example, the image will be placed at the end of the
+          article, so navigate to the end of the article, and place the cursor at the desired
+          insertion point.
+        </p>
+        <p>
+          Now open the <span class="mark">Images</span> panel again, and click on the
+          <span class="mark">Insert</span> link of the image you wish to insert.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/insert-image.png' %}">
+          <figcaption>Fig. 5. Click to insert your image into the article.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          An <span class="mark">Insert Image</span> dialog box will appear prompting you for a few
+          options before the selected image is inserted. The first is the <span class="mark">Alignment</span>
+          option. Decide if you wish to have the image aligned to the <span class="mark">left</span>,
+          <span class="mark">right</span>, or <span class="mark">center</span>.
+        </p>
+        <p>
+          Next, for the image <span class="mark">Size</span> field, decide if the inserted image
+          should appear <span class="mark">small</span>, <span class="mark">medium</span>,
+          <span class="mark">large</span>, or <span class="mark">original</span> size in the
+          article. You can also leave the size to <span class="mark">default</span> for PySawit Web
+          to decide on the appropriate image size to show.
+        </p>
+        <p>
+          Enter a suitable caption for the image in the <span class="mark">Caption</span> field,
+          after which you can click on the <span class="mark">Insert image</span> button.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/image-caption.png' %}">
+          <figcaption>Fig. 6. Choose the image size and alignment, and enter the caption for the
+            image.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          The image is now inserted in your article (Fig. 7) via the following syntax:
+        </p>
+        <pre>
+  [image:2]
+      Demo inserted picture
+</pre>
+        <p>
+          where <span class="mark">[image:2]</span> indicates the image file with the id
+          <span class="mark">2</span> (see Fig. 5). Every image file has a unique id, and the file
+          that was just uploaded, <span class="mark">demo.png</span>, was assigned the id
+          <span class="mark">2</span>. Next is the line below the image, <span class="mark">Demo inserted picture</span>
+          which is the image caption, and a caption must be indented by four spaces.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/image-inserted.png' %}">
+          <figcaption>Fig. 7. During an article editing session, the image position and specifications
+            are shown as an image syntax.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Once saved, the article should appear like that in Fig. 8.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/images/image-in-text.png' %}">
+          <figcaption>Fig. 8. The inserted image in the article.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          You can easily modify the specifications of the inserted image by editing its image
+          syntax. In Fig. 7, the inserted image syntax is:
+        </p>
+        <pre>
+  [image:2]
+      Demo inserted picture
+</pre>
+        <p>
+          which can be modified to:
+        </p>
+        <pre>
+  [image:2 align:right size:large]
+      Demo inserted picture
+</pre>
+        <p>
+          to make the image appear instead in <span class="mark">large</span> size and aligned to
+          the <span class="mark">right</span>. Likewise,
+        </p>
+        <pre>
+  [image:2 align:left size:small]
+      Demo inserted picture
+</pre>
+        <p>
+          will make the image appear in <span class="mark">small</span> size and aligned to the
+          <span class="mark">left</span>. Note that if the fields <span class="mark">align</span>
+          and <span class="mark">size</span> are omitted, like in the case in Fig. 7, then the image
+          will appear in <span class="mark">default</span> size and aligned <span class="mark">center</span>.
+        </p>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends parent_template|default:"base.html" %}
+{% load static %}
+
+{% block title %}Page Not Found - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+  <div class="jumbotron">
+    <h2 class="display-4">
+      <i class="fas fa-exclamation-triangle"></i> Error 404
+    </h2>
+    <p class="lead">
+      The page you are looking for does not exist. If you are sure this problem is a bug, please contact the site administrator at:
+      <img src="{% static 'organizer/img/admin-email.png' %}" style="vertical-align:middle;" width="180px" height="'19px">
+    </p>
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'organizer_opd_list' %}" role="button">Home</a>
+    </p>
+  </div>
+
+{% endblock %}

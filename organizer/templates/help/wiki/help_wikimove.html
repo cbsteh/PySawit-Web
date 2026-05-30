@@ -1,0 +1,72 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Wiki Help - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Move Articles</h2>
+  <div class="instructions">
+    <p>
+      Articles can be easily moved to another location, but any links to the article being moved
+      will not be updated. For instance, Article A has a link to Article B, and if Article B is
+      moved to another location, the link in Article A will still point to the old location of
+      Article B. Consequently, such links must be manually updated.
+    </p>
+    <p>
+      In this example, <span class="mark">Article 1.3</span> will be moved from its current location
+      (under <span class="mark">Article 1</span>) to a new location under <span class="mark">Article 2</span>,
+      so that <span class="mark">Article 1.3</span> is now a child or descendant article of
+      <span class="mark">Article 2</span>.
+    </p>
+    <figure>
+      <img class="img-responsive" src="{% static 'organizer/img/help/wiki/move/original-position.png' %}">
+      <figcaption>Fig. 1. <span class="mark">Article 1.3</span> will be moved from under
+        <span class="mark">Article 1</span> to under <span class="mark">Article 2</span>.
+      </figcaption>
+    </figure>
+    <p>
+      The following describes how to move an article:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          Navigate to the article you want to move (<span class="mark">Article 1.3</span> in this
+          example), and open it for editing (<a href="{% url 'help_wikiedit' %}">see here for
+          instructions on editing articles</a>). Click on the <span class="mark">Move</span> button.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/move/move-article.png' %}">
+          <figcaption>Fig. 2. Click the <span class="mark">Move</span> button to initiate the move.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Select the article's move destination in the <span class="mark">Destination</span>
+          dropdown list, then click on the <span class="mark">Move article</span> button.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/move/move.png' %}">
+          <figcaption>Fig. 3. Select the destination of move.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          The article is now located at the intended new location. Recall that any links to
+          <span class="mark">Article 1.3</span> will not be updated.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/move/new-position.png' %}">
+          <figcaption>Fig. 4. <span class="mark">Article 1.3</span> is now under <span class="mark">Article 2</span>
+            (compare with Fig. 1).
+          </figcaption>
+        </figure>
+      </li>
+
+    </ol>
+
+  </div>
+
+{% endblock %}

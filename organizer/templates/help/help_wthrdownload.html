@@ -1,0 +1,129 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Download Options - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Download Options</h2>
+  <div class="instructions">
+    <p>
+      All weather files listed in your <span class="mark">Weather Files</span> page can be
+      downloaded to your local computer. A weather file can be downloaded as a plain text file or an
+      Excel file. You can also upload your Excel file and have PySawit Web update that file with the
+      weather data.
+    </p>
+
+    <p>To download a weather file:</p>
+    <ol>
+      <li class="li-line">
+        Go to your <span class="mark">Weather Files</span> page, and click on the
+        <span class="mark">download</span> link under the weather file you wish to download. In this
+        example, the <span class="mark">merlimau-87-08.txt</span> is the file of interest and that
+        will be downloaded. Thus, click on its <span class="mark">download</span> link.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/download-link.png' %}">
+          <figcaption>Fig. 1. Download a selected weather file.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        You will be presented with a <span class="mark">Download Weather</span> page where you have
+        three options to download the weather data as: 1) a plain text file, 2) an Excel file, or 3)
+        update an existing Excel file.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/download-panels.png' %}">
+          <figcaption>Fig. 2. Three options available to download the weather file.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <strong>Option 1: Plain Text File.</strong> Click on the
+        <span class="mark">1. Text File</span> panel (Fig. 2) which will open up the
+        <span class="mark">Text File</span> panel. Now click on the <span class="mark">Download text file</span>
+        button to begin the download process. The text file will be saved in your browser's default
+        folder.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/download-text-panel.png' %}">
+          <figcaption>Fig. 3. Download as plain text file.</figcaption>
+        </figure>
+        You can use your computer's text editor (such as Notepad in Windows) to view the weather
+        text file. The first three lines of the file, starting with the hash symbol
+        <span class="mark">#</span>, are comments and are ignored by PySawit Web; they serve only
+        for documentation purposes. The line immediately after the comment lines, that is the fourth
+        line, lists the column headers, denoting the daily weather parameters, where
+        <span class="mark">doy</span>, <span class="mark">tmin</span>,
+        <span class="mark">tmax</span>, <span class="mark">wind</span> and
+        <span class="mark">rain</span> denote the column data for day of year, minimum air
+        temperature (&deg;C), maximum air temperature (&deg;C), wind speed (m s<sup>-1</sup>), and
+        rain (mm), respectively. Finally, the asterisk <span class="mark">*</span> before
+        <span class="mark">doy</span> indicates that <span class="mark">doy</span> is the key, used
+        by PySawit Web to retrieve the daily weather properties for a given day of year. PySawit Web
+        requires all weather data files to prefix the <span class="mark">doy</span> field with an
+        asterik <span class="mark">*</span>.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/txt-new.png' %}">
+          <figcaption>Fig. 4. The downloaded weather file viewed in a text editor.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <strong>Option 2: Excel File.</strong> Click on the
+        <span class="mark">2. New Excel File</span> panel (Fig. 2) which will open up the
+        <span class="mark">New Excel File</span> panel. Now click on the <span class="mark">Download Excel file</span>
+        button to begin the download process. The text file will be saved in your browser's default
+        folder.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/download-xl-panel.png' %}">
+          <figcaption>Fig. 5. Download as an Excel file.</figcaption>
+        </figure>
+        Open the downloaded file with Excel to view the weather data. Your weather data is saved in
+        the <span class="mark">wthr</span> worksheet.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/xl-new.png' %}">
+          <figcaption>Fig. 6. Downloaded Excel file, viewed in Excel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <strong>Option 3: Update Excel File.</strong> Click on the <span class="mark">3. Updated Excel File</span>
+        panel (Fig. 2) which will open up the <span class="mark">Updated Excel File</span> panel.
+        Click on the <i class="fas fa-search"></i> button (step 1, Fig. 7).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/download-browse.png' %}">
+          <figcaption>Fig. 7. You can upload your own Excel file and have it updated with the
+            weather data.
+          </figcaption>
+        </figure>
+        Find your Excel file (step 2, Fig. 8) and click on the <span class="mark">Open</span> button
+        to select it (step 3, Fig. 8).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/download/upload-xl.png' %}">
+          <figcaption>Fig. 8. File browser to find and select your Excel file.</figcaption>
+        </figure>
+        Now click on the <span class="mark">Update</span> button (step 4, Fig. 7) to upload and
+        update your Excel file. Once the update is completed, a copy of your Excel file will be
+        downloaded to your browser's default folder. Your weather data is saved in the
+        <span class="mark">wthr</span> worksheet.
+      </li>
+
+      <li>
+        And finally ...
+        <div class="well" style="background-color: snow;">
+          <h3><i class="fas fa-question-circle"></i> New vs. Update</h3>
+          <p>What is the difference between downloading the weather data as a new Excel file (option
+            2) and updating an existing Excel file (option 3)?</p>
+          <p>In option 2, a new and empty Excel file will be created. A worksheet named
+            <span class="mark">wthr</span> will be created and be populated with the weather data.
+          </p>
+          <p>Option 3 allows you to use your existing Excel file like a template to receive only
+            updated or new weather data, while still preserving, if any, the formatings, Excel
+            formulas, or charts you might have. Without option 3, each time you download a weather
+            file, you will have to repeat whatever customizations (<em>e.g.</em>, charts, formulas,
+            or formatings) you like to have for the weather data.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+{% endblock %}

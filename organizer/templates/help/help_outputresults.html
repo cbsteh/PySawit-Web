@@ -1,0 +1,143 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Simulation Results - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Simulation Results</h2>
+  <div class="instructions">
+    <p>
+      When a model run is completed, the model results are stored and can be accessed from your
+      <span class="mark">Run Files</span> page. Model results can be viewed in a table or chart
+      form, and they can also be downloaded to your local computer. Note that whenever you run your
+      model again, the previous model results will be cleared for the new model run output.
+    </p>
+    <p>
+      The following describes how to access your model results:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          Simulation results from your latest model run can be accessed from your
+          <span class="mark">Run Files</span> listing page. Under the selected run file, click on
+          the <span class="mark">results</span> link.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/run-results.png' %}">
+          <figcaption>Fig. 1. Click to access your model results.</figcaption>
+        </figure>
+        Please note that each run file has its own set of model results.
+      </li>
+
+      <li class="li-line">
+        <p>
+          Your <span class="mark">Results</span> page presents the simulation results as two groups:
+          Annual and Daily. The annual results are a summary of the daily model results.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results.png' %}">
+          <figcaption>Fig. 2. The model <span class="mark">Results</span> main page.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Click on the <span class="mark">Annual results</span> link (Fig. 2) to view the annual
+          model results in a table or grid form.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-table.png' %}">
+          <figcaption>Fig. 3. Model results in a table form.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Click on the <span class="mark">charts</span> link under the <span class="mark">Annual results</span>
+          (Fig. 2) to plot the annual model results in a series of pre-defined charts. These charts
+          are categorized under different panels, and these panels are expandable. Click on any
+          panel to toggle between expand and collapse to reveal or hide these charts, respectively.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-charts.png' %}">
+          <figcaption>Fig. 4. Model results can also be plotted as charts. Click on any panel to
+            toggle between revealing and hiding the charts.
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-charts-yield.png' %}">
+          <figcaption>Fig. 5. Plotted model results related to yield and its components.
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-charts-crop.png' %}">
+          <figcaption>Fig. 6. Plotted model results related to crop growth parameters.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You may choose which parameters to plot in a chart. For custom plots, click on the
+          <span class="mark">plot</span> link under the <span class="mark">Annual results</span>
+          (Fig. 2). You will be presented with a page to select at least a pair of model parameters
+          to plot. For the x-axis, choose one parameter (Step 1), and for the y-axis, you can select
+          up to six parameters (Step 2). Choose if you wish to have a scatter or line chart (Step
+          3). When ready, click on the <span class="mark">Plot</span> button to plot the chart (Step
+          4). Note that you can clear all the y-axis selections by clicking on the
+          <span class="mark">clear selections</span> button.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-plot.png' %}">
+          <figcaption>Fig. 7. Customized plots are available where you can choose which model
+            parameters are to plotted.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          As an example, Fig 8 and 9 show that <span class="mark">actual_T</span> (actual
+          transpiration) was plotted against <span class="mark">LAI</span> (leaf area index) as a
+          scatter chart.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/lai-vs-actualT.png' %}">
+          <figcaption>Fig. 8. Choose actual transpiration for the y-axis and leaf area index for the
+            x-axis.
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/lai-vs-actualT-plot.png' %}">
+          <figcaption>Fig. 9. Scatter plot of actual transpiration against leaf area index.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You can access the daily model results in the same manner as described earlier in Fig. 2
+          to 9 except you will instead click on the <span class="mark">Daily results</span> name or
+          its links under it (Fig. 2).
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Technically, Raw input (Fig. 2) is not a model output but instead a model input file in
+          JSON format. PySawit Web reads in your model input and converts them into this JSON-format
+          text file for the oil palm model. You will normally have no use of this file, but an
+          option to view (and download) this file is provided for debugging or checking purposes for
+          specialists. Click on the <span class="mark">Raw input</span> name to view the JSON-format
+          form of the model input. Clicking on the <span class="mark">download</span> button will
+          download the text file into your local computer.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-input.png' %}">
+          <figcaption>Fig. 10. Model input in JSON format.</figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

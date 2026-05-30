@@ -1,0 +1,92 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Modify Weather File - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static 'organizer/css/timeline.css' %}" rel="stylesheet">
+  <style>
+    ol li {
+      margin-left: -10px;
+    }
+
+    .timeline-body a {
+      text-decoration: none;
+      font-style: italic;
+    }
+
+    .timeline-body a:hover {
+      font-weight: bold;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="page-header">
+      <h2 id="timeline">Steps to modify weather data</h2>
+      <p>
+        If you wish to change the data in a weather file, you need to
+        download the weather file to your local computer first, then make the changes (using
+        Excel, for instance), and finally re-upload the modified weather file into
+        PySawit Web. PySawit Web does not support <em>in situ</em> changes to weather data.
+      </p>
+    </div>
+    <ul class="timeline">
+      <li class="timeline-inverted">
+        <div class="timeline-badge primary"><i class="fas fa-download"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">Download</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Download the weather file as a plain text file or Excel file.
+            </p>
+            <hr>
+            <a href="{% url 'help_wthrdownload' %}">How to download?</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge primary"><i class="far fa-edit"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">Modify</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Working on the downloaded file, modify the weather data. You can use Excel
+              to simplify the modification process.
+            </p>
+            <hr>
+            <a href="{% url 'help_wthrimport' %}">How to import a weather file into Excel?</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="timeline-inverted">
+        <div class="timeline-badge primary"><i class="fas fa-upload"></i></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">Upload</h4>
+          </div>
+          <div class="timeline-body">
+            <p>
+              Save the modified weather file, and upload this file into PySawit Web. If you
+              are using Excel to modify your weather file, you will have to save the
+              file as a CSV file before uploading.
+            </p>
+            <hr>
+            <a href="{% url 'help_wthrprepare' %}">How to create a weather file?</a><br>
+            <a href="{% url 'help_wthrupload' %}">How to upload?</a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+{% endblock %}

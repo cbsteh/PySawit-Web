@@ -1,0 +1,37 @@
+Changes:
+C:\Miniconda3\Lib\site-packages\wiki\plugins\images\models.py
+Line 114-120
+    try:
+        path = instance.image.path.split("/")[:-1]
+    except NotImplementedError:
+        # This backend storage doesn't implement 'path' so there is no path to delete
+        return
+    except ValueError:     # CBSTEH: in case file already deleted
+        return
+
+
+
+Setup requires:
+python==3.6.3
+django===2.1
+matplotlib===3.0.0?
+scipy===?
+
+wiki==0.4.1
+django-nyt
+django-mptt
+django-sekizai
+sorl_thumbnail
+pillow==4.2.1 (don't upgrade!)
+markdown==2.6.11 (don't upgrade!)
+python-decouple
+django-otp
+qrcode
+MarkdownSuperscript
+MarkdownSubscript
+mdx_del_ins
+django-referrer-policy
+openpyxl
+
+Mailgun Public key: pubkey-1af101bb65f661d02ba545ef7ed9517c
+pip install git+git://github.com/aleray/mdx_del_ins.git

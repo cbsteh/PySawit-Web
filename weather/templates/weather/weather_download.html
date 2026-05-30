@@ -1,0 +1,251 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+{% load static %}
+
+{% block title %}Download - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .modal-header-danger {
+      color: #fff;
+      padding: 9px 15px;
+      border-bottom: 1px solid #eee;
+      background-color: #d9534f;
+      -webkit-border-top-left-radius: 5px;
+      -webkit-border-top-right-radius: 5px;
+      -moz-border-radius-topleft: 5px;
+      -moz-border-radius-topright: 5px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .btn-download {
+      width: 170px;
+    }
+
+    .panel-title a:focus:not(:hover) {
+      text-decoration: none;
+    }
+
+    .err {
+      color: red;
+    }
+
+    .xl_download_wait {
+      display: none;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+  <div class="alert alert-info xl_download_wait">
+    <h3 id="info_title"><i class="fas fa-spinner fa-spin"></i> Please wait ...</h3>
+    <span id="info_text">
+      Preparing your Excel file, after which it will be downloaded.
+    </span>
+  </div>
+
+  {% if show_help %}
+    <div class="alert alert-info helpbar" role="alert">
+      <button class="btn btn-xs close" data-dismiss="alert">
+        <span rel="tooltip" data-placement="left" title="Close panel">
+          <i class="fas fa-times" style="font-size:14px"></i>
+        </span>
+      </button>
+      <i class="fas fa-exclamation-circle"></i> Weather data can be downloaded as:
+      1) a plain text file,
+      2) a new Excel file (workbook), or
+      3) an updated Excel file.
+      Files will be saved in your browser's default download folder.
+    </div>
+  {% endif %}
+
+  <table style="width:100%;">
+    <tr>
+      <td style="padding:0;">
+        <h2>Download Weather</h2>
+      </td>
+      <td style="width:140px; padding-bottom:5px;vertical-align:bottom;text-align:right">
+        <span rel="tooltip" title="Go back">
+          <a href="{% url 'weather_list' %}" class="btn btn-primary btn-xs" tabindex="-1">
+            return
+          </a>
+        </span>
+      </td>
+    </tr>
+  </table>
+
+  <form action="{{ wthr.get_download_url }}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="panel-group" id="accordion">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-plus"></span> 1. Text File</a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body">
+            <p>
+              Weather data will saved in a comma-delimited plain text file.
+              The file will be named <strong>"{{ filename }}.txt"</strong>.
+            </p>
+            <button type="submit" class="btn btn-primary btn-download" id="btn_txt" name="txt">
+              <i class="fas fa-download"></i> Download text file
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-plus"></span> 2. New Excel File</a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+          <div class="panel-body">
+            <p>
+              Weather data will be saved in a new Excel workbook named
+              <strong>"{{ filename }}.xlsx"</strong>.
+            </p>
+            <button type="submit" class="btn btn-primary btn-download" id="btn_xl" name="xl">
+              <i class="fas fa-download"></i> Download Excel file
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-plus"></span> 3. Updated Excel File</a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+          <div class="panel-body">
+            <p>
+              Upload your Excel workbook, and the weather data will be written to your
+              file. Data will always be written beginning in <strong>cell A1</strong>
+              in the worksheet called <strong>"{{ wksname }}"</strong>. If this worksheet
+              does not exist, it will be created. Any existing data in the
+              <strong>"{{ wksname }}"</strong> worksheet will be overwritten without
+              notice to accomodate this new data.
+            </p>
+            <p>
+              Click the <i class="fas fa-search"></i> button to locate your Excel workbook,
+              then click the <strong><i class="fas fa-download"></i> Update</strong>
+              button to update and download a copy of your workbook.
+            </p>
+
+            <div class="input-group col-md-6">
+              <label class="input-group-btn">
+                  <span class="btn btn-info">
+                    <i class="fas fa-search"></i> <input type="file" name="myfile" style="display: none;"
+                                                         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                                                         application/vnd.openxmlformats-officedocument.spreadsheetml.template,
+                                                         application/vnd.ms-excel.sheet.macroEnabled.12,
+                                                         application/vnd.ms-excel.template.macroEnabled.12">
+                  </span>
+              </label>
+
+              <label for="filename"></label>
+              <input type="text" class="form-control" id="filename" readonly>
+
+              <label class="input-group-btn">
+                <input type="hidden" id="download_token_value_id">
+                <button type="submit" class="btn btn-primary" name="update_xl" id="btn_update_xl">
+                  <i class="fas fa-download"></i> Update
+                </button>
+              </label>
+            </div>
+            <i>Note: Max. file size allowed is 7 Mb.</i>
+            <p><span id="err_msg" class="err"></span></p>
+            <input type="hidden" name="token_value" id="id_token_value">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var wait = $('.xl_download_wait');
+    var btn_xl = $("#btn_xl");
+    var btn_update_xl = $("#btn_update_xl");
+    var fileDownloadCheckTimer = null;
+
+    window.setTimeout(function () {
+      $(".helpbar").fadeTo(500, 0).slideUp(500, function () {
+        $(this).remove();
+      });
+    }, 7000);
+
+    $(document).ready(function () {
+      // Add minus icon for collapse element which is open by default
+      $(".collapse.in").each(function () {
+        $(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+      });
+
+      // Toggle plus minus icon on show hide of collapse element
+      $(".collapse").on('show.bs.collapse', function () {
+        $(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+      }).on('hide.bs.collapse', function () {
+        $(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+      });
+    });
+
+    btn_xl.click(function () {
+      blockUIForDownload();
+    });
+    btn_update_xl.click(function () {
+      blockUIForDownload();
+    });
+
+    function blockUIForDownload() {
+      var token = new Date().getTime(); //use the current timestamp as the token value
+      $('#id_token_value').val(token);
+      wait.show();
+      fileDownloadCheckTimer = window.setInterval(function () {
+        var cookieValue = Cookies.get('fileDownloadToken');
+        if (parseInt(cookieValue) === token)
+          finishDownload();
+      }, 1000);
+    }
+
+    function finishDownload() {
+      window.clearInterval(fileDownloadCheckTimer);
+      Cookies.remove('fileDownloadToken'); //clears this cookie value
+      wait.hide();
+    }
+
+    $(':file').on('fileselect', function (event, numFiles, label) {
+      var input = $('#filename');
+      var log = numFiles > 1 ? numFiles + ' files selected' : label;
+      if (input.length) {
+        input.val(log);
+      } else {
+        if (log) alert(log);
+      }
+    });
+
+    $(document).on('change', ':file', function () {
+      var input = $(this);
+      var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+      var filesize = input.get(0).files[0].size;
+      if (filesize > 7 * 1024 * 1024) {
+        $('#err_msg').html('File is too large! Limit is 7 Mb.');
+        input.val('');
+      } else {
+        $('#err_msg').html('');
+        var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      }
+    });
+
+  </script>
+{% endblock %}

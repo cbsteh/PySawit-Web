@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="PySawit Web">
+	<meta name="author" content="Christopher Teh Boon Sung">
+
+	<link rel="shortcut icon" href="{% static 'organizer/img/favicon.ico' %}">
+
+	<link rel="stylesheet" href="{% static 'organizer/css/bootstrap-custom.min.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono%7CDosis" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'organizer/css/base.css' %}">
+	<link rel="stylesheet" href="{% static 'organizer/css/highlight.css' %}">
+	<link rel="stylesheet" href="{% static 'organizer/css/font-awesome-animation.min.css' %}">
+
+  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'organizer/js/jquery-1.12.2.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'organizer/js/bootstrap-3.0.3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'organizer/js/highlight.pack.js' %}"></script>
+  <script type="text/javascript" src="{% static 'organizer/js/js.cookie.js' %}"></script>
+
+	<title>{% block title %}PySawit Web{% endblock %}</title>
+
+  <!-- Begin Cookie Consent plugin -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" integrity="sha384-AJ82o1PQz2xMlVWjJ+IdPSfyCVS/nJeYbLcpPhm/cEPrewaEdaYkaG6LCsquvogf" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js" integrity="sha384-l+e8/kt7mRYg7RUc/i3MsNwDJlWxkWkFDX10LF/iNglZLT96GBMAPrbaH2GP2lQy" crossorigin="anonymous"></script>
+  <script>
+  window.addEventListener("load", function(){
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#000"
+      },
+      "button": {
+        "background": "#f1d600"
+      }
+    },
+    "position": "top",
+    "content": {
+      "message": "Note: PySawit Web website uses cookies to work properly.",
+      "href": "{% url 'privacy_policy' %}"
+    }
+  })});
+  </script>
+  <!-- End Cookie Consent plugin -->
+
+	{% block extra_css %}{% endblock %}
+</head>
+
+<body class="homepage">
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+
+    {% block menutop %}
+			<!-- Collapsed navigation -->
+			<div class="navbar-header">
+				<!-- Expander button -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="{% url 'title' %}" style="font-weight:bold;">PySawit Web</a>
+			</div>
+
+			<!-- Expanded navigation -->
+			<div class="navbar-collapse collapse">
+				<!-- Main navigation -->
+				{% url 'organizer_opd_list' as opdlist %}
+				{% url 'weather_list' as wthrlist %}
+        {% url 'wiki:root' as wiki %}
+  			{% url 'contact' as contact %}
+  			{% url 'about' as about %}
+				{% url 'dj-auth:logout' as userlogout %}
+  			{% url 'dj-auth:login' as userlogin %}
+				{% url 'dj-auth:pw_change' as userpwchange %}
+				{% url 'dj-auth:view' as userview %}
+				{% url 'dj-auth:edit' as useredit %}
+        {% url 'md_cheatsheet' as md_cheatsheet %}
+
+				<ul class="nav navbar-nav">
+          {% if user.is_authenticated %}
+            <li {% if request.path == opdlist %}class="active"{% endif %}>
+              <a href="{{ opdlist }}">Run</a>
+            </li>
+            <li {% if request.path == wthrlist %}class="active"{% endif %}>
+              <a href="{{ wthrlist }}">Weather</a>
+            </li>
+            <li {% if request.path == wiki %}class="active"{% endif %}>
+              <a href="{{ wiki }}"><img src="{% static 'organizer/img/wiki.svg' %}" width="20px" height="20px"> Wiki</a>
+            </li>
+          {% endif %}
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li {% if request.path == contact %}class="active"{% endif %}>
+                <a href="{% url 'contact' %}">Contact</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li {% if '/help/' in request.path %}class="active"{% endif %}>
+                <a href="{% url 'help' %}">How to use</a>
+              </li>
+              <li {% if request.path == md_cheatsheet %}class="active"{% endif %}>
+                <a href="{% url 'md_cheatsheet' %}" target="_blank">Markdown Cheat Sheet &hellip;</a>
+              </li>
+              <li {% if request.path == about %}class="active"{% endif %}>
+                <a href="{% url 'about' %}">About</a>
+              </li>
+            </ul>
+          </li>
+
+          {% if user.is_authenticated %}
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="badge badge-pill">{{ user.username }}</span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li {% if request.path == userlogout %}class="active"{% endif %}>
+                  <a href="{% url 'dj-auth:logout' %}">
+                    <i class="fas fa-power-off"></i> Log out
+                  </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li {% if request.path == userview %}class="active"{% endif %}>
+                  <a href="{% url 'dj-auth:view' %}">View my profile</a>
+                </li>
+                <li {% if request.path == useredit %}class="active"{% endif %}>
+                  <a href="{% url 'dj-auth:edit' %}">Edit my profile</a>
+                </li>
+                <li {% if request.path == userpwchange %}class="active"{% endif %}>
+                  <a href="{% url 'dj-auth:pw_change' %}">Change my password</a>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li {% if request.path == userlogin %}class="active"{% endif %}>
+              <a href="{% url 'dj-auth:login' %}">
+                Log in/Register
+              </a>
+            </li>
+          {% endif %}
+				</ul>
+			</div>
+	  {% endblock %}
+  	</div>
+	</div>
+
+	<div class="container">
+		<div class="col-md-12" role="main">
+      {% include 'messages.html' %}
+			{% block overlay %}{% endblock %}
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+
+	<footer class="col-md-12">
+		<hr>
+    {% block footer %}
+      <p>Copyright <i class="far fa-copyright"></i> {% now 'Y' %}&nbsp;
+        <a href="http://www.christopherteh.com" tabindex="-1">Christopher Teh Boon Sung</a>
+      </p>
+    {% endblock %}
+	</footer>
+
+  <script>
+    var navbar_collapse = $('.navbar-collapse');
+    navbar_collapse.click(function(e) {
+      var y = $(this).outerHeight() - e.offsetY;
+      var collapsed = navbar_collapse.hasClass("collapse");
+      if (!collapsed && y < 20) {
+        var _opened = navbar_collapse.hasClass("in");
+        if (_opened) {
+          navbar_collapse.collapse('hide');
+        }
+      }
+    });
+  </script>
+
+	{% block extra_js %}{% endblock %}
+</body>
+</html>

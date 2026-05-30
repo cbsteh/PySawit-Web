@@ -1,0 +1,41 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% load static %}
+
+{% block title %}Input - {{ block.super }}{% endblock %}
+
+{% block content %}
+  {% if norun %}
+    <h2>No model input available for <a href="{{ opd.get_update_url }}">{{ opd.name }}</a></h2>
+    <a href="{% url 'organizer_opd_list' %}" class="btn btn-primary" role="button">Return</a>
+  {% else %}
+    <table style="width:100%;">
+      <tbody>
+      <tr>
+        <td style="padding:0;">
+          <h2>Model Input</h2>
+          <i><a href="{{ opd.get_update_url }}">{{ opd.name }}</a></i>
+        </td>
+        <td style="width:140px;padding-bottom:5px;vertical-align:bottom;text-align:right">
+
+        <span rel="tooltip" title="Download input a text file">
+          <a href="{{ opd.get_download_input_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+            download
+          </a>
+        </span>&nbsp;
+
+        <span rel="tooltip" title="Go back">
+          <a href="{{ opd.get_results_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+            return
+          </a>
+        </span>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <pre style="tab-size: 2; height: 50vh;">{{ opd.view_input_results }}</pre>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,213 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% load static %}
+
+{% block title %}Annual Charts - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .centered {
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    a:link {
+      text-decoration: none;
+    }
+
+    a:hover {
+      font-weight: bold;
+    }
+
+    .panel {
+      border-color: darkkhaki;
+    }
+    .panel-body {
+      background: #F8F8F8;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% if nodata %}
+    <i class="fas fa-exclamation-circle"></i> Insufficient data.
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      <button class="btn btn-xs close" data-dismiss="alert">
+        <span rel="tooltip" data-placement="left" title="Close panel">
+          <i class="fas fa-times" style="font-size:14px"></i>
+        </span>
+      </button>
+      <i class="fas fa-check"></i>&nbsp;
+      Click on the panels to toggle between open and close, and right click on any chart to save it
+      as an image file.
+    </div>
+  {% endif %}
+
+  <table style="width:100%;">
+    <tr>
+      <td style="padding:0;"><h2>Annual Charts</h2>
+      <i><a href="{{ opd.get_update_url }}">{{ opd.name }}</a></i>
+      </td>
+
+      <td style="width:140px; padding-bottom:5px;vertical-align:bottom;text-align:right">
+        <span rel="tooltip" title="Go back">
+          <a href="{{ opd.get_results_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+            return
+          </a>
+        </span>
+      </td>
+    </tr>
+  </table>
+
+  {% if nodata %}
+    <div class="well well-sm"><em>No charts available. Require at least two years of data.</em>
+    </div>
+  {% else %}
+    <div class="panel-group">
+      <div class="panel">
+        <div class="panel-heading" style="background: #f0e68c;">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#yield" id="panel-yield">
+              <span class="glyphicon glyphicon-plus"></span> Yield components
+            </a>
+          </h4>
+        </div>
+        <div id="yield" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% for label, img in yield_list %}
+              <figure class="figure">
+                <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label }}">
+                <figcaption class="figure-caption">
+                  <p class="text-center"><b>Fig. {{ forloop.counter }}.</b> {{ label }}</p>
+                </figcaption>
+              </figure>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-group">
+      <div class="panel">
+        <div class="panel-heading" style="background: #f1e897;">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#crop" id="panel-crop">
+              <span class="glyphicon glyphicon-plus"></span> Crop growth
+            </a>
+          </h4>
+        </div>
+        <div id="crop" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% for label, img in crop_list %}
+              <figure class="figure">
+                <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label }}">
+                <figcaption class="figure-caption">
+                  <p class="text-center"><b>Fig. {{ forloop.counter }}.</b> {{ label }}</p>
+                </figcaption>
+              </figure>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-group">
+      <div class="panel">
+        <div class="panel-heading" style="background: #f3eba3;">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#stress" id="panel-stress">
+              <span class="glyphicon glyphicon-plus"></span> Stresses
+            </a>
+          </h4>
+        </div>
+        <div id="stress" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% for label, img in stress_list %}
+              <figure class="figure">
+                <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label }}">
+                <figcaption class="figure-caption">
+                  <p class="text-center"><b>Fig. {{ forloop.counter }}.</b> {{ label }}</p>
+                </figcaption>
+              </figure>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-group">
+      <div class="panel">
+        <div class="panel-heading" style="background: #f4edae;">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#water" id="panel-water">
+              <span class="glyphicon glyphicon-plus"></span> Water
+            </a>
+          </h4>
+        </div>
+        <div id="water" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% for label, img in water_list %}
+              <figure class="figure">
+                <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label }}">
+                <figcaption class="figure-caption">
+                  <p class="text-center"><b>Fig. {{ forloop.counter }}.</b> {{ label }}</p>
+                </figcaption>
+              </figure>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-group">
+      <div class="panel">
+        <div class="panel-heading" style="background: #f6f0ba;">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#meteo" id="panel-meteo">
+              <span class="glyphicon glyphicon-plus"></span> Meteorology/Environment
+            </a>
+          </h4>
+        </div>
+        <div id="meteo" class="panel-collapse collapse">
+          <div class="panel-body">
+            {% for label, img in meteo_list %}
+              <figure class="figure">
+                <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label }}">
+                <figcaption class="figure-caption">
+                  <p class="text-center"><b>Fig. {{ forloop.counter }}.</b> {{ label }}</p>
+                </figcaption>
+              </figure>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    $(document).ready(function () {
+      // Add minus icon for collapse element which is open by default
+      $(".collapse.in").each(function () {
+        $(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+      });
+
+      // Toggle plus minus icon on show hide of collapse element
+      $(".collapse").on('show.bs.collapse', function () {
+        $(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+      }).on('hide.bs.collapse', function () {
+        $(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+      });
+    });
+
+    window.setTimeout(function () {
+      $(".alert").fadeTo(500, 0).slideUp(500, function () {
+        $(this).remove();
+      });
+    }, 7000);
+
+  </script>
+{% endblock %}

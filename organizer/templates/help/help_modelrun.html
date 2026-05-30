@@ -1,0 +1,123 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Model Run - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Step 2/2: Model Run</h2>
+  <div class="instructions">
+    <p>
+      Due to the intensive and repetitive computations. a model run can take several minutes to
+      complete. While this is acceptable on a local computer, a program that takes this long to
+      complete its task on the internet is too long. The server can timeout, causing a premature end
+      to a model run. This server timeout can be a serious problem particularly during heavy web use
+      (for instance, many users simultaneously using PySawit Web to run their simulations).
+    </p>
+    <p>
+      Consequently, whenever you start a model run, your request is put on a queue or waiting list.
+      In other words, your model simulation may not immediately start, as there could be other model
+      run requests ahead of yours. Once it is your turn, your model run is then started.
+    </p>
+    <p>
+      <em>How long would you have to wait for your model results?</em> This would depend on the
+      simulation duration as well as web traffic. The longer your simulation run, the longer you
+      would have to wait (<em>e.g.,</em> a simulation run of 10 years would end faster than a run of
+      20 years). Likewise, the more number users simultaneously using PySawit Web could increase
+      your wait time, as there could be many model run requests in the queue.
+    </p>
+    <p>
+      The following describes starting the model run process:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          There are two ways to start a model run. The first is to click the
+          <span class="mark">run</span> link below the run file's name. But you need to first ensure
+          the selected run file has the intended model input values before you start the model run.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/run-1.png' %}">
+          <figcaption>Fig. 1. Click on the <span class="mark">run</span> link to start the model
+            run.
+          </figcaption>
+        </figure>
+        The second way to start a model run is via the run file's <span class="mark">Edit</span>
+        page. This is the recommended way as you can check all the model parameter values are
+        correct before starting a model run. Click on the <span class="mark">Run</span> button at
+        the end of the page. This button will first save your changes to the model input then start
+        the model run.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/run-2.png' %}">
+          <figcaption>Fig. 2. Or you can click on the <span class="mark">Run</span> button in the
+            <span class="mark">Edit</span> page.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will be asked to confirm your run request because, as stated earlier, a model run may
+          take several minutes to complete.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/confirm.png' %}">
+          <figcaption>Fig. 3. You need to confirm your request to run the model.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will be notified that your model run request has been placed in the queue.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/wait.png' %}">
+          <figcaption>Fig. 4. Your run request now placed in a queue.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          A map pin appears next to the run file's name in the <span class="mark">Run Files</span>
+          page to indicate that model run is pending. During this time, you will not be allowed to
+          put in another run request for the same run file. Also notice that the <span class="mark">run</span>
+          link under the run file name is grayed out.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/run-pending.png' %}">
+          <figcaption>Fig. 5. A map pin indicates the model run is still in the queue.</figcaption>
+        </figure>
+        <p>
+          The <span class="mark">Results</span> page is also unavailable during this waiting period.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/results-not-ready.png' %}">
+          <figcaption>Fig. 6. An empty model <span class="mark">Results</span> page indicates the
+            model run is not yet completed, so there are no results to show yet.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          Reload the page to check if the model run is completed. PySawit Web does not automatically
+          reload the page or notify you when a model run is completed; you will have to manually
+          reload the page or check back later into PySawit Web.
+        </p>
+        <p>
+          When your model run is completed, the map pin (Fig. 5) disappears, and the
+          <span class="mark">Results</span> page will now be populated with the model output.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/run/results-ready.png' %}">
+          <figcaption>Fig. 7. Model run completed and its results are displayed in the
+            <span class="mark">Results</span> page (compare with Fig. 6).
+          </figcaption>
+        </figure>
+      </li>
+
+
+    </ol>
+
+  </div>
+
+{% endblock %}

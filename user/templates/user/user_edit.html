@@ -1,0 +1,140 @@
+{% extends parent_template|default:"user/base_user.html" %}
+{% load static %}
+
+{% block title %}Edit Profile - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .helptext {
+      font-style: italic;
+      color: darkslategray;
+    }
+
+    .err {
+      color: red;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% include "user/field_errors.html" %}
+
+  <div class="alert alert-info">
+    <p>
+      To change your password, please use the "Change password" option under your
+      <span class="badge badge-pill">{{ user.username }}</span> User menu.
+    </p>
+  </div>
+
+  <h2>Edit Profile</h2>
+  <form action="{% url 'dj-auth:edit' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="avatar-panel">
+      {% if avatar_url %}
+        <img src="{{ avatar_url }}" class="avatar-normal" id="id_img_avatar">
+      {% else %}
+        <img src="{% static 'organizer/img/anon.png' %}">
+      {% endif %}
+
+      <p><strong>Upload your profile photo (0.5 Mb file size limit):</strong><br>
+      <em>Photos will be scaled to no more than 200 pixels wide and tall.</em></p>
+      <div class="input-group">
+        <label class="input-group-btn">
+            <span class="btn btn-primary">
+              Browse&hellip; <input type="file" name="avatar" id="id_avatar" style="display: none;" accept="image/*">
+            </span>
+        </label>
+        <label for="filename"></label>
+        <input type="text" class="form-control" id="filename" readonly>
+      </div>
+      <div style="text-align: right">
+        <label for="id_remove_avatar" style="vertical-align: middle;">
+          <i class="fa fa-ban" style="color:red"></i> Remove profile photo
+        </label>
+        <input type="checkbox" id="id_remove_avatar" name="remove_avatar" {% if remove_avatar %}checked{% endif %}>
+      </div>
+      <p><span class="err" id="err_msg" style="color: red; font-style: italic"></span></p>
+    </div>
+
+    <div class="form-group">
+      <label for="id_username">Login username:</label>
+      <input type="text" class="form-control" name="username" maxlength="150" autofocus required id="id_username" value="{{ user.username }}">
+      <span class="helptext">150 characters or fewer. Only letters, digits, and selected symbols (@, ., +, -, and _) are allowed.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="id_first_name">ID (identification no.):</label>
+      <input type="text" class="form-control" name="first_name" maxlength="30" required id="id_first_name" value="{{ user.first_name }}">
+      <span class="helptext">30 characters or fewer.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="id_last_name">Full name:</label>
+      <input type="text" class="form-control" name="last_name" maxlength="150" required id="id_last_name" value="{{ user.last_name }}">
+      <span class="helptext">150 characters or fewer.</span>
+    </div>
+
+    <div class="form-group">
+      <label for="id_email">Email address:</label>
+      <input type="email" class="form-control" name="email" maxlength="254" required id="id_email" value="{{ user.email }}">
+      <span class="helptext">your_email@domain.com</span>
+      <div class="email-status" id="email_status_text"></div>
+    </div>
+
+    <button type="submit" class="btn btn-default" id="send">Submit Changes</button>
+  </form>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var remove_avatar = $('#id_remove_avatar');
+    var avatar_filename = $('#filename');
+    var avatar_inputfile = $('#id_avatar');
+    var avatar_img = $("#id_img_avatar");
+
+    remove_avatar.click(function() {
+      if ($(this).prop("checked")) {
+        avatar_inputfile.val('');
+        avatar_filename.val('');
+        avatar_img.removeClass('avatar-normal').addClass('avatar-fade');
+      } else {
+        avatar_img.removeClass('avatar-fade').addClass('avatar-normal');
+      }
+      $('#err_msg').html('');
+    });
+
+    $(document).ready(function(){
+        var d = new Date();
+        avatar_img.attr("src", "{{ avatar_url }}?"+d.getTime());
+        $(window).scrollTop(0);
+    });
+
+    $(':file').on('fileselect', function (event, numFiles, label) {
+      var log = numFiles > 1 ? numFiles + ' files selected' : label;
+      if (avatar_filename.length) {
+        avatar_filename.val(log);
+        remove_avatar.prop("checked", false);
+        avatar_img.removeClass('avatar-normal').addClass('avatar-fade');
+      } else {
+        if (log) alert(log);
+      }
+    });
+
+    $(document).on('change', ':file', function () {
+      var input = $(this);
+      var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+      var filesize = input.get(0).files[0].size;
+      if (filesize > 0.5 * 1024 * 1024) {
+        var sz = (filesize / (1024 * 1024)).toFixed(1);
+        var name = input.get(0).files[0].name;
+        $('#err_msg').html('"'+ name + '" is too large (' + sz + ' Mb)! Limit is 0.5 Mb.');
+        input.val('');
+      } else {
+        $('#err_msg').html('');
+        var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      }
+    });
+  </script>
+{% endblock %}

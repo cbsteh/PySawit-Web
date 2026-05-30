@@ -1,0 +1,47 @@
+{% extends parent_template|default:"weather/base_weather.html" %}
+
+{% block title %}Weather Files - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <table style="width: 100%">
+    <tr>
+      <td><h2>Weather Files</h2></td>
+      <td style="vertical-align:bottom;text-align:right;">
+        {% if weather_list|length == 0 %}
+          &nbsp;<i class="fas fa-angle-double-right faa-horizontal animated"></i>&nbsp;
+        {% endif %}
+        <a href="{% url 'weather_upload' %}" class="btn btn-primary btn-xs" role="button">
+          <span rel="tooltip" title="Upload a weather file">
+            <i class="fas fa-cloud-upload-alt"></i> Upload
+          </span>
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <ol style="padding-left: 20px;">
+    {% for weather in weather_list %}
+      <li>
+        <div class="well well-sm">
+          <a href="{{ weather.get_absolute_url }}">{{ weather.filename }}</a><br/>
+          {% if weather.description %}
+            {{ weather.description }}<br/>
+          {% else %}
+            <em>No description provided</em><br/>
+          {% endif %}
+          <i style="font-size: 0.9em;">Uploaded: {{ weather.uploaded_at }}</i><br/>
+          <ul class="nav nav-tabs">
+            <li class="markstart"><i class="fas fa-chevron-right"></i></li>
+            <li><a href="{{ weather.get_update_url }}">edit</a></li>
+            <li><a href="{{ weather.get_download_url }}">download</a></li>
+            <li><a href="{{ weather.get_delete_url }}">delete</a></li>
+          </ul>
+        </div>
+      </li>
+    {% empty %}
+      <div class="well well-sm">
+        <em>No weather files.</em>
+      </div>
+    {% endfor %}
+  </ol>
+{% endblock %}

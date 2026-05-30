@@ -1,0 +1,461 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% load static %}
+
+{% block title %}Daily Results - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'organizer/css/table.css' %}">
+  <link rel="stylesheet" href="{% static 'organizer/css/loader.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="loading">Loading ...</div>
+  {% if norun %}
+    <h2>No model output/results available for <a href="{{ opd.get_update_url }}">{{ opd.name }}</a>
+    </h2>
+    <a href="{% url 'organizer_opd_list' %}" class="btn btn-primary" role="button">Return</a>
+  {% else %}
+    <table style="width:100%;">
+      <tbody>
+      <tr>
+        <td style="padding:0;">
+          <h2>Daily Results</h2>
+          <i><a href="{{ opd.get_update_url }}">{{ opd.name }}</a></i>
+        </td>
+        <td style="width:140px;padding-bottom:5px;vertical-align:bottom;text-align:right">
+        <span rel="tooltip" title="Download results a text file">
+          <a href="{{ opd.get_download_daily_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+            download
+          </a>
+        </span>&nbsp;
+
+          <span rel="tooltip" title="Go back">
+          <a href="{{ opd.get_results_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+            return
+          </a>
+        </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    {% autoescape off %}{{ html_table365 }}{% endautoescape %}
+    <form action="{{ opd.get_results_daily_url }}" method="post">
+      {% csrf_token %}
+      <span rel="tooltip" title="Year filter">
+          <label for="dropdown-years">show only year: </label>
+          <select name="dropdown-years" id="dropdown-years"></select>
+          <button type="submit" style="visibility:hidden; width:0;" id="go-year"></button>
+      </span>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var ddy = $('#dropdown-years');
+
+    function populate_years() {
+      var nyears = parseInt('{{ years }}');
+      for (var i = 1; i <= nyears; i++) {
+        var i_str = i.toString();
+        ddy.append('<option value="' + i_str + '">' + i_str + '</option>');
+      }
+      ddy.val('{{ current_year }}');
+    }
+
+    ddy.change(function () {
+      $('#go-year').click();
+    });
+
+    $(document).ready(function() {
+      populate_years();
+    });
+
+    $(window).load(function () {
+      $('.loading').fadeOut();
+    });
+
+    $('[data-toggle="popover"]').popover({
+      title: "at palm age",
+      placement: "top",
+      trigger: "hover"
+    });
+
+    $('.param-age').popover({
+      title: "Palm age",
+      content: "Unit: days",
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-tmin').popover({
+      title: 'Minimum air temperature',
+      content: 'Unit: &deg;C',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-tmax').popover({
+      title: 'Maximum air temperature',
+      content: 'Unit: &deg;C',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-totalrad').popover({
+      title: 'Total solar radiation',
+      content: 'Unit: MJ m<sup>-2</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-directrad').popover({
+      title: 'Direct solar radiation',
+      content: 'Unit: MJ m<sup>-2</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-diffuserad').popover({
+      title: 'Diffuse solar radiation',
+      content: 'Unit: MJ m<sup>-2</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-wind').popover({
+      title: 'Wind speed',
+      content: 'Unit: m s<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-rain').popover({
+      title: 'Gross rainfall',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-netrain').popover({
+      title: 'Net rainfall',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-runoff').popover({
+      title: "Run off",
+      content: "Unit: mm day<sup>-1</sup>",
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-DP').popover({
+      title: "Deep percolation",
+      content: "Unit: mm day<sup>-1</sup>",
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-ambientCO2').popover({
+      title: 'Ambient CO2 concentration',
+      content: 'Unit: &micro;mol mol<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-LAI').popover({
+      title: 'Leaf area index (LAI)',
+      content: 'Unit: m<sup>2</sup> m<sup>-2</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-pinnae').popover({
+      title: 'Pinnae dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-rachis').popover({
+      title: 'Rachis dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-trunk').popover({
+      title: 'Trunk dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-roots').popover({
+      title: 'Roots dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-male').popover({
+      title: 'Male flowers dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-female').popover({
+      title: 'Female flowers dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-bunches').popover({
+      title: 'Bunches dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-flowersex').popover({
+      title: 'Sex of flower at initiation',
+      content: 'Code: 1 = female or 0 = male/abort',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-VDM').popover({
+      title: 'Vegetative dry matter (VDM) weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-TDM').popover({
+      title: 'Total dry matter (VDM) weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-assim-photosyn').popover({
+      title: 'Gross photosynthesis',
+      content: 'Unit: kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-assim-maint').popover({
+      title: 'Maintenance respiration',
+      content: 'Unit: kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-assim-growth').popover({
+      title: 'Growth respiration',
+      content: 'Unit: kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-assim-gen').popover({
+      title: 'Generative organ respiration',
+      content: 'Unit: kg CH<sub>2</sub>O palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-VDM-growth').popover({
+      title: 'Vegetative dry matter (VDM) increase',
+      content: 'Unit: kg palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-TDM-growth').popover({
+      title: 'Total dry matter (VDM) increase',
+      content: 'Unit: kg palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-yield').popover({
+      title: 'FFB yield (dry weight)',
+      content: 'Unit: kg palm<sup>-1</sup> day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-trunk-hgt').popover({
+      title: 'Trunk height',
+      content: 'Unit: m',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-rootdepth').popover({
+      title: 'Rooting depth',
+      content: 'Unit: m',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-rootzone-VWC').popover({
+      title: 'Root zone vol. water content',
+      content: 'Unit: m<sup>3</sup> m<sup>-3</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-rootzone-WC').popover({
+      title: 'Root zone water content',
+      content: 'Unit: mm',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-waterstress').popover({
+      title: 'Plant water stress level',
+      content: '0 to 1 (1=no stress, 0=max. stress)',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-actual-E').popover({
+      title: 'Actual soil evaporation (E)',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-actual-T').popover({
+      title: 'Actual plant transpiration (T)',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-pot-T').popover({
+      title: 'Potential plant transpiration (T)',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-layer-VWC').popover({
+      title: 'Soil water content in this soil layer',
+      content: 'Unit: m<sup>3</sup> m<sup>-3</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-layer-influx').popover({
+      title: 'Influx of water into this soil layer',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-layer-outflux').popover({
+      title: 'Outflux of water from this soil layer',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-layer-netflux').popover({
+      title: 'Netflux of water for this soil layer',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-layer-e').popover({
+      title: 'Evaporation from this soil layer',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-layer-t').popover({
+      title: 'Plant water uptake from this soil layer',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-fronds').popover({
+      title: 'Fronds dry weight',
+      content: 'Unit: kg palm<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-waterdeficit').popover({
+      title: 'Plant water deficit',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    $('.param-actual-ET').popover({
+      title: 'Actual evapotranspiration (ET)',
+      content: 'Unit: mm day<sup>-1</sup>',
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+  </script>
+{% endblock %}

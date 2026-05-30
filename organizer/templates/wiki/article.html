@@ -1,0 +1,174 @@
+{% extends "wiki/base.html" %}
+{% load wiki_tags i18n sekizai_tags %}
+{% load has_same_path %}
+{% load static %}
+
+{% block wiki_pagetitle %}{{ article.current_revision.title }}{% endblock %}
+
+{% block wiki_breadcrumbs %}
+  {% include "wiki/includes/breadcrumbs.html" %}
+{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static 'organizer/css/simple-sidebar.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block wiki_contents %}
+
+  <div id="article-container">
+    <ul class="nav nav-tabs">
+      <li><a href="#" class="dropdown-toggle" onclick="openNav()">&#9776; Browse</a></li>
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Article
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu dropdown-article">
+          {% include "wiki/includes/article_menu.html" %}
+          <li class="divider"></li>
+          <li>
+            {% if urlpath.parent %}
+              <a href="{% url 'wiki:create' path=urlpath.parent.path %}" style="padding: 7px;">
+                <span class="fa fa-arrow-right"></span>
+                {% blocktrans with article.current_revision.title as title %}New article on same level{% endblocktrans %}
+              </a>
+            {% endif %}
+            <a href="{% url 'wiki:create' path=urlpath.path %}" style="padding: 7px;">
+              <span class="fa fa-arrow-down"></span>
+              {% blocktrans with article.current_revision.title as title %}New article on a level below{% endblocktrans %}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul class="nav nav-pills" id="article-menu">
+      <li class="pull-left" id="article-title-li">
+        <h2 style="font-weight: bold;" id="article-title">
+          {{ article.current_revision.title }}
+          <small style="font-size: 14px;">
+            {% if urlpath.parent %}
+              <a href="{% url 'wiki:get' path=urlpath.path %}"><span class="fa fa-bookmark"></span> {{ urlpath.slug }}
+              </a>
+            {% endif %}
+            {% if article.current_revision.locked %}
+              <span class="fa fa-lock"></span> {% trans "locked" %}
+            {% endif %}
+          </small>
+        </h2>
+      </li>
+    </ul>
+
+    <div>
+      {% block wiki_contents_tab %}
+      {% endblock %}
+
+      <!-- The overlay -->
+      <div id="myNav" class="overlay">
+        <!-- Overlay content -->
+        <div class="overlay-content">
+          <span style="cursor: pointer;float: right;" onclick="closeNav()">
+            <i class="fa fa-times">&emsp;</i>
+          </span>
+          <h4>List of articles</h4>
+          <ul class="fa-ul">
+            {% url 'wiki:get' path=urlpath.root.path as rootpath %}
+            <li>
+              <i
+                  {% if rootpath|has_same_path:request.path %}
+                    class="fa-li fa fa-check-square-o"
+                  {% else %}
+                    class="fa-li fa fa-square-o"
+                  {% endif %}
+              ></i>
+              <a href="{{ rootpath }}">
+                {{ urlpath.root.article.current_revision.title }}
+              </a>
+            </li>
+
+            {% for child in urlpath.root.get_descendants %}
+              {% if not child.is_deleted %}
+                {% with ''|center:child.level as range %}
+                  {% for _ in range %}
+                    <ul class="fa-ul">
+                  {% endfor %}
+
+                  {% url 'wiki:get' path=child.path as childpath %}
+                  <li>
+                    <i
+                        {% if childpath|has_same_path:request.path %}
+                          class="fa-li fa fa-check-square-o"
+                        {% else %}
+                          class="fa-li fa fa-square-o"
+                        {% endif %}
+                    ></i>
+                    <a href="{{ childpath }}">
+                      {{ child.article.current_revision.title }}
+                    </a>
+                  </li>
+
+                  {% for _ in range %}
+                    </ul>
+                  {% endfor %}
+                {% endwith %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var nav = $('#myNav');
+
+    $(document).mouseup(function (e) {
+      var container = $(".overlay");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        closeNav();
+      }
+    });
+
+    $('.overlay').click(function(){
+      closeNav();
+    });
+
+    /* Open */
+    function openNav() {
+      var maxwidth = 0.9 * $(window).width();
+      if (maxwidth > 500)
+      {
+        nav[0].style.width = "500px";
+      } else {
+        nav[0].style.width = "90%";
+      }
+      nav[0].style.overflowX = 'auto';
+      nav[0].style.overflowY = 'auto';
+      nav.removeClass('overlay-shadow-off').addClass('overlay-shadow-on');
+    }
+
+    /* Close */
+    function closeNav() {
+      nav[0].style.width = "0";
+      nav[0].style.overflowX = 'hidden';
+      nav[0].style.overflowY = 'hidden';
+      nav.removeClass('overlay-shadow-on').addClass('overlay-shadow-off');
+    }
+
+    $("a[href^='#wiki-toc-']").click(function(e) {
+      var tag = $(this).attr('href');
+      element = tag.replace("link", "");
+      $('html,body').unbind().animate({scrollTop: $(element).offset().top-70},'slow');
+    })
+
+  </script>
+{% endblock %}
+
+{% block wiki_footer_prepend %}
+  <p style="margin-bottom: 10px;">
+    <em>{% trans "This article was last modified:" %} {{ article.current_revision.modified }}</em>
+  </p>
+{% endblock %}

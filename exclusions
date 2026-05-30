@@ -1,0 +1,13 @@
+.git
+.idea
+__pycache__
+migrations
+venv
+media/nasa
+media/user*
+media/wiki
+media/cache
+*.sqlite3
+*.mmap
+settings.ini
+.gitignore

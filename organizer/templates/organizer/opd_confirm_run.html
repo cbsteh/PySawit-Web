@@ -1,0 +1,29 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}Confirm Run - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+  <div class="jumbotron">
+    <h2 class="display-4" id="msg-title">
+      <i class="far fa-question-circle"></i> Confirmation
+    </h2>
+    <p class="lead" id="msg-body">
+      Due to intensive model calculations, it is not possible to immediately run the model,
+      as this may cause the server to timeout. Instead, a request will be created so the model
+      can be run in the background. When the run is completed, the model results will appear
+      in the Results page.
+    </p>
+    <hr class="my-4">
+    <div id="msg-panel">
+    <form action="{{ opd.get_request_run_url }}" method="post">
+      {% csrf_token %}
+      <p>Please confirm if you wish to now request a model run.</p>
+      <button type="submit" class="btn btn-success">Yes, run</button>
+      <a href="javascript:history.back()" role="button" class="btn btn-danger">No, cancel</a>
+    </form>
+    </div>
+    <div id="msg-footer"></div>
+  </div>
+
+{% endblock %}

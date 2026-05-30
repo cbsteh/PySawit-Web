@@ -1,0 +1,82 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}Results - {{ block.super }}{% endblock %}
+
+{% block content %}
+  {% if has_error %}
+    <div class="alert alert-danger" role="alert">
+      <h4><i class="fas fa-times" style="font-size:14px"></i> Run Error</h4>
+      Error occurred during the model run. Error message:
+      <pre>{{ errmsg }}</pre>
+    </div>
+  {% else %}
+    {% if norun %}
+      <h2><a href="{{ opd.get_update_url }}">{{ opd.name }}</a>: Results unavailable</h2>
+      {% if has_request or has_lock %}
+        <br/>
+        <p>
+          <i class="fas fa-spinner fa-spin" style="font-size:x-large;color:darkorange"></i>&nbsp;
+          Model run is still pending. Please check back later.
+        </p><br/>
+        <a href="{% url 'organizer_opd_list' %}" class="btn btn-primary" role="button">Return</a>
+      {% else %}
+        <form action="{{ opd.get_confirm_run_url }}" method="post">
+          {% csrf_token %}
+          <p>Do you wish to run the model now?</p>
+          <button type="submit" class="btn btn-success">Yes</button>
+          <a href="{% url 'organizer_opd_list' %}" class="btn btn-danger" role="button">No</a>
+        </form>
+      {% endif %}
+    {% else %}
+      <table style="width:100%;">
+        <tbody>
+        <tr>
+          <td style="padding:0;">
+            <h2>Results: <a href="{{ opd.get_update_url }}">{{ opd.name }}</a></h2>
+            <p style="font-style: italic">Run: {{ datetime }}<br/>Seed: {{ seed }}</p>
+          </td>
+
+          <td style="padding-bottom:5px;vertical-align:bottom;text-align:right">
+            <a href="{{ opd.get_confirm_run_url }}" class="btn btn-primary btn-xs" tabindex="-1">
+              <i class="far fa-paper-plane"></i> Run again
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="well well-sm" style="background-color: #F7F2C8">
+        <p><span class="glyphicon glyphicon-check"></span>&nbsp;
+          <a href="{{ opd.get_results_annual_url }}">Annual results</a> ({{ numyears }})
+        </p>
+
+        <ul class="nav nav-tabs">
+          <li><a href="{{ opd.get_download_annual_url }}">download</a></li>
+          <li><a href="{{ opd.get_results_annual_charts_url }}">charts</a></li>
+          <li><a href="{{ opd.get_results_annual_plot_url }}">plot</a></li>
+        </ul>
+      </div>
+
+      <div class="well well-sm" style="background-color: #EFDFAE">
+        <p><span class="glyphicon glyphicon-check"></span>&nbsp;
+          <a href="{{ opd.get_results_daily_url }}">Daily results</a> ({{ numdays }} day{{ numdays|pluralize }})
+        </p>
+        <ul class="nav nav-tabs">
+          <li><a href="{{ opd.get_download_daily_url }}">download</a></li>
+          <li><a href="{{ opd.get_results_daily_charts_url }}">charts</a></li>
+          <li><a href="{{ opd.get_results_daily_plot_url }}">plot</a></li>
+        </ul>
+      </div>
+
+      <div class="well well-sm" style="background-color: #C0D7CC">
+        <p><span class="glyphicon glyphicon-check"></span>&nbsp;
+          <a href="{{ opd.get_results_input_url }}">Raw input</a>
+        </p>
+        <ul class="nav nav-tabs">
+          <li><a href="{{ opd.get_download_input_url }}">download</a></li>
+        </ul>
+      </div>
+    {% endif %}
+  {% endif %}
+
+{% endblock %}

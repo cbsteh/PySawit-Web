@@ -1,0 +1,153 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Model Documentation - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <style>
+    .doc_link {
+      font-style: italic;
+    }
+
+    .doc_link a {
+      text-decoration: none;
+    }
+
+    .doc_link a:hover {
+      font-weight: bold;
+    }
+
+    .doc li {
+      padding-bottom: 20px;
+      margin-left: -15px;
+    }
+  </style>
+
+  <h2>Model Documentation</h2>
+  <ol class="doc">
+    <li>
+      Report on PySawit, the oil palm growth and yield model:
+      <div class="well">
+        <table>
+          <tr>
+            <td>
+              <img src="{% static 'organizer/img/pdf.svg' %}" width="48px" height="48px" alt="download PDF">
+            </td>
+            <td>
+              Teh, C. B. S. (2018). PySawit: Oil palm growth and yield model. Brief report (draft).
+              11 May 2018. [Unpublished report]. <br>
+              <span class="doc_link">
+                <a href="#" target="_blank">
+                  <i class="fas fa-download" style="color: darkred"></i> download (not available yet)
+                </a>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </li>
+
+    <li>
+      Work on PySawit and its components have been published at various sources. Here are the major
+      publications:
+      <div class="well">
+        <table>
+          <tr>
+            <td>
+              <img src="{% static 'organizer/img/pdf.svg' %}" width="48px" height="48px" alt="download PDF">
+            </td>
+            <td>
+              Teh, C. B. S., & Cheah, S. S. (2018). Modelling crop growth and yield in palm oil
+              cultivation. In A. Rival (Ed.), Achieving sustainable cultivation of oil palm (Vol. 1,
+              pp. 183-227). Cambridge, UK: Burleigh Dodds Science Publishing. <br>
+              <span class="doc_link">
+              <a href="{% url 'op-chapter' %}" target="_blank">
+                <i class="fas fa-download" style="color: darkred"></i> download (3.5 Mb)
+              </a>
+            </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="well">
+        <table>
+          <tr>
+            <td>
+              <img src="{% static 'organizer/img/pdf.svg' %}" width="48px" height="48px" alt="download PDF">
+            </td>
+            <td>
+              Teh, C. B. S. (2018). Development and validation of an unsaturated soil water flow
+              model for oil palm. Pertanika Journal of Tropical Agriculture, 41(2), 787-800. <br>
+              <span class="doc_link">
+              <a href="{% url 'op-article-jtas' %}" target="_blank">
+                <i class="fas fa-download" style="color: darkred"></i> download (2.2 Mb)
+              </a>
+            </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="well">
+        <table>
+          <tr>
+            <td>
+              <img src="{% static 'organizer/img/book.svg' %}" width="48px" height="48px" alt="download PDF">
+            </td>
+            <td>
+              Teh, C. B. S. (2017). Modeling soil water flow in Python and Excel. Serdang, Malaysia:
+              Universiti Putra Malaysia.<br> <span class="doc_link">
+              [<a href="http://www.christopherteh.com/soilwaterbook/index.html" target="_blank">
+                book
+              </a>]
+            [<a href="https://www.upmpress.com.my/product/modeling-soil-water-flow-in-python-and-excel/" target="_blank">
+            publisher
+            </a>]
+            </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </li>
+
+    <li>
+      Source code:
+      <div class="well">
+        <table>
+          <tr>
+            <td>
+              <img src="{% static 'organizer/img/github.svg' %}" width="48px" height="48px" alt="download PDF">
+            </td>
+            <td>
+              Oil palm growth and yield model - Python source code <br> <span class="doc_link">
+                [<a href="https://github.com/cbsteh/PySawit" target="_blank">Github</a>]
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="well">
+        <table>
+          <tr>
+            <td>
+              <img src="{% static 'organizer/img/github.svg' %}" width="48px" height="48px" alt="download PDF">
+            </td>
+            <td>
+              Oil palm soil water flow model - Python source code <br> <span class="doc_link">
+                [<a href="https://github.com/cbsteh/PyWaterBal" target="_blank">Github</a>]
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </li>
+
+  </ol>
+
+  <p>
+    <i class="fas fa-angle-double-right"></i> <a href="{% url 'about' %}"> How to cite?</a>
+  </p>
+
+{% endblock %}

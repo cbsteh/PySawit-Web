@@ -1,0 +1,26 @@
+{% extends parent_template|default:"weather/base_weather.html" %}
+
+{% block title %}Delete - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <form action="{{ weather.get_delete_url }}" method="post">
+    {% csrf_token %}
+    <div class="alert alert-danger">
+
+    {% if nodelete %}
+      <p>"{{ weather.filename }}" cannot be deleted because it has dependencies.</p>
+    {% else %}
+      <p><strong>Are you sure you want to delete {{ weather.filename }}?</strong></p>
+    {% endif %}
+
+    </div>
+
+    {% if nodelete %}
+    <button type="submit" class="btn btn-primary" name="cancel">Return</button>
+    {% else %}
+    <button type="submit" class="btn btn-danger" name="default">Delete</button>
+    <button type="submit" class="btn btn-primary" name="cancel">Cancel</button>
+    {% endif %}
+
+  </form>
+{% endblock %}

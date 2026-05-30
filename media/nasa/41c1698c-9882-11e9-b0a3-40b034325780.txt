@@ -1,0 +1,3 @@
+# GPS: 3.15921, 101.71881 deg., Elev: 253.77 m, Station: 2 m
+# 1981/01/01 - 1981/12/31
+*doy,tmin,tmax,wind,rain

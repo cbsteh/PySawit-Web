@@ -1,0 +1,27 @@
+{% extends parent_template|default:"weather/base_weather.html" %}
+
+{% block title %}Edit - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <form action="{{ form_action }}" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.description.errors }}
+    <table class="table">
+      <tr>
+        <th>
+          <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+          <br/>
+          <em style="font-weight:normal;">{{ form.description.help_text }}</em>
+        </th>
+        <td>
+          <input type="text"  class="form-control" name="{{ form.description.name }}"
+                 value="{{ form.description.value }}"
+                 maxlength="255" id="{{ form.description.id_for_label }}">
+        </td>
+      </tr>
+    </table>
+    <button type="submit" class="btn btn-primary" name="default">Save</button>
+    <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+  </form>
+{% endblock %}

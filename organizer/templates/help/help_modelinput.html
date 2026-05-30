@@ -1,0 +1,331 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Model Input - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Step 1/2: Model Input</h2>
+  <div class="instructions">
+    <p>
+      Although the oil palm model has over 60 model parameters, you do not have to set
+      the value for each of them. You will only need to set values for
+      model parameters that are specific to your site or modeling conditions and rely on default
+      values for the others. Table 1 lists the model parameters that would often need your input, as
+      their values are dependent on site or modeling conditions.
+    </p>
+
+    <p>Table 1. Frequently-changed model parameters</p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th style="width:20%">Parameter</th>
+        <th>Units/Range</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Name of run</td>
+        <td>--</td>
+        <td>Name of the run file. By default, PySawit Web names run files with the following format:
+          <span class="mark">Run-YYMMDD-hhmmss</span>, where <span class="mark">YY</span>,
+          <span class="mark">MM</span>, and <span class="mark">DD</span> are for the year, month,
+          and day, respectively; and <span class="mark">hh</span>, <span class="mark">mm</span>, and
+          <span class="mark">ss</span> are for the hour, minutes, and seconds, respectively (note:
+          time is based on a 24-hr format). For instance,
+          <span class="mark">Run-181121-114621</span> indicates the run file was created on Nov. 21,
+          2018 at time 11:46:21 (morning). You are, of course, free to change such default names to
+          those more suited for you.
+        </td>
+      </tr>
+      <tr>
+        <td>Simulation days</td>
+        <td>days</td>
+        <td>Duration of simulation run (max. 20 years or 7300 days)</td>
+      </tr>
+      <tr>
+        <td>Site latitude</td>
+        <td>decimal degrees</td>
+        <td>Latitude of site location</td>
+      </tr>
+      <tr>
+        <td>Weather station height</td>
+        <td>m</td>
+        <td>Height of weather station (will be ignored if daily weather is generated/simulated)</td>
+      </tr>
+      <tr>
+        <td>Initial day of year</td>
+        <td>1-365</td>
+        <td>Day of year for the start of your simulation run (Jan. 1 = 1, ..., Dec. 31 = 365).
+          Note: If you are using a weather file, a simulation run always begins reading the weather
+          from the first year of the weather data set in your weather file. See the
+          <a href="#weather-file">note below</a>.
+        </td>
+      </tr>
+      <tr>
+        <td>Weather data source</td>
+        <td>--</td>
+        <td>Choose either 1) weather simulation or 2) weather file as the source of daily weather.
+          If you choose (1), you will need to specify the weather simulation parameters (see below)
+          for air temperature, rain, and wind speed.
+        </td>
+      </tr>
+      <tr>
+        <td>Weather simulation parameters</td>
+        <td>--</td>
+        <td>These parameters are required if you choose to have your daily weather generated
+          (simulated) rather than read from a weather file, as these parameters are highly specific
+          to a site. You require to enter information such as the annual properties for min. and
+          max. air temperature (mean, amplitude of mean, coefficient of variation [CV], amplitude of
+          CV, and mean specific for wet days), the probabilities of dry and wet days, and the
+          distribution shape and scale for wind speed and rain.
+        </td>
+      </tr>
+      <tr>
+        <td>Weather filename</td>
+        <td>--</td>
+        <td>Name of weather file (file must be listed in your
+          <span class="mark">Weather Files</span> listing page, or else you will have to
+          <a href="{% url 'help_wthrupload' %}">upload the desired weather file</a>). This parameter
+          will be ignored if you choose to simulate the daily weather.
+        </td>
+      </tr>
+      <tr>
+        <td>Initial tree age</td>
+        <td>days</td>
+        <td>Age of tree (in days) at simulation start</td>
+      </tr>
+      <tr>
+        <td>Planting density</td>
+        <td>palms ha<sup>-1</sup></td>
+        <td>No. of palms per hectare</td>
+      </tr>
+      <tr>
+        <td>Initial weights (for the various tree parts)</td>
+        <td>kg DM (dry matter) palm<sup>-1</sup></td>
+        <td>You can use the default weights for normal field planting tree age (when palm age is 1
+          year old).
+        </td>
+      </tr>
+      <tr>
+        <td>Initial ambient CO<sub>2</sub></td>
+        <td>&micro;mol mol<sup>-1</sup></td>
+        <td>The concentration of the ambient atmospheric carbon dioxide at the start of simulation.
+          You can have the CO<sub>2</sub> level calculated if you enter the year but as a negative
+          value. For instance, if you give <span class="mark">-1987</span>, the mean ambient CO<sub>2</sub>
+          level for the year 1987 will be calculated.
+        </td>
+      </tr>
+      <tr>
+        <td>Initial rooting depth</td>
+        <td>m</td>
+        <td>Depth of the roots at the start of simulation. You can use the default value for normal
+          field planting tree age (when palms are 1 year old).
+        </td>
+      </tr>
+      <tr>
+        <td>Any water table?</td>
+        <td>Yes/No</td>
+        <td>Select <span class="mark">Yes</span> if there is a presence of a water table, else
+          <span class="mark">No</span>. Note that the water table is taken as the saturated soil
+          layer just below the last soil layer.
+        </td>
+      </tr>
+      <tr>
+        <td>No. of soil layers</td>
+        <td>2-6</td>
+        <td>At least two soil layers are required. The number of soil layers would depend on the
+          soil's heterogenity.
+        </td>
+      </tr>
+      <tr>
+        <td>Soil layer properties</td>
+        <td>--</td>
+        <td>Each soil layer requires information on its soil thickness, initial soil water content
+          (see below), texture (clay and sand), and organic matter level. If you have chosen 3 soil
+          layers, then information for each of these 3 soil layers must be provided.
+        </td>
+      </tr>
+      <tr>
+        <td>Initial water content</td>
+        <td>m<sup>3</sup> m<sup>-3</sup></td>
+        <td>Volumetric soil water content for a given soil layer. The value should range between 0
+          and 1. Negative values between <span class="mark">-3</span> and
+          <span class="mark">-1</span> have special meanings, where <span class="mark">-3</span>
+          indicates permanent wilting point, <span class="mark">-2</span> is for field capacity, and
+          <span class="mark">-1</span> is for saturation. Linear interpolation is also supported, so
+          that <span class="mark">-1.5</span> indicates a soil moisture level halfway between
+          saturation (<span class="mark">-1</span>) and field capacity (<span class="mark">-2</span>).
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p>
+      The following describes how to enter the model input:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          Before you can run any crop simulations, you need to have at least one <em>run file</em>.
+          A run file is a simply a file containing your model input for all crop simulations. Go to
+          your <span class="mark">Run Files</span> page to see your list of run files. Click on the
+          name of a file to open and edit the file. Or you can click on the
+          <span class="mark">New</span> button to create a new run file.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-files-list.png' %}">
+          <figcaption>Fig. 1. Click on the run file name to edit an existing file or create a new
+            file.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will be presented with the run file's <span class="mark">Edit</span> page, where you
+          will enter the values for several model parameters. As stated earlier, the oil palm model
+          contains over 60 model parameters, so these parameters are grouped under several panels
+          to make navigation and data entry easier.
+        </p>
+        <p>
+          Click on a panel name (or icon) to toggle between expand (open) and collapse (close). Some
+          of these panels have one or more sub-panels (<em>nested panels</em>), and these sub-panels
+          can also toggle between expand and collapse.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-edit.png' %}">
+          <figcaption>Fig. 2. Run file edit page: Navigation is made easier by grouping model
+            parameters under expandable panels.
+          </figcaption>
+        </figure>
+        <p>
+          To quickly expand all panels, click on the <span class="mark">expand all</span> round
+          button, and to quickly collapse all panels, click instead on the <span class="mark">collapse all</span>
+          round button. Clicking on the <span class="mark">cancel</span> round button or on the
+          <span class="mark">Cancel</span> button will return you to the <span class="mark">Run Files</span>
+          page, without saving the changes to the model input.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          At the far right end of each panel is a slider (Fig. 2) to toggle between expanding and
+          collapsing a navigator side menu (Fig. 3). The purpose of this side menu is to make
+          navigation easier so you can see a list of all model parameters and quickly navigate to
+          any of them. Clicking on any model parameter on the side menu will expand the necessary
+          panels and bring into view the selected parameter.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-sidebar.png' %}">
+          <figcaption>Fig. 3. The navigation side menu lists all model parameters, and clicking on
+            any one of them expands the necessary panels and bring the target parameter into view.
+          </figcaption>
+        </figure>
+        There are three ways to collapse the side menu: 1) clicking on the slider (at the far right
+        end of any panel), 2) clicking on the <span class="mark">close</span> button on the upper
+        right corner of the side menu, or 3) double-clicking on the side menu.
+      </li>
+
+      <li class="li-line">
+        <p>
+          Some of the model parameters under the <span class="mark">Meteorology</span> panel will
+          almost certainly need to be changed, such as the <span class="mark">Site latitude</span>,
+          <span class="mark">Weather station height</span>,
+          <span class="mark">Initial day of year</span>,
+          <span class="mark">Weather data source</span>, and
+          <span class="mark">Weather filename</span>. See Table 1 for their description.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-meteo.png' %}">
+          <figcaption>Fig. 4. <span class="mark">Meteorology</span> panel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          If your simulation begins when the palm age is 1 year old (365 days) and at field
+          planting, then the default values for many model parameters can be used. Model parameters
+          under the <span class="mark">Crop</span> panel will often require no change unless your
+          simulations are about various planting densities, thinning, or thinning age.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-crop.png' %}">
+          <figcaption>Fig. 5. <span class="mark">Crop</span> panel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Soil parameters under the <span class="mark">Soil Water</span> would often require your
+          input as they are dependent on your site or modeling conditions. Here, you need to specify
+          if there is a presence of ground water (water table) and the number of soil layers
+          (minimum is 2 and maximum is 6). Having soil layers is a way to capture soil heterogenity
+          so that each soil layer has a rather uniform set of characteristics.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-layers.png' %}">
+          <figcaption>Fig. 6. <span class="mark">Soil water</span> panel.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will also often need to specify the characteristics of each soil layer. For instance,
+          if you had specified three soil layers (see Fig. 6), then the characteristics of each of
+          these three soil layers must be specified (the characteristics of the 4th to 6th soil
+          layers will be ignored in this case). See Table 1 for the description of the soil layer
+          properties.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/input/run-soil.png' %}">
+          <figcaption>Fig. 7. One of the <span class="mark">Soil layer</span> panels.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          At any time, you can click on the <span class="mark">Save</span> button (Fig. 2) to save
+          your changes. Once model input is completed, you can click on the
+          <span class="mark">Run</span> button to start the model simulation. Clicking on this
+          button also saves your changes to the model input before starting the simulation.
+        </p>
+        <p>
+          <i class="fas fa-angle-double-right"></i> <a href="{% url 'help_modelrun' %}">Follow here
+          next on Model Run.</a>
+        </p>
+      </li>
+    </ol>
+
+    <a name="weather-file"></a>
+    <div class="jumbotron">
+      <p><i class="fa fa-info-circle"></i> Note on the weather data in weather files</p>
+      <p>
+        A weather file may contain weather data for one or more years. PySawit Web does not
+        require the year to be included in the weather files because it assumes that all
+        simulation runs will use the weather data in the <strong>first year</strong> of the data
+        set.
+      </p>
+      <p>
+        For instance, if your simulation date starts on Jan. 15, 1988, your weather file must
+        start with the weather data for 1988 (also enter <span class="mark">15</span> as the
+        initial day of year; see Table 1 above). Since your run begins on Jan. 15, PySawit Web
+        will read the the weather data starting from the 15th day of the first year (implicitly
+        assumed as the year 1988) in the weather file.
+      </p>
+      <p>
+        Likewise, if your simulation date starts instead on Jan. 15, 1990, your weather file must
+        modified to start with the weather data for 1990. In other words, it is assumed a
+        simulation run always uses the first year weather data set in your weather file.
+      </p>
+      <p>
+        If you using the repository weather file or downloading the weather data from the NASA
+        POWER site, you have to ensure (either by modifying the weather file or specifying the
+        correct starting year before you download from NASA) that the first year weather data set
+        in the files is for the starting year of your simulation run.
+      </p>
+    </div>
+
+  </div>
+
+{% endblock %}

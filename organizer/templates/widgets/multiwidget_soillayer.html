@@ -1,0 +1,1 @@
+<table class="table table-condensed"><tbody>{% for widget in widget.subwidgets %}<tr><td style="font-weight: bold">{{ widget.attrs.label }}</td><td>{% include widget.template_name %}<br/>{{ widget.attrs.help_text }}</td></tr>{% endfor %}</tbody></table>

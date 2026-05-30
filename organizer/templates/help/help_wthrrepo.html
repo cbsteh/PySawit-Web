@@ -1,0 +1,89 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Weather Data Repository - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Weather Data Repository</h2>
+  <div class="instructions">
+    <p>
+      The weather data repository stores several weather files that you can use in your crop
+      simulations.
+    </p>
+
+    <p>To select a weather file from the repository:</p>
+    <ol>
+      <li class="li-line">
+        Go to the <span class="mark">Weather Files</span> page, and click on the <span class="mark">Upload</span>
+        button.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/weather-list-upload.png' %}">
+          <figcaption>Fig. 1. Click to upload a weather file.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Then click on the <span class="mark">Get from the weather repository</span> panel.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/weather-repo-upload.png' %}">
+          <figcaption>Fig. 2. Click to see the files in the weather repository.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        You will see a list of weather files in the repository. This list may change as more files
+        are added later. Choose the desired weather file. In this example, choose the Merlimau
+        weather file by clicking on its name.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/weather-repo-list.png' %}">
+          <figcaption>Fig. 3. List of weather files available in the repository.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        When you click on a weather file, its details are added into the <span class="mark">Description</span>
+        field. For the Merlimau file, its details are <em>"Merlimau, Melaka; GPS: 2.253213,
+        102.451753 deg., Elev: 47.13 m, Station: 2 m; 1987/1/1 - 2008/12/31"</em>, giving details on
+        the site name, GPS location, elevation, and start and end dates of weather data.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/merlimau-description.png' %}">
+          <figcaption>Fig. 4. Details of the selected weather file are added to the
+            <span class="mark">Description</span> field.
+          </figcaption>
+        </figure>
+        You can change this file description, but it is recommended to keep this information as it
+        is. Once ready, click the <span class="mark">Upload</span> button (<em>see</em> Fig. 2) to
+        upload the weather file.
+      </li>
+
+      <li class="li-line">
+        Once uploaded, you will be presented with a table showing the weather data. The visual
+        distribution and statistical characteristics of each weather parameter are also displayed.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/merlimau-table.png' %}">
+          <figcaption>Fig. 6. Weather data, presented in a tabular format.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/merlimau-charts.png' %}">
+          <figcaption>Fig. 7. Visual distribution of all weather parameters.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/merlimau-stats.png' %}">
+          <figcaption>Fig. 8. Statistical description of all weather parameters.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        Upon a successful upload, the Merlimau weather file will now be listed under your
+        <span class="mark">Weather Files</span> page. This file is now ready to be used in your crop
+        simulations.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/repo/merlimau-list.png' %}">
+          <figcaption>Fig. 9. Your updated weather file list (compare with Fig. 1).</figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Wiki Help - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>View Changes in Articles</h2>
+  <div class="instructions">
+    <p>
+      A history of all revisions to an article are kept, so that you are able to see all the changes
+      that were ever made to a given article. You can roll back the article's latest changes (that
+      is, undo the current changes) to a past version, and you may also merge the current article
+      with a selected past version (that is, combine two versions of the article).
+    </p>
+    <p>
+      The following describes how to view an article's past revisions, undo the latest changes, and
+      merge two article versions:
+    </p>
+
+    <ol>
+      <li class="li-line">
+        <p>
+          To view the history of changes to an article, you first need to open the selected article
+          for editing (<a href="{% url 'help_wikiedit' %}">see here for instructions on editing
+          articles</a>). Then click on the <span class="mark">Article</span> menu, and select the
+          <span class="mark">Changes</span> option.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/changes/changes-menu.png' %}">
+          <figcaption>Fig. 1. Click to view the history of all past revisions to the current
+            article.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          You will be presented with a complete list of past revisions of the article, where the
+          latest changes are listed first, followed by subsequently older changes the farther down
+          the list. In Fig. 2, there have been a total of six revisions to the article, where the
+          first revision (revision #1, the last in the list) indicates the article's creation. We
+          can see that this article was created by user <span class="badge">admin</span> (the site
+          administrator) on Nov. 25, 2018 at 2:45 pm. Since then, most of the article's changes were
+          done by user <span class="badge">test4</span> (revisions #2 to #5), and the latest changes
+          (revision #6) were done by <span class="badge">admin</span> on Nov. 27, 2018 at 6:00 pm.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/changes/list-of-revisions.png' %}">
+          <figcaption>Fig. 2. List of past article revisions, sorted from the latest (current
+            version; top of the list) to the oldest (first or earliest version; bottom of the list).
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          Note: you can view the past changes of the article by clicking on the <span class="mark">preview this revision</span>
+          button on the selected article version (Fig. 2). For instance, if you wish to see how the
+          article looked like during revision #4, you can click on the <span class="mark">preview this revision</span>
+          button for revision #4.
+        </p>
+        <p>
+          Alternatively, you can also click on the the article revision title. Try clicking on the
+          revision title for revision #4. It will reveal what were added (in green) or deleted (in
+          red) from the article during this stage.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/changes/revision-4.png' %}">
+          <figcaption>Fig. 3. What was changed in the article during revision #4 (red indicates
+            deletion and green addition).
+          </figcaption>
+        </figure>
+        <p>
+          Similarly, now try clicking on the revision title for revision #6 to see exactly what has
+          changed in the latest article version. Fig. 4 reveals that user
+          <span class="badge">admin</span> had only added one line in the article at line no. 81.
+          This latest revision also revealed that nothing was deleted from the article (nothing was
+          indicated in red).
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/changes/revision-6.png' %}">
+          <figcaption>Fig. 4. What was changed in the article during revision #6 (only an addition
+            of one line).
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          To roll back (undo) the latest changes, select the desired article version, then click on
+          the <span class="mark">Switch to selected version</span> button. This will roll back the
+          article to the selected past version.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/changes/switch-version.png' %}">
+          <figcaption>Fig. 5. Switch the article to a past version (undo all latest changes).
+          </figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          You can also merge the latest article version with one from a past version. To do this,
+          select the desired past version, then click on the <span class="mark">Merge with selected version</span>
+          button. This will combine both versions into one.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/wiki/changes/merge-versions.png' %}">
+          <figcaption>Fig. 6. Merge the current version with one from a past version.</figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

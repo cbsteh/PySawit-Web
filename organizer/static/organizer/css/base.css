@@ -1,0 +1,530 @@
+.avatar-fade {
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -o-filter: blur(10px);
+  -ms-filter: blur(10px);
+}
+
+.avatar-normal {
+  filter: blur(0);
+  -webkit-filter: blur(0);
+  -moz-filter: blur(0);
+  -o-filter: blur(0);
+  -ms-filter: blur(0);
+}
+
+.avatar-panel {
+  margin: auto;
+  width: 65%;
+}
+
+.avatar-panel img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.avatar-panel p {
+  text-align: center
+}
+
+.navbar {
+  background-color: #f5f5f5;
+}
+
+.panel-title a:hover {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.main {
+  font-family: "Dosis", Helvetica, Arial, sans-serif;
+  margin-top: 20px;
+}
+
+.main-h1 {
+  font-size: 25px;
+  text-align: center;
+}
+
+.main-h2 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.main-text {
+  text-align: justify;
+  font-size: 15px;
+}
+
+.btn {
+  position: relative;
+  top: 0;
+  transition: all ease 0.3s;
+}
+
+.btn:active {
+  -webkit-box-shadow: 0 3px 0 -5px #221122;
+  -moz-box-shadow: 0 3px 0 -5px #221122;
+  box-shadow: 0 3px 0 -5px #221122;
+  top: 3px;
+}
+
+.navbar-nav > li > .dropdown-menu > .active > a {
+  color: black;
+  background-color: #E7E7E7;
+}
+
+.navbar-nav li a:focus:not(:hover) {
+  background-color: transparent;
+}
+
+.navbar-nav li a:hover {
+  font-weight: bold;
+  -webkit-box-shadow: 0 5px 8px -5px #221122;
+  -moz-box-shadow: 0 5px 8px -5px #221122;
+  box-shadow: 0 5px 8px -5px #221122;
+}
+
+.navbar-nav li a:active {
+  -webkit-box-shadow: 0 3px 0 -5px #221122;
+  -moz-box-shadow: 0 3px 0 -5px #221122;
+  box-shadow: 0 3px 0 -5px #221122;
+  top: 3px;
+}
+
+.nav-tabs li a, .nav-tabs .dropdown-menu li a {
+  padding-top: 3px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.nav-tabs li a:hover, .nav-tabs .dropdown-menu li a:hover {
+  font-weight: bold;
+  border-color: cadetblue;
+  -webkit-box-shadow: 0 5px 8px -5px #221122;
+  -moz-box-shadow: 0 5px 8px -5px #221122;
+  box-shadow: 0 5px 8px -5px #221122;
+}
+
+.nav-tabs li a:focus:not(:hover),
+.nav-tabs .dropdown-menu li a:focus:not(:hover) {
+  font-weight: normal;
+  background-color: transparent;
+  border-color: transparent;
+  border-bottom: cadetblue;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid cadetblue;
+}
+
+.nav-tabs .dropdown-menu li.active a,
+.nav-tabs .dropdown-article li.active a {
+  background: #e7e7e7;
+  color: black;
+}
+
+.markstart {
+  color: darkred;
+  padding: 0;
+  padding-right: 2px;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.st {
+  font-style: italic;
+  color: #89854d;
+  padding: 5px 8px 0 8px;
+}
+
+.border-st {
+  border: solid darkkhaki;
+  border-width: 1px 0 0 1px;
+  border-top-left-radius: 12px;
+  padding: 3px 8px 1px 8px;
+}
+
+.errorlist {
+  color: red;
+}
+
+.error input, .error select {
+  border: red solid;
+}
+
+body, input {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+pre {
+  font-family: "Roboto Mono", "Courier New", Courier, monospace;
+}
+
+th, td {
+  padding: 5px;
+  vertical-align: top;
+}
+
+body {
+  padding-top: 70px;
+  background: url('../img/grid.png') repeat-x;
+  background-attachment: fixed;
+  background-color: #f8f8f8;
+}
+
+body > .container {
+  min-height: 300px;
+}
+
+ul.nav .main {
+  font-weight: bold;
+}
+
+.col-md-3 {
+  padding-left: 0;
+}
+
+.col-md-9 {
+  padding-bottom: 100px;
+}
+
+.source-links {
+  float: right;
+}
+
+.col-md-9 img {
+  max-width: 100%;
+  display: inline-block;
+  padding: 4px;
+  line-height: 1.428571429;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 20px auto 30px auto;
+}
+
+/*
+ * The code below adds some padding to the top of the current anchor target so
+ * that, when navigating to it, the header isn't hidden by the navbar at the
+ * top. This is especially complicated because we want to *remove* the padding
+ * after navigation so that hovering over the header shows the permalink icon
+ * correctly. Thus, we create a CSS animation to remove the extra padding after
+ * a second. We have two animations so that navigating to an anchor within the
+ * page always restarts the animation.
+ *
+ * See <https://github.com/mkdocs/mkdocs/issues/843> for more details.
+ */
+:target::before {
+  content: "";
+  display: block;
+  margin-top: -75px;
+  height: 75px;
+  pointer-events: none;
+  animation: 0s 1s forwards collapse-anchor-padding-1;
+}
+
+.clicky :target::before {
+  animation-name: collapse-anchor-padding-2;
+}
+
+@keyframes collapse-anchor-padding-1 {
+  to {
+    margin-top: 0;
+    height: 0;
+  }
+}
+
+@keyframes collapse-anchor-padding-2 {
+  to {
+    margin-top: 0;
+    height: 0;
+  }
+}
+
+h1 {
+  color: #444;
+  font-weight: 400;
+  font-size: 42px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+h2, h3, h4, h5, h6 {
+  color: #444;
+  font-weight: 300;
+}
+
+hr {
+  border-top: 1px solid #aaa;
+}
+
+pre, .rst-content tt {
+  max-width: 100%;
+  background: #fff;
+  border: solid 1px #e1e4e5;
+  color: #333;
+  overflow-x: auto;
+}
+
+code.code-large, .rst-content tt.code-large {
+  font-size: 90%;
+}
+
+code {
+  padding: 2px 5px;
+  background: #fff;
+  border: solid 1px #e1e4e5;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  white-space: pre;
+  word-wrap: normal;
+  font-family: monospace, serif;
+  font-size: 12px;
+}
+
+kbd {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #fff;
+  background-color: #333;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
+}
+
+a code {
+  color: #2FA4E7;
+}
+
+a:hover code, a:focus code {
+  color: #157AB5;
+}
+
+footer {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 200;
+}
+
+.modal-dialog {
+  margin-top: 60px;
+}
+
+/*
+ * Side navigation
+ *
+ * Scrollspy and affixed enhanced navigation to highlight sections and secondary
+ * sections of docs content.
+ */
+
+/* By default it's not affixed in mobile views, so undo that */
+.bs-sidebar.affix { /* csslint allow: adjoining-classes */
+  position: static;
+}
+
+.bs-sidebar.well { /* csslint allow: adjoining-classes */
+  padding: 0;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+/* First level of nav */
+.bs-sidenav {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* All levels of nav */
+.bs-sidebar .nav > li > a {
+  display: block;
+  padding: 5px 20px;
+  z-index: 1;
+}
+
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li > a:focus {
+  text-decoration: none;
+  border-right: 1px solid;
+}
+
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active:hover > a,
+.bs-sidebar .nav > .active:focus > a {
+  font-weight: bold;
+  background-color: transparent;
+  border-right: 1px solid;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-sidebar .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  margin-bottom: 8px;
+}
+
+.bs-sidebar .nav .nav > li > a {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 30px;
+  font-size: 90%;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+  .bs-sidebar .nav > .active > ul {
+    display: block;
+  }
+
+  /* Widen the fixed sidebar */
+  .bs-sidebar.affix, /* csslint allow: adjoining-classes */
+  .bs-sidebar.affix-bottom { /* csslint allow: adjoining-classes */
+    width: 213px;
+  }
+
+  .bs-sidebar.affix { /* csslint allow: adjoining-classes */
+    position: fixed; /* Undo the static from mobile first approach */
+    top: 80px;
+  }
+
+  .bs-sidebar.affix-bottom { /* csslint allow: adjoining-classes */
+    position: absolute; /* Undo the static from mobile first approach */
+  }
+
+  .bs-sidebar.affix-bottom .bs-sidenav, /* csslint allow: adjoining-classes */
+  .bs-sidebar.affix .bs-sidenav { /* csslint allow: adjoining-classes */
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  /* Widen the fixed sidebar again */
+  .bs-sidebar.affix-bottom, /* csslint allow: adjoining-classes */
+  .bs-sidebar.affix { /* csslint allow: adjoining-classes */
+    width: 263px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .dropdown-menu {
+    margin-left: 25px;
+    margin-bottom: 3px;
+    background-color: #ffffff !important;
+    border-left: 1px solid lightgrey !important;
+    border-bottom: 1px solid lightgrey !important;
+  }
+
+  .navbar-collapse {
+    border-bottom: 2px solid darkgrey !important;
+  }
+
+  .navbar-collapse::after {
+    content: '\22ef';
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .navbar {
+    max-height: calc(100% - 20px);
+    overflow-y: auto;
+  }
+}
+
+h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .headerlink, h5:hover .headerlink, h6:hover .headerlink {
+  display: inline-block;
+}
+
+.admonition {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.admonition.note { /* csslint allow: adjoining-classes */
+  color: #3a87ad;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.admonition.warning { /* csslint allow: adjoining-classes */
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #fbeed5;
+}
+
+.admonition.danger { /* csslint allow: adjoining-classes */
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+.admonition-title {
+  font-weight: bold;
+  text-align: left;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #ccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover > a:after {
+  border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left { /* csslint allow: adjoining-classes */
+  float: none;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu { /* csslint allow: adjoining-classes */
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}

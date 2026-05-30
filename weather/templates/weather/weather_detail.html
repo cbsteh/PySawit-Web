@@ -1,0 +1,189 @@
+{% extends parent_template|default:"weather/base_weather.html" %}
+{% load static %}
+
+{% block title %}Details - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'organizer/css/table.css' %}">
+  <link rel="stylesheet" href="{% static 'organizer/css/loader.css' %}">
+  <style>
+    .trash-it {
+      width: 130px;
+      color: darkred;
+      margin-left: auto;
+      margin-right: auto;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .trash-it .fa-times-circle {
+      font-size: 2.5em;
+      vertical-align: middle;
+    }
+
+    .centered {
+      display: block;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .tableFixHead {
+      overflow-y: auto;
+      height: 50vh;
+      border-top: 1px solid lightgrey;
+      border-bottom: 1px solid lightgrey;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 90%;
+    }
+
+    th, td {
+      padding: 8px 16px;
+      border-left: 1px solid lightgrey;
+    }
+
+    th {
+      background: lightblue;
+    }
+
+    tr:nth-child(2n) > td {
+      background-color: #eee;
+    }
+
+    th:first-child {
+      border-left: 0;
+    }
+
+    tr:hover td {
+      background-color: gold;
+    }
+
+  tr:nth-child(365n) > td {
+      border-bottom: double #269abc 3px;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="loading">Loading ...</div>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>File name:</strong> {{ weather.filename }}</li>
+    <li class="list-group-item"><strong>Description</strong>:
+      {% if weather.description %}
+        {{ weather.description }}
+      {% else %}
+        <em>No description given</em>
+      {% endif %}
+      &nbsp;
+      <a href="{{ weather.get_update_url }}" class="btn btn-primary btn-xs" role="button"> edit </a>
+    </li>
+    <li class="list-group-item"><strong>Uploaded at:</strong> {{ weather.uploaded_at }}</li>
+    <li class="list-group-item"><strong>Dependants:</strong>
+      <ul>
+        {% for dep in dep_list %}
+          <li><a href="{{ dep.get_update_url }}">{{ dep.name }}</a></li>
+        {% empty %}
+          <li><em>None</em></li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+
+  <h2><i class="fas fa-table"></i> Data <span style="float: right">
+      <a href="{{ weather.get_download_url }}" class="btn btn-xs btn-primary" role="button">download</a>
+      <a href="{% url 'weather_list' %}" class="btn btn-xs btn-primary" role="button">return</a>
+    </span>
+  </h2>
+
+  {% autoescape off %}{{ table_data }}{% endautoescape %}
+  <br/>
+
+  <hr/>
+
+  <h2><i class="fas fa-chart-area"></i> Charts <span style="float: right">
+      <a href="{% url 'weather_list' %}" class="btn btn-xs btn-primary" role="button">return</a>
+    </span>
+  </h2>
+
+  <div class="charts">
+    {% for label_img, img in charts_list %}
+      {% if forloop.counter0|divisibleby:2 %}
+        <div class="col-md-6">{% endif %}
+    <figure class="figure">
+      <img src="data:image/png;base64,{{ img }}" class="figure-img img-responsive centered" alt="{{ label_img }}">
+      <figcaption class="figure-caption">
+        <p class="text-center"><b>Fig. {{ forloop.counter }}.</b> {{ label_img }}</p>
+      </figcaption>
+    </figure>
+    {% if forloop.counter0|divisibleby:2 %}</div>{% endif %}
+    {% empty %}
+      <em>No data.</em>
+    {% endfor %}
+  </div>
+
+  <hr/>
+
+  <h2><i class="fas fa-info-circle"></i> Statistics <span style="float: right">
+      <a href="{% url 'weather_list' %}" class="btn btn-xs btn-primary" role="button">return</a>
+    </span>
+  </h2>
+
+  {% for sect, dct in stats_list.items %}
+    <div class="stats">
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th colspan="2">{{ sect|safe }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, value in dct.items %}
+          <tr>
+            <td style="width:70%">{{ key }}</td>
+            <td>{{ value }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% empty %}
+    <em>No data.</em>
+  {% endfor %}
+
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var tfh = $('.tableFixHead');
+    var $th = tfh.find('thead th');
+
+    $(window).load(function () {
+      $('.loading').fadeOut();
+    });
+
+    $(function() {
+      $('.tableFixHead').find('table thead tr th').each(function() {
+        title = $(this).text().trim();
+        if (title === 'tmax' || title === 'tmin') {
+          $(this).html(title + '<br>(&deg; C)');
+        } else if (title === 'wind') {
+          $(this).html(title + '<br>(m s<sup>-1</sup>)');
+        } else if (title === 'rain') {
+          $(this).html(title + '<br>(mm day<sup>-1</sup>)');
+        }
+      })
+    });
+
+    tfh.on('scroll', function () {
+      $th.css('transform', 'translateY(' + this.scrollTop + 'px)');
+    });
+
+    $('.trash-it').click(function () {
+      window.location = "{{ weather.get_delete_url }}";
+    });
+
+  </script>
+{% endblock %}

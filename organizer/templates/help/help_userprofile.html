@@ -1,0 +1,88 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}User Profile- {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>User Profile</h2>
+  <div class="instructions">
+    <p>
+      Your profile details such as username and profile photo can be changed.
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          Your user profile details are accessed via your <span class="mark">User</span> menu.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/user-menu.png' %}">
+          <figcaption>Fig. 1. Your <span class="mark">User</span> menu.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          <strong>View profile.</strong> Click on the <span class="mark">View my profile</span> to
+          view your profile details. This page also lists all your run files, weather files, and
+          Wiki articles that you have created.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/view-user-profile.png' %}">
+          <figcaption>Fig. 2. View your profile details.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <p>
+          <strong>Edit profile.</strong> To change your personal details, click on the
+          <span class="mark">Edit</span> button (Fig.2), or click on the <span class="mark">Edit my profile</span>
+          option on the <span class="mark">User</span> menu (Fig. 1).
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/edit-user-profile.png' %}">
+          <figcaption>Fig. 3. Edit your profile details.</figcaption>
+        </figure>
+        <p>
+          <i class="fas fa-angle-double-right"></i>&nbsp;
+          <a href="{% url 'help_register' %}#id_profile_photo">See here on details</a> about
+          changing or removing your profile photo.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          <strong>Change password.</strong> You cannot change your password via your profile page.
+          To change your current password, go to the <span class="mark">User</span> menu, and select
+          the <span class="mark">Change my password</span> option (Fig. 1), which will lead you to a
+          page (Fig. 4) to enter your current then new password.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/user-change-password.png' %}">
+          <figcaption>Fig. 4. Change your password.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p id="id_forgot_password">
+          <strong>Forgot password.</strong> You can reset your password if you have forgotten your
+          password. At the <span class="mark">Login</span> page, click on the <span class="mark">Forgot password?</span>
+          link. Now enter the <strong>same email address</strong> you had used during registration
+          because an email containing a password reset link will be sent to you at this email
+          address.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/forgot-password.png' %}">
+          <figcaption>Fig. 5. Reset your password.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/user/password-reset.png' %}">
+          <figcaption>Fig. 6. An activation link to reset your password will be sent to the same
+            email address you had used during registration.
+          </figcaption>
+        </figure>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

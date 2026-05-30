@@ -1,0 +1,390 @@
+{% extends parent_template|default:"base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <style>
+    .instructions p {
+      line-height: 1.8em;
+    }
+
+    .instructions img {
+      margin: 0 auto;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      padding: 2px;
+      background: #eee;
+    }
+
+    .instructions .li-line {
+      border-bottom: 1px solid darkgray;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+
+    .instructions figcaption {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 15px;
+    }
+
+    .mark, .instructions pre {
+      font-family: "Roboto Mono", "Courier New", monospace;
+      font-size: 14px;
+      font-style: normal;
+      border: 1px solid darkkhaki;
+      border-radius: 5px;
+      padding: 1px;
+      margin: 1px;
+      background-color: lightgoldenrodyellow;
+    }
+
+    .instructions pre {
+      margin-bottom: 10px;
+    }
+
+    .table tbody tr:hover {
+      background-color: lightgoldenrodyellow;
+    }
+
+    sup, sub {
+      white-space: nowrap;
+    }
+
+    :target:before {
+      content: "";
+      display: block;
+      height: 70px;
+      margin: -70px 0 0;
+    }
+  </style>
+{% endblock %}
+
+{% block overlay %}
+  <link href="{% static 'organizer/css/simple-sidebar.css' %}" rel="stylesheet">
+  <style>
+    #article-container {
+      margin-top: 20px;
+    }
+  </style>
+
+  {% url 'help' as help %}
+  {% url 'help_overview' as help_overview %}
+  {% url 'help_minreq' as help_minreq %}
+  {% url 'help_wthrformat' as help_wthrformat %}
+  {% url 'help_wthrprepare' as help_wthrprepare %}
+  {% url 'help_wthrupload' as help_wthrupload %}
+  {% url 'help_wthrrepo' as help_wthrrepo %}
+  {% url 'help_wthrnasa' as help_wthrnasa %}
+  {% url 'help_wthrdownload' as help_wthrdownload %}
+  {% url 'help_wthrimport' as help_wthrimport %}
+  {% url 'help_wthredit' as help_wthredit %}
+  {% url 'help_wthrmod' as help_wthrmod %}
+  {% url 'help_wthrdelete' as help_wthrdelete %}
+  {% url 'help_modelinput' as help_modelinput %}
+  {% url 'help_modelrun' as help_modelrun %}
+  {% url 'help_outputresults' as help_outputresults %}
+  {% url 'help_outputdownload' as help_outputdownload %}
+  {% url 'help_outputparam' as help_outputparam %}
+  {% url 'about' as help_about %}
+  {% url 'credits' as help_credits %}
+  {% url 'privacy_policy' as help_privacy_policy %}
+  {% url 'help_register' as help_register %}
+  {% url 'help_userprofile' as help_userprofile %}
+  {% url 'help_docs' as help_docs %}
+  {% url 'help_wikichanges' as help_wikichanges %}
+  {% url 'help_wikicreate' as help_wikicreate %}
+  {% url 'help_wikiedit' as help_wikiedit %}
+  {% url 'help_wikiimages' as help_wikiimages %}
+  {% url 'help_wikimove' as help_wikimove %}
+  {% url 'help_wikinavigate' as help_wikinavigate %}
+  {% url 'help_wikisettings' as help_wikisettings %}
+  {% url 'md_cheatsheet' as md_cheatsheet %}
+
+  <div id="article-container">
+    <ul class="nav nav-tabs">
+      <li>
+        <a href="#" title="Help Contents" data-toggle="popover" data-trigger="manual" data-content="Click to see more help" data-container="#article-container" id="id_open_overlay">&#9776;
+          Help Contents</a></li>
+    </ul>
+  </div>
+
+  <!-- The overlay -->
+  <div id="myNav" class="overlay">
+    <!-- Overlay content -->
+    <div class="overlay-content">
+      <span style="cursor: pointer; float: right; margin-right: 10px;" id="id_close_overlay">
+        <i class="fa fa-times">&emsp;</i>
+      </span>
+      <h4>Contents</h4>
+      <!-- TREEVIEW CODE -->
+      <ul class="treeview">
+        <li>
+          <a href="{{ help_overview }}" {% if request.path == help or request.path == help_overview %}class="selected"{% endif %}>How
+            to use</a>
+        </li>
+        <li id="treeview_getting_started">Getting Started
+          <ul>
+            <li>
+              <a href="{{ help_register }}" {% if request.path == help_register %}class="selected"{% endif %}>How
+                to Register</a>
+            </li>
+            <li>
+              <a href="{{ help_minreq }}" {% if request.path == help_minreq %}class="selected"{% endif %}>Minimum
+                requirements</a></li>
+          </ul>
+        </li>
+
+        <li id="treeview_wthr">Weather Files
+          <ul>
+            <li id="treeview_wthr_upload">Upload File
+              <ul>
+                <li id="treeview_wthr_upload_own_file">Upload own file
+                  <ul>
+                    <li>
+                      <a href="{{ help_wthrformat }}" {% if request.path == help_wthrformat %}class="selected"{% endif %}>Step
+                        1/3. Weather format</a></li>
+                    <li>
+                      <a href="{{ help_wthrprepare }}" {% if request.path == help_wthrprepare %}class="selected"{% endif %}>Step
+                        2/3. Create the file</a></li>
+                    <li>
+                      <a href="{{ help_wthrupload }}" {% if request.path == help_wthrupload %}class="selected"{% endif %}>Step
+                        3/3. Upload the file</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="{{ help_wthrrepo }}" {% if request.path == help_wthrrepo %}class="selected"{% endif %}>Upload
+                    from repository</a></li>
+                <li>
+                  <a href="{{ help_wthrnasa }}" {% if request.path == help_wthrnasa %}class="selected"{% endif %}>Upload
+                    from NASA POWER</a></li>
+              </ul>
+            </li>
+            <li id="treeview_wthr_download">Download File
+              <ul>
+                <li>
+                  <a href="{{ help_wthrdownload }}" {% if request.path == help_wthrdownload %}class="selected"{% endif %}>Download
+                    options</a></li>
+                <li>
+                  <a href="{{ help_wthrimport }}" {% if request.path == help_wthrimport %}class="selected"{% endif %}>Import
+                    into Excel</a></li>
+              </ul>
+            </li>
+            <li id="treeview_wthr_modify">Modify file
+              <ul>
+                <li>
+                  <a href="{{ help_wthredit }}" {% if request.path == help_wthredit %}class="selected"{% endif %}>Edit
+                    description</a></li>
+                <li>
+                  <a href="{{ help_wthrmod }}" {% if request.path == help_wthrmod %}class="selected"{% endif %}>Modify
+                    weather data</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="{{ help_wthrdelete }}" {% if request.path == help_wthrdelete %}class="selected"{% endif %}>Delete
+                file</a></li>
+          </ul>
+        </li>
+
+        <li id="treeview_simulations">Simulations
+          <ul>
+            <li>
+              <a href="{{ help_modelinput }}" {% if request.path == help_modelinput %}class="selected"{% endif %}>Step
+                1/2: Model input</a></li>
+            <li>
+              <a href="{{ help_modelrun }}" {% if request.path == help_modelrun %}class="selected"{% endif %}>Step
+                2/2: Model run</a></li>
+          </ul>
+        </li>
+
+        <li id="treeview_model_output">Model Output
+          <ul>
+            <li>
+              <a href="{{ help_outputresults }}" {% if request.path == help_outputresults %}class="selected"{% endif %}>Simulation
+                results</a>
+            </li>
+            <li>
+              <a href="{{ help_outputdownload }}" {% if request.path == help_outputdownload %}class="selected"{% endif %}>Download
+                results</a>
+            </li>
+            <li>
+              <a href="{{ help_outputparam }}" {% if request.path == help_outputparam %}class="selected"{% endif %}>Output
+                parameters</a>
+            </li>
+          </ul>
+        </li>
+
+        <li id="treeview_wiki">Wiki
+          <ul>
+            <li>
+              <a href="{{ help_wikinavigate }}" {% if request.path == help_wikinavigate %}class="selected"{% endif %}>Navigating
+                Wiki</a>
+            </li>
+            <li>
+              <a href="{{ help_wikicreate }}" {% if request.path == help_wikicreate %}class="selected"{% endif %}>Create
+                articles</a>
+            </li>
+            <li>
+              <a href="{{ help_wikiedit }}" {% if request.path == help_wikiedit %}class="selected"{% endif %}>Edit
+                articles</a>
+            </li>
+            <li>
+              <a href="{{ help_wikiimages }}" {% if request.path == help_wikiimages %}class="selected"{% endif %}>Insert
+                images</a>
+            </li>
+            <li>
+              <a href="{{ help_wikimove }}" {% if request.path == help_wikimove %}class="selected"{% endif %}>Move
+                articles</a>
+            </li>
+            <li>
+              <a href="{{ help_wikichanges }}" {% if request.path == help_wikichanges %}class="selected"{% endif %}>View
+                changes in articles</a>
+            </li>
+            <li>
+              <a href="{{ help_wikisettings }}" {% if request.path == help_wikisettings %}class="selected"{% endif %}>Article
+                settings</a>
+            </li>
+            <li>
+              <a href="{{ md_cheatsheet }}" target="_blank">Markdown cheat sheet &hellip;</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="{{ help_userprofile }}" {% if request.path == help_userprofile %}class="selected"{% endif %}>User
+            Profile</a>
+        </li>
+
+        <li>
+          <a href="{{ help_docs }}" {% if request.path == help_docs %}class="selected"{% endif %}>Model
+            Documentation</a>
+        </li>
+
+        <li>
+          <a href="{{ help_about }}" {% if request.path == help_about %}class="selected"{% endif %}>About</a>
+        </li>
+
+        <li>
+          <a href="{{ help_credits }}" {% if request.path == help_credits %}class="selected"{% endif %}>Credits</a>
+        </li>
+
+        <li>
+          <a href="{{ help_privacy_policy }}" {% if request.path == help_privacy_policy %}class="selected"{% endif %}>Privacy
+            Policy</a>
+        </li>
+
+      </ul>
+      <!-- TREEVIEW CODE -->
+    </div>
+  </div>
+
+  <script>
+    var nav = $('#myNav');
+    var branches = ['treeview_'];
+    var help = 'popup_help';
+
+    $(document).ready(function () {
+      var popup = Cookies.get(help);
+      if (typeof popup === 'undefined') {
+        popup = 'true';
+        Cookies.set(help, popup);
+      }
+      if (popup === 'true') {
+        $('#id_open_overlay').popover('show');
+        setTimeout(function () {
+          $('#id_open_overlay').popover('destroy');
+        }, 5000);
+        Cookies.set(help, 'false');
+      }
+    });
+
+    $(document).mouseup(function (e) {
+      var container = $(".overlay");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        closeNav();
+      }
+    });
+
+    $('#id_open_overlay').click(function () {
+      openNav();
+    });
+
+    $('#id_close_overlay').click(function () {
+      closeNav();
+    });
+
+    /* Open */
+    function openNav() {
+      var maxwidth = 0.9 * $(window).width();
+      if (maxwidth > 350) {
+        nav[0].style.width = "350px";
+      } else {
+        nav[0].style.width = "90%";
+      }
+      nav[0].style.overflowX = 'auto';
+      nav[0].style.overflowY = 'auto';
+      nav.removeClass('overlay-shadow-off').addClass('overlay-shadow-on');
+    }
+
+    /* Close */
+    function closeNav() {
+      nav[0].style.width = "0";
+      nav[0].style.overflowX = 'hidden';
+      nav[0].style.overflowY = 'hidden';
+      nav.removeClass('overlay-shadow-on').addClass('overlay-shadow-off');
+    }
+
+    $.fn.extend({
+      treeview: function () {
+        return this.each(function () {
+          // Initialize the top levels;
+          var tree = $(this);
+          tree.addClass('treeview-tree');
+          tree.find('li').has("ul").each(function () {
+            var branch = $(this); //li with children ul
+            branch.prepend("<i class='tree-indicator glyphicon glyphicon-chevron-right'></i>");
+            branch.addClass('tree-branch');
+            branch.on('click', function (e) {
+              if (this === e.target) {
+                var icon = $(this).children('i:first');
+                icon.toggleClass("glyphicon-chevron-down glyphicon-chevron-right");
+                $(this).children().children().toggle();
+
+                var id = branch.attr('id');
+                if (icon.hasClass("glyphicon-chevron-down")) {
+                  Cookies.set(id, 'open');
+                } else {
+                  Cookies.set(id, 'close');
+                }
+              }
+            });
+            branch.children().children().toggle();
+            branch.children('.tree-indicator, button, a').click(function (e) {
+              branch.click();
+              e.preventDefault();
+            });
+          });
+        });
+      }
+    });
+
+    $(window).on('load', function () {
+      $('.treeview').each(function () {
+        var tree = $(this);
+        tree.treeview();
+      });
+
+      $('[id^="treeview_"]').each(function () {
+        var state = Cookies.get(this.id);
+        if (typeof state !== 'undefined') {
+          if (state === 'open') {
+            this.click();
+          }
+        } else {
+          Cookies.set(this.id, 'close');
+        }
+      });
+    })
+  </script>
+{% endblock %}
+

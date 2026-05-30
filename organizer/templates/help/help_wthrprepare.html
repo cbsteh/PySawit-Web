@@ -1,0 +1,144 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Create the Weather File - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Step 2/3. Create the Weather File</h2>
+  <div class="instructions">
+    <p>
+      Your weather data must be prepared in a plain text file, following the format or
+      specifications <a href="{% url 'help_wthrformat' %}">as described in Step 1</a>.
+    </p>
+    <p>The following steps describe how to prepare your weather file</p>
+    <ol>
+      <li class="li-line">
+        A recommended method to prepare your weather file is to use Excel to first clean and format
+        your weather data. In this example, columns A, B, C, D, and E are for day of year, min. air
+        temperature, max. air temperature, wind speed, and rain, respectively. Do not forget to
+        prefix <span class="mark">*</span> to <span class="mark">doy</span> (cell A1).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-headers.png' %}">
+          <figcaption>Fig. 1. Use Excel to arrange your weather data into columns, where each column
+            represents a weather parameter.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Now, save the weather data as a CSV (comma-separated values or comma-delimited) text file.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-save-as.png' %}">
+          <figcaption>Fig. 2. Choose Save As to export your worksheet.</figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-save-as-csv.png' %}">
+          <figcaption>Fig. 3. Choose CSV format.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Choose a suitable name for your weather file. In this example, the name is
+        <span class="mark">merlimau</span> with a file extension <span class="mark">.txt</span>.
+        Enclose the entire filename with double quotes, like this:
+        <span class="mark">"merlimau.txt"</span>. Without the double quotes, Excel will save the
+        file with the name <span class="mark">merlimau.txt.csv</span>. The double quotes prevents
+        Excel from appending <span class="mark">.csv</span> to the filename. Now click the
+        <span class="mark">Save</span> button.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-save-as-txt.png' %}">
+          <figcaption>Fig. 4. To prevent Excel adding the <span class="mark">.csv</span> to your
+            filename, surround your filename with double quotes.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        To verify your new weather file has been correctly formatted, open this file using any text
+        editor, and your weather file should be formatted like that in Fig. 5.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/txt-bare.png' %}">
+          <figcaption>Fig. 5. A correctly formatted weather text file.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        It is recommended to document your weather file by providing details such as the site's
+        name, location, and elevation, height of weather station, and period of weather data.
+        Documentation is done via comment lines. Recall that comment lines always begin at the start
+        of the file, and they must be prefixed with the hash symbol <span class="mark">#</span>.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/txt-full.png' %}">
+          <figcaption>Fig. 6. Comment lines are for documentation purposes.</figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        A common problem to look out for is the presence of one or more extraneous commas at the end
+        of the file lines. These extraneous commas will appear when some cells in Excel contain only
+        spaces. These spaces are invisible, so these cells appear blank or empty, but Excel treats
+        these cells as non-empty, so includes them as data when you save the file.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/txt-extra-commas.png' %}">
+          <figcaption>Fig. 7. Problem: a comma appearing at the end of each line (compare with Fig.
+            5).
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-invisible-spaces.png' %}">
+          <figcaption>Fig. 8. Extraneous commas appear when some cells in Excel actually contain one
+            or more spaces.
+          </figcaption>
+        </figure>
+        <p>
+          <em>How did these spaces appear in the cells?</em> This often occurs when the
+          <span class="mark">Space bar</span> key was accidentally pressed whilst navigating the
+          Excel worksheet or when the <span class="mark">Space bar</span> key (instead of the
+          <span class="mark">Delete</span> key) was used to delete entire cell contents.
+        </p>
+      </li>
+
+      <li class="li-line">
+        To easily remove these extraneous commas, launch Excel, and open the original weather file
+        that you had used to prepare and save the weather data text file. From the
+        <span class="mark">Home</span> ribbon, select the <span class="mark">Find & Select</span>
+        option.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-replace-menu.png' %}">
+          <figcaption>Fig. 9. Use Excel's <span class="mark">Find and Replace</span> tool.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        You will be presented with a <span class="mark">Find and Replace</span> dialog. In the
+        <span class="mark">Find what:</span> field, type in a single space, and leave
+        <span class="mark">Replace with:</span> field blank. Uncheck (untick) the
+        <span class="mark">Match entire cell contents</span> option, then click on the
+        <span class="mark">Replace All</span> button. This will remove all cells containing only
+        spaces in the Excel worksheet.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-replace-spaces.png' %}">
+          <figcaption>Fig. 10. Find cells that contain only spaces by replacing these spaces with a
+            blank; thus, creating empty, blank cells.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Repeat the steps as shown in Fig. 2 to 4 to save the weather data as a CSV plain text file
+        (but with the file extension <span class="mark">.txt</span>). As before, use any text editor
+        to open the weather text file, and the file should look like in Fig. 5, without the
+        extraneous commas.
+      </li>
+
+      <li>
+        Your file is now ready to be uploaded into PySawit Web to be used. Please
+        <a href="{% url 'help_wthrupload' %}">refer to the final Step 3</a> on help on how to upload
+        your weather text file into PySawit Web.
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Download Results - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Download Results</h2>
+  <div class="instructions">
+    <p>
+      You have three options to download the model results to your local computer:
+    </p>
+    <ol>
+      <li>download a comma-separated text file (CSV),</li>
+      <li>import the results into a new Excel file, then download this file, or</li>
+      <li>update an existing Excel file</li>
+    </ol>
+    <p>
+      This is how to download the model results:
+    </p>
+    <ol>
+      <li class="li-line">
+        <p>
+          At the <span class="mark">Results</span> page, click on the
+          <span class="mark">download</span> link.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results.png' %}">
+          <figcaption>Fig. 1. Click on the <span class="mark">download</span> link.</figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <p>
+          As stated earlier, you have three options for download: 1) a plain text file, 2) an Excel
+          file, or 3) update an existing Excel file.
+        </p>
+        <p>
+          Downloading the model results in whichever form is very similar to that for downloading
+          weather files. Please refer to the instructions <a href="{% url 'help_wthrdownload' %}">as
+          described here</a>. For Excel files, the model results will be written in a worksheet
+          named <span class="mark">annual</span> and <span class="mark">daily</span> for annual and
+          daily results, respectively.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/output/results-download.png' %}">
+          <figcaption>Fig. 2. Three options for downloading the model results.</figcaption>
+        </figure>
+        <p>
+          Model results stored in a plain text file can be imported into Excel in the same way you
+          would do for a weather data text file. Again, please refer to the instructions
+          <a href="{% url 'help_wthrimport' %}">as described here</a> on how to do this.
+        </p>
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

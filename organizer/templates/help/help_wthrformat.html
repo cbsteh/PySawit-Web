@@ -1,0 +1,209 @@
+{% extends parent_template|default:"help/base_help.html" %}
+{% load static %}
+
+{% block title %}Required Weather Format - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <h2>Step 1/3. Required Weather Format</h2>
+  <div class="instructions">
+    <p>
+      Your weather data must be prepared in a plain text file and strictly follow the format or
+      specification PySawit Web recognizes, failing which could cause erroneous file readings. Once
+      the file is ready, you will then upload it into PySawit Web before use. PySawit Web requires
+      the following weather parameters to be supplied in the weather file:
+    </p>
+    <p>Table 1. Weather parameters required by PySawit Web.</p>
+    <table class="table table-condensed" style="margin:0 auto; width:90%;">
+      <thead>
+      <tr>
+        <th>Daily parameter</th>
+        <th>Units</th>
+        <th>Column header</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>day of year</td>
+        <td>number of the day in the year between 1 (Jan. 1) and 365 (Dec. 31)</td>
+        <td><span class="mark">doy</span></td>
+      </tr>
+      <tr>
+        <td>mean daily min. air temperature</td>
+        <td>&deg;C</td>
+        <td><span class="mark">tmin</span></td>
+      </tr>
+      <tr>
+        <td>mean daily max. air temperature</td>
+        <td>&deg;C</td>
+        <td><span class="mark">tmax</span></td>
+      </tr>
+      <tr>
+        <td>mean daily wind speed</td>
+        <td>m s<sup>-1</sup></td>
+        <td><span class="mark">wind</span></td>
+      </tr>
+      <tr>
+        <td>total daily rainfall</td>
+        <td>mm day<sup>-1</sup></td>
+        <td><span class="mark">rain</span></td>
+      </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p>
+      Finally, your weather data text file must not exceed 1 Mb. Weather files must be prepared in
+      the following manner:
+    </p>
+    <ol>
+
+      <li class="li-line">
+        <p>
+          <strong>Data cleanup.</strong> It is important your weather data be first checked so that
+          they are continuous (that is, no gaps between readings or measurements) and complete (that
+          is, no missing values). PySawit Web does not perform any interpolations to deal with
+          discontinuous data or missing values. DO NOT enter special codes like "-999" for missing
+          values. All missing values must be corrected by estimation or interpolation, for instance.
+        </p>
+        <p>
+          You will also need to check (and correct) for any outliers in your weather data.
+        </p>
+      </li>
+
+      <li class="li-line">
+        <p>
+          <strong>Format for weather data file.</strong> An example of a correctly formatted weather
+          data file is shown in Fig. 1.
+        </p>
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/correct-format.png' %}">
+          <figcaption>Fig. 1. Sample weather file that is correctly prepared and formatted.
+          </figcaption>
+        </figure>
+        <ul>
+          <li>
+            <strong>Comment lines:</strong>&nbsp;
+            The first three lines, staring with the hash symbol <span class="mark">#</span>, are
+            actually optional and can be deleted, as PySawit Web will ignore any lines starting with
+            the hash symbol <span class="mark">#</span>. However, comments are useful for
+            documentation purposes. You will want to provide some information to describe the
+            weather data in the file, such as the site name, location, elevation, height of weather
+            measurements, and start and end of the weather data. Comment lines, if present, must
+            always begin from the top or start of the file.<br><br>
+          </li>
+
+          <li>
+            <strong>Column headers:</strong>&nbsp;
+            The line immediately after the comment lines lists the column headers, where
+            <span class="mark">doy</span>, <span class="mark">tmin</span>,
+            <span class="mark">tmax</span>, <span class="mark">wind</span>, and <span class="mark">rain</span>
+            denote the column data for day of year, minimum air temperature (&deg;C), maximum air
+            temperature (&deg;C), wind speed (m s<sup>-1</sup>), and rain (mm), respectively. Note
+            the asterisk <span class="mark">*</span> before <span class="mark">doy</span> which
+            indicates that <span class="mark">doy</span> is the key, used by PySawit Web to retrieve
+            the daily weather properties for a given day of year. PySawit Web requires all weather
+            data files to prefix the <span class="mark">doy</span> field with an asterisk
+            <span class="mark">*</span>. <br><br>
+          </li>
+
+          <li>
+            <strong>Weather data:</strong>&nbsp;
+            The order of the column headers is important because the weather data will follow their
+            sequence. In Fig. 1, the first column of the weather data (fifth line and onwards) is
+            for day of year, the second for minimum air temperature, the third for maximum air
+            temperature, the fourth for wind speed, and the last for rain, following the sequence of
+            the column headers in line 4: <span class="mark">doy</span>,
+            <span class="mark">tmin</span>, <span class="mark">tmax</span>,
+            <span class="mark">wind</span>, and <span class="mark">rain</span>. Also notice that the
+            weather data (line 5 and onwards) have values separated by commas.
+          </li>
+        </ul>
+      </li>
+
+      <li class="li-line">
+        A recommended method to prepare your weather file is to use Excel to first clean and format
+        your weather data. In this example, columns A, B, C, D, and E are for day of year, min. air
+        temperature, max. air temperature, wind speed, and rain, respectively. Do not forget to
+        prefix <span class="mark">*</span> to <span class="mark">doy</span> (cell A1).
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-headers.png' %}">
+          <figcaption>Fig. 2. Use a spreadsheet like Excel to clean up and format your weather data.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        The sequence of the column headers does not have to follow that in Fig. 2 but can be
+        changed. In Fig. 3, for instance, the column headers are instead specified in the sequence
+        of max. air temperature, min. air temperature, wind speed, rain, and lastly, the day of
+        year. So long as the weather data follow the sequence of the column headers, PySawit Web
+        will be able to correctly identify your weather parameters.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-swap.png' %}">
+          <figcaption>Fig. 3. The sequence of the column headers (row 1) must match their respective
+            weather data below (row 2 and onwards).
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        Similarly, you can have additional weather data (such as soil temperature and dew
+        temperature) in your weather file. However, as stated earlier in Table 1, PySawit Web
+        requires only min. and max. air temperature, wind speed, and rain, so the additional weather
+        parameters will not be used. Although ignored, the additional weather data would still
+        require unique column header names to be provided. Fig. 4 is an example where column A holds
+        information on weather dates (dd-mm-yy), denoted by the column header <span class="mark">date</span>.
+        However, the entire column of <span class="mark">date</span> data are ignored and not used
+        in crop simulations.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/xl-xtra.png' %}">
+          <figcaption>Fig. 4. A weather file may contain additional weather data. Although they will
+            be ignored by PySawit Web, they still require unique column header names.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li class="li-line">
+        <strong>Period of weather data.</strong>&nbsp;
+        You do not actually have to match the length of weather data to that of a simulation run
+        duration. For instance, a simulation run for 20 simulation years does not mean you require
+        at least 20 years of weather data. At minimum, PySawit Web requires only one day of weather
+        data. And if a simulation run length exceeds the time span of the provided weather data, the
+        weather data will "loop back" (<em>i.e.,</em> rewind) to the start of the weather data set,
+        so that simulations can continue, uninterrupted.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/three-days-data.png' %}">
+          <figcaption>Fig. 5. PySawit Web requires only one day of weather data, at minimum. If a
+            simulation run duration exceeds the time span of the weather data, the weather data will
+            be rewound (looped back) to the start of the data set.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li>
+        <strong>Day of year and leap years</strong>&nbsp;
+        To simplify weather file preparations, PySawit Web does not treat leap years any different
+        than non-leap years. For PySawit Web, one year of weather data always starts with
+        <span class="mark">doy</span>=1 (day of year=1) and ends with <span class="mark">doy</span>=365,
+        even for leap years. Fig. 6 illustrates this point. Rows 2 to 366 mark one year of weather
+        data for the year 1987 (from <span class="mark">doy</span>=1 to 365). The following year,
+        1988, is a leap year (rows 367 to 732), but for PySawit Web, the second year data set starts
+        from row 367 (<span class="mark">doy</span>=1) and ends at row 731
+        (<span class="mark">doy</span>=365). Similarly, the third year weather data starts and ends
+        at row 732 and 1096, respectively.
+        <figure>
+          <img class="img-responsive" src="{% static 'organizer/img/help/weather/format/leap-years.png' %}">
+          <figcaption>Fig. 6. For PySawit Web, one year of weather data always spans from day of
+            year 1 to 365, even for leap years.
+          </figcaption>
+        </figure>
+      </li>
+
+      <li>
+        Please <a href="{% url 'help_wthrprepare' %}">proceed here (Step 2)</a> on how to prepare
+        your weather file.
+      </li>
+
+    </ol>
+  </div>
+
+{% endblock %}

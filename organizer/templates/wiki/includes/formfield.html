@@ -1,0 +1,20 @@
+{% if field.is_hidden %}
+  {{ field }}
+{% else %}
+  <div id="div_{{ field.auto_id }}" class="form-group{% if field.errors %} has-error{% endif %}" style="margin-left: 2px;">
+    {% if field.label %}
+      <label for="{{ field.id_for_label }}" class="control-label {% if field.field.required %}requiredField{% endif %}">
+      {{ field.label|safe }}
+      </label>
+    {% endif %}
+    <br/>{{ field }}<br/>
+    {% if field.errors %}
+      {% for error in field.errors %}
+        <div id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="help-block"><strong>{{ error }}</strong></div>
+      {% endfor %}
+    {% endif %}
+    {% if field.help_text %}
+      <p id="hint_{{ field.auto_id }}" class="help-block">{{ field.help_text|safe }}</p>
+    {% endif %}
+  </div>
+{% endif %}

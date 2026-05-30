@@ -1,0 +1,530 @@
+{% extends parent_template|default:"weather/base_weather.html" %}
+
+{% block title %}Upload Weather - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+  <style>
+    .well {
+        background: #AADAFF;
+    }
+
+    .upload_options {
+      margin: 10px;
+    }
+
+    .panel-title .glyphicon {
+      font-size: 14px;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    .row {
+      margin-top: 3px;
+    }
+
+    .access_wait {
+      display: none;
+    }
+
+    .access_normal {
+      display: block;
+    }
+
+    .form_err_block {
+      display: block;
+    }
+
+    .btn-glyphicon {
+      padding: 8px;
+      background: #ffffff;
+      margin-right: 4px;
+    }
+
+    .icon-btn {
+      padding: 1px 15px 3px 2px;
+      border-radius: 50px;
+    }
+
+    .panel-title a:focus:not(:hover) {
+      text-decoration: none;
+    }
+
+    .err {
+      color: red;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="alert alert-info access_wait">
+    <h3 id="info_title"><i class="fas fa-spinner fa-spin"></i> Please wait ...</h3>
+    <span id="info_text">
+      Accessing the NASA website to retrieve your requested weather data.
+    </span>
+  </div>
+
+  <div class="alert alert-info access_normal">
+    Upload your weather file (prepared in a plain text format and no more than 1 Mb in size), or
+    <ol>
+      <li>Choose one of the weather files from the common repository, or</li>
+      <li>Access the
+        <a href="https://power.larc.nasa.gov" target="_blank">NASA POWER</a> weather data sets.
+      </li>
+    </ol>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="form_err_block">
+      {{ form.non_field_errors }}
+      {{ form.description.errors }}
+      {{ form.weatherfile.errors }}
+    </div>
+
+    <table class="table">
+      <tr>
+        <th>
+          <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+          <br/>
+          <em style="font-weight:normal;">{{ form.description.help_text }}</em>
+        </th>
+        <td>
+          <input type="text" class="form-control" name="{{ form.description.name }}" maxlength="255" id="{{ form.description.id_for_label }}">
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          <label for="{{ form.weatherfile.id_for_label }}">{{ form.weatherfile.label }}</label>
+          <br/>
+          <em style="font-weight:normal;">{{ form.weatherfile.help_text }}</em>
+        </th>
+        <td>
+          Click 'Browse' to find your weather file:
+          <div class="input-group">
+            <label class="input-group-btn">
+            <span class="btn btn-primary">
+              Browse&hellip; <input type="file" name="{{ form.weatherfile.name }}" id="{{ form.weatherfile.id_for_label }}" style="display: none;">
+            </span>
+            </label>
+            <label for="filename"></label>
+            <input type="text" class="form-control" id="filename" readonly>
+          </div>
+          <p><span class="err" id="err_msg"></span></p>
+        </td>
+      </tr>
+    </table>
+
+    <div class="upload_options">
+      <p>Or you can get the weather file from either one of below:</p>
+      <div class="panel-group" id="accordion">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-plus"></span> Get from the weather repository</a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+              Select one of the repository weather files below:
+              {% for file, desc in dct.items %}
+                <p>
+                  <a href="#" data-toggle="popover" data-content="{{ desc }}">
+                      <span class="repo" data-desc="{{ desc }}">
+                        <span class="badge badge-pill"><i class="fas fa-archive"></i>&nbsp;{{ file }}</span>
+                      </span>
+                  </a>
+                </p>
+              {% empty %}
+                <p><em>sorry, the repository is empty</em></p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-plus"></span> Get from NASA POWER</a>
+            </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+              <em>
+                Enter the site latitude and longitude (in decimal degrees), weather data years (1981 and later), and site name, then click the
+              </em>
+              &nbsp;<span class="label label-info" style="vertical-align: middle">Retrieve NASA Weather</span>&nbsp;
+              <em>button below.</em>
+              <hr/>
+              <!-- Google Map -->
+
+              <div class="well well-sm">
+                <label for="calibrate_check" style="vertical-align: middle;">
+                  Calibrate for Malaysia's weather? (tick if yes):
+                </label>
+                <input type="checkbox" id="calibrate_check" value="set">
+              </div>
+
+              <div class="row">
+                <div class="col-xs-2"><label for="lat" class="control-label">Lat.:</label></div>
+                <div class="col-xs-4"><input type="number" class="form-control input-sm" id="lat">
+                </div>
+                <div class="col-xs-2"><label for="lng" class="control-label">Long.:</label></div>
+                <div class="col-xs-4"><input type="number" class="form-control input-sm" id="lng">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-2">
+                  <label for="year_start" class="control-label">Start year:</label></div>
+                <div class="col-xs-4">
+                  <input type="number" class="form-control input-sm" id="year_start" value="1981">
+                </div>
+                <div class="col-xs-2">
+                  <label for="year_num" class="control-label">No. of years:</label></div>
+                <div class="col-xs-4">
+                  <input type="number" class="form-control input-sm" id="year_num" value="1">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-2">
+                  <label for="sitename" class="control-label">Site name:</label></div>
+                <div class="col-xs-10">
+                  <input type="text" class="form-control input-sm" id="sitename" placeholder="Name the location">
+                </div>
+              </div>
+
+              <div id="googleMap" style="width:100%;height:400px;margin-top: 5px"></div>
+
+              <div style="text-align: right">
+                <label for="place_marker_check" style="vertical-align: middle;">
+                  <i class="fas fa-map-marker-alt faa-wrench animated faa-slow" style="color:red"></i> Pin your site
+                </label>
+                <input type="checkbox" id="place_marker_check" value="set">
+              </div>
+
+              <a href="#" class="btn btn-icon btn-info" id="nasa_button">
+                <i class="glyphicon btn-glyphicon glyphicon-download-alt img-circle text-success"></i> Retrieve NASA Weather
+              </a>
+              <!-- Google Map ends -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <label for="{{ form.repofile.id_for_label }}" hidden></label>
+    <input type="text" name="{{ form.repofile.name }}" id="{{ form.repofile.id_for_label }}" hidden>
+    <label for="{{ form.nasafile.id_for_label }}" hidden></label>
+    <input type="text" name="{{ form.nasafile.name }}" id="{{ form.nasafile.id_for_label }}" hidden>
+    <label for="{{ form.nasa_tfile.id_for_label }}" hidden></label>
+    <input type="text" name="{{ form.nasa_tfile.name }}" id="{{ form.nasa_tfile.id_for_label }}" hidden>
+
+    <button type="submit" class="btn btn-primary" name="default" id="upload_button">Upload</button>
+    <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+  </form>
+
+  {% include 'error_dialog.html' %}
+
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var wf = $('#{{ form.weatherfile.id_for_label }}');
+    var df = $('#{{ form.description.id_for_label }}');
+    var rf = $('#{{ form.repofile.id_for_label }}');
+    var nf = $('#{{ form.nasafile.id_for_label }}');
+    var ntf = $('#{{ form.nasa_tfile.id_for_label }}');
+    var input_lat = $('#lat');
+    var input_lng = $('#lng');
+    var input_start_year = $('#year_start');
+    var input_year_num = $('#year_num');
+    var err_dlg = $('#err_Modal');
+    var err_dlg_title = $('#err_title');
+    var err_dlg_text = $('#err_text');
+    var upload_btn = $('#upload_button');
+    var nasa_panel = $("#collapseThree");
+    var cookie_lat = 'google_map_location_lat';
+    var cookie_lng = 'google_map_location_lng';
+    var cookie_calib = 'calibration_tick';
+    var cookie_map_pin = 'map_pin_tick';
+    var cookie_yearstart = 'year_start';
+    var cookie_yearnum = 'year_num';
+    var current_pos, click;
+    var calib_tick, map_pin_tick;
+
+    $(document).ready(function () {
+      // Add minus icon for collapse element which is open by default
+      $(".collapse.in").each(function () {
+        $(this).siblings(".panel-heading").find(".glyphicon").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+      });
+
+      // Toggle plus minus icon on show hide of collapse element
+      $(".collapse").on('show.bs.collapse', function () {
+        $(this).parent().find(".glyphicon").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+      }).on('hide.bs.collapse', function () {
+        $(this).parent().find(".glyphicon").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+      });
+    });
+
+    nasa_panel.on('show.bs.collapse', function () {
+      upload_btn.prop("disabled", true).css('opacity',0.3);
+    }).on('hide.bs.collapse', function () {
+      upload_btn.prop("disabled", false).css('opacity',1.0);
+    });
+
+    $(':file').on('fileselect', function (event, numFiles, label) {
+      if (!nasa_panel.hasClass('collapse'))
+      {
+        nasa_panel.collapse('hide');
+      }
+      var input = $('#filename'),
+          log = numFiles > 1 ? numFiles + ' files selected' : label;
+      if (input.length) {
+        input.val(log);
+      } else {
+        if (log) alert(log);
+      }
+    });
+
+    $(document).on('change', ':file', function () {
+      var input = $(this);
+      var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+      var filesize = input.get(0).files[0].size;
+      if (filesize > 1024 * 1024) {
+        $('#err_msg').html('File is too large! Limit is 1 Mb.');
+        input.val('');
+      } else {
+        $('#err_msg').html('');
+        var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+        df.val('');
+        rf.val('');
+        nf.val('');
+        ntf.val('');
+      }
+    });
+
+    $('.repo').click(function () {
+      var file = $(this).text().trim();
+      $('#filename').val(file);
+      var desc = $(this).attr('data-desc');
+      df.val(desc);
+      rf.val(file);
+      wf.val(null);
+      nf.val('');
+      ntf.val('');
+    });
+
+    function is_valid_gps(lat, lng) {
+      var retval = false;
+      if ((lat > -90.0 && lat < 90.0) && (lng > -180.0 && lng < 180.0)) {
+        retval = true;
+      } else {
+        err_dlg_title.text('Invalid Site Location');
+        err_dlg_text.text('Latitude and longitude must be between (-90 and +90) and (-180 and +180) deg., respectively.');
+        err_dlg.modal('show');
+      }
+      return retval;
+    }
+
+    function is_valid_year(yr, num) {
+      var retval = false;
+      var curyr = (new Date).getFullYear();
+      if (num > 0 && yr >= 1981 && yr < curyr && ((yr + num - 1) < curyr)) {
+        retval = true;
+      } else {
+        err_dlg_title.text('Invalid Year Range');
+        err_dlg_text.text('Weather data must be for years between 1981 and ' + (curyr - 1) + '.');
+        err_dlg.modal('show');
+      }
+      return retval;
+    }
+
+    function save_cookies() {
+      Cookies.set(cookie_calib, calib_tick, {SameSite: 'strict'});
+      Cookies.set(cookie_map_pin, map_pin_tick, {SameSite: 'strict'});
+      Cookies.set(cookie_yearstart, input_start_year.val(), {SameSite: 'strict'});
+      Cookies.set(cookie_yearnum, input_year_num.val(), {SameSite: 'strict'});
+    }
+
+    $('#nasa_button').click(function () {
+      var wait = $('.access_wait');
+      var wait_normal = $('.access_normal');
+      var err_block = $('.form_err_block');
+      var lat = +input_lat.val();
+      var lng = +input_lng.val();
+      var yr = +input_start_year.val();
+      var num = +input_year_num.val();
+      var valid = is_valid_gps(lat, lng) && is_valid_year(yr, num);
+
+      calib_tick = $('#calibrate_check').is(':checked');
+      map_pin_tick = $('#place_marker_check').is(':checked');
+
+      if (valid) {
+        save_cookies();
+        $.ajax({
+          type: "GET",
+          url: "{% url 'weather_access_nasa' %}",
+          contentType: 'application/json',
+          data: {
+            'calibrate_check': calib_tick,
+            'lat': lat,
+            'lng': lng,
+            'start_year': yr,
+            'year_num': num,
+            'sitename': $('#sitename').val()
+          },
+          beforeSend: function () {
+            wait.show();
+            wait_normal.hide();
+            err_block.hide();
+          },
+          success: function (data) {
+            if (data.is_valid) {
+              $('.alert-info').removeClass('alert-info').addClass('alert-success');
+              $('#info_title').html('<i class="fas fa-check"></i> Uploading ...');
+              $('#info_text').text('Your weather file was created; now uploading it.');
+              $('#filename').val(data.wthr_filename);
+              nf.val(data.wthr_filename);
+              ntf.val(data.temp_filename);
+              df.val(data.wthr_desc);
+              rf.val('');
+              wf.val(null);
+              upload_btn.prop("disabled", false).css('opacity',1.0);
+              $('#upload_button').click();
+            } else {
+              err_dlg_title.text('Error Getting the Weather Data');
+              err_dlg_text.text(data.err_msg);
+              err_dlg.modal('show');
+              wait.hide();
+              err_block.hide();
+              wait_normal.show();
+            }
+          }
+        });
+      }
+    });
+
+    $('[data-toggle="popover"]').popover({
+      title: "<strong>File description</strong>",
+      placement: "top",
+      trigger: "hover",
+      html: true
+    });
+
+    if (Cookies.get(cookie_lat) === undefined || Cookies.get(cookie_lng) === undefined) {
+      current_pos = {lat: 3.022, lng: 101.7055};
+    } else {
+      current_pos = {lat: +Cookies.get(cookie_lat), lng: +Cookies.get(cookie_lng)};
+    }
+
+    if (Cookies.get(cookie_calib) === undefined) {
+      calib_tick = true;
+    } else {
+      calib_tick = (Cookies.get(cookie_calib) === 'true');
+    }
+
+    if (Cookies.get(cookie_map_pin) === undefined) {
+      map_pin_tick = false;
+    } else {
+      map_pin_tick = (Cookies.get(cookie_map_pin) === 'true');
+    }
+
+    if (Cookies.get(cookie_yearstart) !== undefined) {
+      input_start_year.val(Cookies.get(cookie_yearstart));
+    }
+
+    if (Cookies.get(cookie_yearnum) !== undefined) {
+      input_year_num.val(Cookies.get(cookie_yearnum));
+    }
+
+    $('#calibrate_check').prop('checked', calib_tick);
+    $('#place_marker_check').prop('checked', map_pin_tick);
+
+    function myMap() {
+      var mapProp = {
+        center: new google.maps.LatLng(current_pos),
+        zoom: 7,
+        disableDefaultUI: true,
+        zoomControl: true,
+        fullscreenControl: true
+      };
+
+      var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+      map.setOptions({draggableCursor: 'crosshair', clickableIcons: false});
+      var marker = new google.maps.Marker({
+        position: current_pos,
+        map: map,
+        title: current_pos.lat.toFixed(4) + ', ' + current_pos.lng.toFixed(4)
+      });
+      setloc(current_pos);
+
+      google.maps.event.addListener(map, 'click', function (event) {
+        click = 0;
+        update_timeout = setTimeout(function () {
+          if (click === 0) {
+            if ($('#place_marker_check').is(':checked')) {
+              placeMarker(event.latLng, map);
+            }
+          }
+        }, 300);
+      });
+
+      google.maps.event.addListener(map, 'dblclick', function (event) {
+        click = 1;
+      });
+
+      input_lat.on("change", function () {
+        var lat = input_lat.val();
+        var lng = input_lng.val();
+        var valid_loc = is_valid_gps(lat, lng);
+        if (valid_loc) {
+          var loc = new google.maps.LatLng(lat, lng);
+          placeMarker(loc, map);
+        } else {
+          input_lat.val(current_pos.lat);
+        }
+      });
+
+      input_lng.on("change", function () {
+        var lat = input_lat.val();
+        var lng = input_lng.val();
+        var valid_loc = is_valid_gps(lat, lng);
+        if (valid_loc) {
+          var loc = new google.maps.LatLng(lat, lng);
+          placeMarker(loc, map);
+        } else {
+          input_lng.val(current_pos.lng);
+        }
+      });
+
+      function placeMarker(latLng, map) {
+        marker.setPosition(latLng);
+        map.panTo(latLng);
+        current_pos = {lat: latLng.lat().toFixed(4), lng: latLng.lng().toFixed(4)};
+        marker.setTitle(current_pos.lat + ', ' + current_pos.lng);
+        setloc(current_pos);
+      }
+
+      function setloc(loc) {
+        input_lat.val(loc.lat);
+        input_lng.val(loc.lng);
+        Cookies.set(cookie_lat, loc.lat, {SameSite: 'strict'});
+        Cookies.set(cookie_lng, loc.lng, {SameSite: 'strict'});
+      }
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-aXBdlazwH8YT2KzOQIYXE5GFW6miW9g&callback=myMap"></script>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends parent_template|default:"user/base_user.html" %}
+
+{% block title %}Logged Out - {{ block.super }}{% endblock %}
+
+{% block content %}
+  <div class="alert alert-success" role="alert">
+    <button class="btn btn-xs close" data-dismiss="alert">
+      <span rel="tooltip" data-placement="left" title="Close message panel">
+        <i class="fas fa-times" style="font-size:14px"></i>
+      </span>
+    </button>
+    <i class="fas fa-sign-out-alt"></i> You have successfully logged out.
+  </div>
+
+  {% include "user/field_errors.html" %}
+  <h2>Log Back In</h2>
+    {% include "user/login_form.html" with login_button='Log Back In' %}
+    <p style="float: right;font-size: 90%">
+      <i class="fas fa-key"></i>&nbsp;
+      <a href="{% url 'dj-auth:pw_reset_start' %}"><em>Forgot password?</em></a>
+    </p>
+
+{% endblock %}

@@ -1,0 +1,1 @@
+{% for widget in widget.subwidgets %}{% if not forloop.counter|divisibleby:2 %}{% if forloop.counter == 1 %}<ol>{% else %}<li>{% endif %}{% endif %}{% include widget.template_name %}&nbsp;{% if forloop.counter|divisibleby:2 %}</li>{% endif %}{% endfor %}</ol>
